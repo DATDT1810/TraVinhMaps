@@ -46,6 +46,10 @@ public class OcopProductService : IOcopProductService
         return _ocopProductRepository.GetByIdAsync(id, cancellationToken);
     }
 
+    public Task<Domain.Entities.OcopProduct> GetOcopProductByName(string name, CancellationToken cancellationToken = default)
+    {
+        return _ocopProductRepository.GetOcopProductByName(name, cancellationToken);
+    }
     public Task<IEnumerable<Domain.Entities.OcopProduct>> GetOcopProductByCompanyId(string companyId, CancellationToken cancellationToken = default)
     {
         return _ocopProductRepository.GetOcopProductByCompanyId(companyId, cancellationToken);

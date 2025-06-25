@@ -10,6 +10,7 @@ using TraVinhMaps.Application.Features.OcopProduct;
 using TraVinhMaps.Application.Features.OcopProduct.Interface;
 using TraVinhMaps.Application.Features.OcopProduct.Mappers;
 using TraVinhMaps.Application.Features.OcopProduct.Models;
+using TraVinhMaps.Application.Features.SellingLink.Models;
 using TraVinhMaps.Domain.Entities;
 
 namespace TraVinhMaps.Api.Controllers;
@@ -70,8 +71,14 @@ public class OcopProductController : ControllerBase
         {
             return this.ApiError("Ocop product attractions must have at least 1 photo");
         }
+        var exitingOcopProduct = await _service.GetOcopProductByName(createOcopProductRequest.ProductName);
+        if (exitingOcopProduct != null)
+        {
+            return this.ApiError("Ocop product name already exists.");
+        }
         var imageFile = await _imageManagementOcopProductServices.AddImageOcopProduct(createOcopProductRequest.ProductImageFile);
         if (imageFile == null) { throw new NotFoundException("No valid image uploaded."); }
+
         var createOcopProduct = OcopProductMapper.Mapper.Map<OcopProduct>(createOcopProductRequest);
         
         createOcopProduct.Status = true;

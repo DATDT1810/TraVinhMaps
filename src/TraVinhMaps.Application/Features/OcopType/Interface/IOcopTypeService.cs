@@ -12,6 +12,7 @@ namespace TraVinhMaps.Application.Features.OcopType.Interface;
 public interface IOcopTypeService
 {
     Task<Domain.Entities.OcopType> GetByIdAsync(string id, CancellationToken cancellationToken = default);
+    Task<Domain.Entities.OcopType> GetOcopTypeByName(string name, CancellationToken cancellationToken = default);
     Task<IEnumerable<Domain.Entities.OcopType>> ListAllAsync(CancellationToken cancellationToken = default);
     Task<Domain.Entities.OcopType> AddAsync(Domain.Entities.OcopType entity, CancellationToken cancellationToken = default);
     Task UpdateAsync(Domain.Entities.OcopType entity, CancellationToken cancellationToken = default);

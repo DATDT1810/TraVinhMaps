@@ -4,8 +4,10 @@
 using Microsoft.AspNetCore.Mvc;
 using TraVinhMaps.Api.Extensions;
 using TraVinhMaps.Application.Common.Exceptions;
+using TraVinhMaps.Application.Features.OcopProduct.Models;
 using TraVinhMaps.Application.Features.OcopType.Mappers;
 using TraVinhMaps.Application.Features.OcopType.Models;
+using TraVinhMaps.Application.Repositories;
 using TraVinhMaps.Application.UnitOfWorks;
 using TraVinhMaps.Domain.Entities;
 
@@ -15,9 +17,11 @@ namespace TraVinhMaps.Api.Controllers;
 public class OcopTypeController : ControllerBase
 {
     private readonly IBaseRepository<Domain.Entities.OcopType> _repository;
-    public OcopTypeController(IBaseRepository<Domain.Entities.OcopType> repository)
+    private readonly IOcopTypeRepository _ocopTypeRepository;
+    public OcopTypeController(IBaseRepository<Domain.Entities.OcopType> repository, IOcopTypeRepository ocopTypeRepository)
     {
         _repository = repository;
+        _ocopTypeRepository = ocopTypeRepository;
     }
     [HttpGet]
     [Route("GetAllOcopType")]
@@ -44,6 +48,11 @@ public class OcopTypeController : ControllerBase
     [Route("AddOcopType")]
     public async Task<IActionResult> AddOcopType([FromForm] CreateOcopTypeRequest createOcopTypeRequest)
     {
+        var exitingOcopType = await _ocopTypeRepository.GetOcopTypeByName(createOcopTypeRequest.OcopTypeName);
+        if (exitingOcopType != null)
+        {
+            return this.ApiError("Ocop type name already exists.");
+        }
         var createOcopType = OcopTypeMapper.Mapper.Map<OcopType>(createOcopTypeRequest);
         createOcopType.OcopTypeStatus = true;
         var ocopType = await _repository.AddAsync(createOcopType);

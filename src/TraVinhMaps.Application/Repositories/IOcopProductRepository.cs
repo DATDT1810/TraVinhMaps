@@ -7,6 +7,7 @@ using TraVinhMaps.Domain.Entities;
 namespace TraVinhMaps.Application.UnitOfWorks;
 public interface IOcopProductRepository : IBaseRepository<OcopProduct>
 {
+    Task<OcopProduct> GetOcopProductByName(string name, CancellationToken cancellationToken = default);
     Task<IEnumerable<OcopProduct>> GetOcopProductByCompanyId(string companyId, CancellationToken cancellationToken = default);
     Task<IEnumerable<OcopProduct>> GetOcopProductByOcopTypeId(string ocopTypeId, CancellationToken cancellationToken = default);
     Task<SellLocation> AddSellLocation(string id, SellLocation sellLocation, CancellationToken cancellationToken = default);

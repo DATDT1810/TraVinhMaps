@@ -30,7 +30,11 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
         _interactionLogsCollection.Indexes.CreateOne(new CreateIndexModel<InteractionLogs>(
             Builders<InteractionLogs>.IndexKeys.Ascending(i => i.ItemId).Ascending(i => i.ItemType).Ascending(i => i.CreatedAt)));
     }
-
+    public async Task<OcopProduct> GetOcopProductByName(string name, CancellationToken cancellationToken = default)
+    {
+        var filter = Builders<OcopProduct>.Filter.Eq(c => c.ProductName, name) & Builders<OcopProduct>.Filter.Eq(s => s.Status, true);
+        return await _collection.Find(filter).FirstOrDefaultAsync(cancellationToken);
+    }
     public async Task<IEnumerable<OcopProduct>> GetOcopProductByCompanyId(string companyId, CancellationToken cancellationToken = default)
     {
         var filter = Builders<OcopProduct>.Filter.Eq(c => c.CompanyId, companyId) & Builders<OcopProduct>.Filter.Eq(s => s.Status, true);
