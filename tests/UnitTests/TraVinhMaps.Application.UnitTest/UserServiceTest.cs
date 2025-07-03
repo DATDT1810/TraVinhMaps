@@ -20,6 +20,7 @@ public class UserServiceTest
     private readonly Mock<IUserRepository> _mockUserRepository;
     private readonly Mock<IBaseRepository<Domain.Entities.Role>> _mockRoleRepository;
     private readonly Mock<ICloudinaryService> _mockCloudinaryService;
+    private readonly Mock<IHttpContextAccessor> _mockHttpContextAccessor;
     private readonly UserService _userService;
 
     public UserServiceTest()
@@ -27,10 +28,12 @@ public class UserServiceTest
         _mockUserRepository = new Mock<IUserRepository>();
         _mockRoleRepository = new Mock<IBaseRepository<Domain.Entities.Role>>();
         _mockCloudinaryService = new Mock<ICloudinaryService>();
+        _mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
         _userService = new UserService(
             _mockUserRepository.Object,
             _mockRoleRepository.Object,
-            _mockCloudinaryService.Object
+            _mockCloudinaryService.Object,
+            _mockHttpContextAccessor.Object
         );
     }
 
