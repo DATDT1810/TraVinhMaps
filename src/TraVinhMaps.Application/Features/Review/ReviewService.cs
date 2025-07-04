@@ -29,17 +29,19 @@ public class ReviewService : IReviewService
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IUserService _userService;
     private readonly IReviewRepository _reviewRepository;
+    private readonly IDestinationTypeRepository _destinationTypeRepository;
 
-    public ReviewService(IBaseRepository<Domain.Entities.Review> baseRepository, ImageManagementReviewServices imageManagementReviewServices, IHttpContextAccessor httpContextAccessor, IUserService userService, IReviewRepository reviewRepository)
+    public ReviewService(IBaseRepository<Domain.Entities.Review> baseRepository, ImageManagementReviewServices imageManagementReviewServices, IHttpContextAccessor httpContextAccessor, IUserService userService, IReviewRepository reviewRepository, IDestinationTypeRepository destinationTypeRepository)
     {
         _baseRepository = baseRepository;
         _imageManagementReviewServices = imageManagementReviewServices;
         _httpContextAccessor = httpContextAccessor;
         _userService = userService;
         _reviewRepository = reviewRepository;
+        _destinationTypeRepository = destinationTypeRepository;
     }
 
-    public async Task<Domain.Entities.Review> AddAsync(CreateReviewRequest createReviewRequest, CancellationToken cancellationToken = default)
+    public async Task<Domain.Entities.Review> AddAsync(CreateReviewRequest createReviewRequest, List<string> imageUrl, CancellationToken cancellationToken = default)
     {
         if (createReviewRequest == null)
             throw new ArgumentNullException(nameof(createReviewRequest));
@@ -50,6 +52,7 @@ public class ReviewService : IReviewService
 
         var review = ReviewMapper.Mapper.Map<CreateReviewRequest, Domain.Entities.Review>(createReviewRequest);
         review.UserId = userId;
+        review.Images = imageUrl;
 
         if (createReviewRequest.Images != null && createReviewRequest.Images.Any())
         {
@@ -108,17 +111,101 @@ public class ReviewService : IReviewService
         return _reviewRepository.GetByIdAsync(id, cancellationToken);
     }
 
-    public async Task<IEnumerable<Domain.Entities.Review>> GetReviewsAsync(int rating, string destinationTypeId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<ReviewResponse>> FilterReviewsAsync(string? destinationId, int? rating, DateTime? startAt, DateTime? endAt, CancellationToken cancellationToken = default)
     {
-        var userId = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (string.IsNullOrEmpty(userId))
-            throw new UnauthorizedAccessException("User not authenticated.");
+        var reviews = await _reviewRepository.FilterReviewsAsync(destinationId, rating, startAt, endAt, cancellationToken);
+        var reviewResponses = new List<ReviewResponse>();
 
-        return await _reviewRepository.GetReviewsAsync(rating, destinationTypeId, cancellationToken);
+        foreach (var reviewResponse in reviews)
+        {
+            var user = await _userService.GetByIdAsync(reviewResponse.UserId);
+            var destination = await _destinationTypeRepository.GetByIdAsync(reviewResponse.DestinationId);
+
+            var response = new ReviewResponse
+            {
+                Id = reviewResponse.Id,
+                Rating = reviewResponse.Rating,
+                Images = reviewResponse.Images,
+                Comment = reviewResponse.Comment,
+                UserId = reviewResponse.UserId,
+                Avatar = user?.Profile?.Avatar ?? "Unknown",
+                UserName = user?.Username ?? "Unknown",
+                DestinationId = reviewResponse.DestinationId,
+                DestinationName = destination?.Name ?? "Unknown",
+                CreatedAt = reviewResponse.CreatedAt,
+                Reply = reviewResponse.Reply?.Select(r => new Reply
+                {
+                    Content = r.Content,
+                    Images = r.Images,
+                    CreatedAt = r.CreatedAt,
+                    UserId = r.UserId
+                }).ToList(),
+            };
+            reviewResponses.Add(response);
+        }
+        return reviewResponses;
     }
 
-    public Task<IEnumerable<Domain.Entities.Review>> ListAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<ReviewResponse>> ListAllAsync(CancellationToken cancellationToken = default)
     {
-        return _reviewRepository.ListAllAsync(cancellationToken);
+        var review = await _baseRepository.ListAllAsync(cancellationToken);
+        var reviewResponses = new List<ReviewResponse>();
+
+        foreach (var reviewResponse in review)
+        {
+            var user = await _userService.GetByIdAsync(reviewResponse.UserId);
+            var destination = await _destinationTypeRepository.GetByIdAsync(reviewResponse.DestinationId);
+
+            var response = new ReviewResponse
+            {
+                Id = reviewResponse.Id,
+                Rating = reviewResponse.Rating,
+                Images = reviewResponse.Images,
+                Comment = reviewResponse.Comment,
+                UserId = reviewResponse.UserId,
+                UserName = user?.Username ?? "Unknown",
+                DestinationId = reviewResponse.DestinationId,
+                DestinationName = destination?.Name ?? "Unknown",
+                CreatedAt = reviewResponse.CreatedAt,
+                Reply = reviewResponse.Reply?.Select(r => new Reply
+                {
+                    Content = r.Content,
+                    Images = r.Images,
+                    CreatedAt = r.CreatedAt,
+                    UserId = r.UserId
+                }).ToList(),
+            };
+            reviewResponses.Add(response);
+        }
+        return reviewResponses;
+    }
+
+    public async Task<ReviewResponse> GetReviewByIdAsync(string id, CancellationToken cancellationToken = default)
+    {
+        var review = await _reviewRepository.GetReviewByIdAsync(id);
+        var user = await _userService.GetByIdAsync(review.UserId);
+        var destination = await _destinationTypeRepository.GetByIdAsync(review.DestinationId);
+
+        var response = new ReviewResponse
+        {
+            Id = review.Id,
+            Rating = review.Rating,
+            Images = review.Images,
+            Comment = review.Comment,
+            UserId = review.UserId,
+            Avatar = user?.Profile?.Avatar ?? "Unknown",
+            UserName = user?.Username ?? "Unknown",
+            DestinationId = review.DestinationId,
+            DestinationName = destination?.Name ?? "Unknown",
+            CreatedAt = review.CreatedAt,
+            Reply = review.Reply?.Select(r => new Reply
+            {
+                Content = r.Content,
+                Images = r.Images,
+                CreatedAt = r.CreatedAt,
+                UserId = r.UserId
+            }).ToList()
+        };
+        return response;
     }
 }

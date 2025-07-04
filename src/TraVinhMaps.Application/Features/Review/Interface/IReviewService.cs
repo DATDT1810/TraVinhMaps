@@ -14,9 +14,10 @@ namespace TraVinhMaps.Application.Features.Review.Interface;
 public interface IReviewService
 {
     Task<Domain.Entities.Review> GetByIdAsync(string id, CancellationToken cancellationToken = default);
-    Task<IEnumerable<Domain.Entities.Review>> GetReviewsAsync(int rating, string destinationTypeId, CancellationToken cancellationToken = default);
-    Task<IEnumerable<Domain.Entities.Review>> ListAllAsync(CancellationToken cancellationToken = default);
-    Task<Domain.Entities.Review> AddAsync(CreateReviewRequest createReviewRequest, CancellationToken cancellationToken = default);
+    Task<ReviewResponse> GetReviewByIdAsync(string id, CancellationToken cancellationToken = default);
+    Task<IEnumerable<ReviewResponse>> FilterReviewsAsync(string? destinationId, int? rating, DateTime? startAt, DateTime? endAt, CancellationToken cancellationToken = default);
+    Task<IEnumerable<ReviewResponse>> ListAllAsync(CancellationToken cancellationToken = default);
+    Task<Domain.Entities.Review> AddAsync(CreateReviewRequest createReviewRequest, List<string> imageUrl, CancellationToken cancellationToken = default);
     Task<Domain.Entities.Reply> AddReply(string id, CreateReplyRequest createReplyRequest, CancellationToken cancellationToken = default);
     Task<String> AddImageReview(string id, string imageUrl, CancellationToken cancellationToken = default);
     Task DeleteAsync(Domain.Entities.Review entity, CancellationToken cancellationToken = default);

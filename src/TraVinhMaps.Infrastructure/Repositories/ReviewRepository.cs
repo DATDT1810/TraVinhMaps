@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using TraVinhMaps.Application.Features.Review.Models;
 using TraVinhMaps.Application.Repositories;
 using TraVinhMaps.Domain.Entities;
 using TraVinhMaps.Infrastructure.CustomRepositories;
@@ -16,13 +17,55 @@ namespace TraVinhMaps.Infrastructure.Repositories;
 public class ReviewRepository : BaseRepository<Review>, IReviewRepository
 {
     public ReviewRepository(IDbContext dbContext) : base(dbContext) { }
-    public async Task<IEnumerable<Review>> GetReviewsAsync(int rating, string destinationTypeId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<ReviewResponse>> FilterReviewsAsync(string? destinationId, int? rating, DateTime? startAt, DateTime? endAt, CancellationToken cancellationToken = default)
     {
-        var filter = Builders<Review>.Filter.And(Builders<Review>.Filter.Eq(r => r.Rating, rating),
-                                                 Builders<Review>.Filter.Eq(r => r.DestinationId, destinationTypeId));
-        var review = await _collection.Find(filter).ToListAsync();
-        return review;
+        var filters = new List<FilterDefinition<Review>>();
+
+        if (!string.IsNullOrEmpty(destinationId))
+            filters.Add(Builders<Review>.Filter.Eq(r => r.DestinationId, destinationId));
+
+        if (rating.HasValue)
+            filters.Add(Builders<Review>.Filter.Eq(r => r.Rating, rating.Value));
+
+        if (startAt.HasValue && endAt.HasValue)
+        {
+            var startDate = DateTime.SpecifyKind(startAt.Value.Date, DateTimeKind.Utc);
+            var endDate = DateTime.SpecifyKind(endAt.Value.Date.AddDays(1).AddTicks(-1), DateTimeKind.Utc);
+
+            filters.Add(Builders<Review>.Filter.Gte(r => r.CreatedAt, startDate));
+            filters.Add(Builders<Review>.Filter.Lte(r => r.CreatedAt, endDate));
+        }
+
+        else if (startAt.HasValue)
+        {
+            var startDate = startAt.Value.Date;
+            filters.Add(Builders<Review>.Filter.Gte(r => r.CreatedAt, startDate));
+        }
+        else if (endAt.HasValue)
+        {
+            var endDate = endAt.Value.Date.AddDays(1).AddTicks(-1);
+            filters.Add(Builders<Review>.Filter.Lte(r => r.CreatedAt, endDate));
+        }
+
+        var filter = filters.Any() ? Builders<Review>.Filter.And(filters) : Builders<Review>.Filter.Empty;
+
+        var reviews = await _collection.Find(filter).ToListAsync(cancellationToken);
+
+        var responses = reviews.Select(r => new ReviewResponse
+        {
+            Id = r.Id,
+            Rating = r.Rating,
+            Images = r.Images,
+            Comment = r.Comment,
+            UserId = r.UserId,
+            DestinationId = r.DestinationId,
+            CreatedAt = r.CreatedAt,
+            Reply = r.Reply
+        }).ToList();
+
+        return responses;
     }
+
     public async Task<string> AddImageReview(string id, string imageUrl, CancellationToken cancellationToken = default)
     {
         var filter = Builders<Review>.Filter.Eq(o => o.Id, id);
@@ -51,5 +94,27 @@ public class ReviewRepository : BaseRepository<Review>, IReviewRepository
         var updateReply = Builders<Review>.Update.Push(re => re.Reply, reply);
         var updateResult = await _collection.UpdateOneAsync(filter, updateReply, cancellationToken: cancellationToken);
         return reply;
+    }
+
+    public async Task<ReviewResponse> GetReviewByIdAsync(string id, CancellationToken cancellationToken)
+    {
+        var filter = Builders<Review>.Filter.Eq(r => r.Id, id);
+        var review = await _collection.Find(filter).FirstOrDefaultAsync(cancellationToken);
+        if (review == null)
+            return null;
+
+        var response = new ReviewResponse
+        {
+            Id = review.Id,
+            Rating = review.Rating,
+            Images = review.Images,
+            Comment = review.Comment,
+            UserId = review.UserId,
+            DestinationId = review.DestinationId,
+            CreatedAt = review.CreatedAt,
+            Reply = review.Reply
+        };
+
+        return response;
     }
 }

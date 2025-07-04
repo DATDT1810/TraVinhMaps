@@ -4,12 +4,16 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.SignalR;
 using TraVinhMaps.Api.Extensions;
 using TraVinhMaps.Api.Hubs;
 using TraVinhMaps.Application.Common.Exceptions;
+using TraVinhMaps.Application.Features.OcopProduct;
 using TraVinhMaps.Application.Features.OcopProduct.Mappers;
 using TraVinhMaps.Application.Features.OcopProduct.Models;
+using TraVinhMaps.Application.Features.OcopType.Mappers;
+using TraVinhMaps.Application.Features.OcopType.Models;
 using TraVinhMaps.Application.Features.Review;
 using TraVinhMaps.Application.Features.Review.Interface;
 using TraVinhMaps.Application.Features.Review.Mappers;
@@ -22,11 +26,13 @@ namespace TraVinhMaps.Api.Controllers;
 public class ReviewController : ControllerBase
 {
     private readonly IReviewService _reviewService;
+    private readonly ImageManagementReviewServices _imageManagementReviewServices;
     private readonly IHubContext<DashboardHub> _hubContext;
-    public ReviewController(IReviewService reviewService, IHubContext<DashboardHub> hubContext)
+    public ReviewController(IReviewService reviewService, IHubContext<DashboardHub> hubContext, ImageManagementReviewServices imageManagementReviewServices)
     {
         _reviewService = reviewService;
         _hubContext = hubContext;
+        _imageManagementReviewServices = imageManagementReviewServices;
     }
     [HttpGet]
     [Route("GetAllReview")]
@@ -39,17 +45,28 @@ public class ReviewController : ControllerBase
     [Route("GetReviewById/{id}", Name = "GetReviewById")]
     public async Task<IActionResult> GetReviewById(string id)
     {
-        var review = await _reviewService.GetByIdAsync(id);
+        var review = await _reviewService.GetReviewByIdAsync(id);
         return this.ApiOk(review);
     }
-    [Authorize]
     [HttpGet]
-    [Route("GetReviewByUserId", Name = "GetReviewByUserId")]
-    public async Task<IActionResult> GetReviewByUserId(int rating, string destinationTypeId)
+    [Route("FilterReviewsAsync", Name = "FilterReviewsAsync")]
+    public async Task<IActionResult> FilterReviewsAsync(string? destinationId, int? rating, DateTime? startAt, DateTime? endAt)
     {
-        var review = await _reviewService.GetReviewsAsync(rating, destinationTypeId);
-        return this.ApiOk(review);
+        try
+        {
+            var review = await _reviewService.FilterReviewsAsync(destinationId, rating, startAt, endAt);
+            return this.ApiOk(review);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                message = "Fail detail",
+                error = ex.ToString()
+            });
+        }
     }
+
     [HttpGet]
     [Route("CountReviews")]
     public async Task<IActionResult> CountReviews()
@@ -66,16 +83,18 @@ public class ReviewController : ControllerBase
             return BadRequest(ModelState);
         try
         {
-            var review = await _reviewService.AddAsync(createReviewRequest);
+            var imageFile = await _imageManagementReviewServices.AddImageReview(createReviewRequest.Images);
+            if (imageFile == null) { throw new NotFoundException("No valid image uploaded."); }
+            var review = await _reviewService.AddAsync(createReviewRequest, imageFile);
             await _hubContext.Clients.Group("admin").SendAsync("ReceiveFeedback", review.Id);
             await _hubContext.Clients.Group("super-admin").SendAsync("ReceiveFeedback", review.Id);
-
             return this.ApiOk(review);
         }
         catch (Exception ex)
         {
             return StatusCode(500, new { Message = "An error occurred while processing review", Error = ex.Message });
         }
+
     }
     [HttpDelete]
     [Route("DeleteReview/{id}")]
