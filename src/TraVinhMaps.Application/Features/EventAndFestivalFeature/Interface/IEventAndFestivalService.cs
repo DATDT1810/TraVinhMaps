@@ -41,4 +41,5 @@ public interface IEventAndFestivalService
     Task<EventAndFestival> GetAsyns(Expression<Func<EventAndFestival, bool>> predicate, CancellationToken cancellationToken = default);
     Task<string> AddEventAndFestivalImage(string id, string imageUrl, CancellationToken cancellationToken = default);
     Task<string> DeleteEventAndFestivalImage(string id, string imageUrl, CancellationToken cancellationToken = default);
+    Task<IEnumerable<EventAndFestival>> GetTopUpcomingEvents(CancellationToken cancellationToken = default);
 }

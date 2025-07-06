@@ -122,6 +122,8 @@ public interface ITouristDestinationService
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns></returns>
     Task<bool> PlusFavorite(string id, CancellationToken cancellationToken = default);
+    Task<bool> MinusFavorite(string id, CancellationToken cancellationToken = default);
+
 
     // Overview Statistics for All Destinations
     Task<DestinationStatsOverview> GetDestinationStatsOverviewAsync(string timeRange = "month", DateTime? startDate = null, DateTime? endDate = null, CancellationToken cancellationToken = default);

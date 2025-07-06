@@ -207,4 +207,12 @@ public class EventAndFestivalController : ControllerBase
         return this.ApiOk("Event and festival restored successfully");
     }
 
+    [HttpGet]
+    [Route("GetTopEvents")]
+    public async Task<IActionResult> GetTopEvents()
+    {
+        var events = await _eventAndFestivalService.GetTopUpcomingEvents();
+        return this.ApiOk(events);
+    }
+
 }

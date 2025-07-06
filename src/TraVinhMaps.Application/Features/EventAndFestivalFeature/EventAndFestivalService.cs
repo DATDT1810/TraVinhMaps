@@ -61,6 +61,14 @@ public class EventAndFestivalService : IEventAndFestivalService
         return await _repository.GetByIdAsync(id, cancellationToken);
     }
 
+    public async Task<IEnumerable<EventAndFestival>> GetTopUpcomingEvents(CancellationToken cancellationToken = default)
+    {
+        var allEvents = await _repository.ListAllAsync(cancellationToken);
+        return allEvents
+       .OrderByDescending(e => e.StartDate)
+       .Take(3);
+    }
+
     public async Task<IEnumerable<EventAndFestival>> ListAllAsync(CancellationToken cancellationToken = default)
     {
         return await _repository.ListAllAsync(cancellationToken);

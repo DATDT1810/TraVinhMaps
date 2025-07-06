@@ -9,6 +9,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using TraVinhMaps.Application.Features.Interaction.Mappers;
+using TraVinhMaps.Application.Features.Interaction.Models;
 using TraVinhMaps.Application.Features.InteractionLogs.Interface;
 using TraVinhMaps.Application.Features.InteractionLogs.Mappers;
 using TraVinhMaps.Application.Features.InteractionLogs.Models;
@@ -28,20 +30,19 @@ public class InteractionLogsService : IInteractionLogsService
         _userService = userService;
     }
 
-    public Task<Domain.Entities.InteractionLogs> AddAsync(CreateInteractionLogsRequest entity, CancellationToken cancellationToken = default)
+    public async Task<Domain.Entities.InteractionLogs> AddAsync(CreateInteractionLogsRequest createInteractionLogsRequest, CancellationToken cancellationToken = default)
     {
-        if (entity == null)
-            throw new ArgumentNullException(nameof(entity));
+        if (createInteractionLogsRequest == null)
+            throw new ArgumentNullException(nameof(createInteractionLogsRequest));
 
-        // Lấy userId từ ClaimsPrincipal (được gán bởi SessionAuthenticationHandler) qua IHttpContextAccessor
         var userId = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (string.IsNullOrEmpty(userId))
             throw new UnauthorizedAccessException("User not authenticated.");
 
-        var createInteractionLogs = InteractionLogsMapper.Mapper.Map<Domain.Entities.InteractionLogs>(entity);
-        createInteractionLogs.UserId = userId;
+        var interactionLogs = InteractionLogsMapper.Mapper.Map<CreateInteractionLogsRequest, Domain.Entities.InteractionLogs>(createInteractionLogsRequest);
+        interactionLogs.UserId = userId;
 
-        return _repository.AddAsync(createInteractionLogs, cancellationToken);
+        return await _repository.AddAsync(interactionLogs, cancellationToken);
     }
 
     public Task<long> CountAsync(Expression<Func<Domain.Entities.InteractionLogs, bool>> predicate = null, CancellationToken cancellationToken = default)
@@ -64,8 +65,21 @@ public class InteractionLogsService : IInteractionLogsService
         return _repository.ListAllAsync(cancellationToken);
     }
 
-    public Task UpdateAsync(Domain.Entities.InteractionLogs entity, CancellationToken cancellationToken = default)
+    public async Task UpdateAsync(UpdateInteractionLogsRequest updateInteractionLogsRequest, CancellationToken cancellationToken = default)
     {
-        return _repository.UpdateAsync(entity, cancellationToken);
+        if (updateInteractionLogsRequest == null)
+            throw new ArgumentNullException(nameof(updateInteractionLogsRequest));
+
+        var userId = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(userId))
+            throw new UnauthorizedAccessException("User not authenticated.");
+        var existingInteractionLogs = await _repository.GetByIdAsync(updateInteractionLogsRequest.Id, cancellationToken);
+        if (existingInteractionLogs == null)
+            throw new KeyNotFoundException($"Interaction with id '{updateInteractionLogsRequest.Id}' not found.");
+
+        var interactionLogs = InteractionLogsMapper.Mapper.Map<UpdateInteractionLogsRequest, Domain.Entities.InteractionLogs>(updateInteractionLogsRequest);
+        interactionLogs.UserId = existingInteractionLogs.Id;
+
+        await _repository.UpdateAsync(interactionLogs, cancellationToken);
     }
 }

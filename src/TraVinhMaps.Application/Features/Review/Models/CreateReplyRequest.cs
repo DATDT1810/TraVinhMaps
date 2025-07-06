@@ -6,12 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace TraVinhMaps.Application.Features.Interaction.Models;
-public class CreateInteractionRequest
+namespace TraVinhMaps.Application.Features.Review.Models;
+public class CreateReplyRequest
 {
-    public required string ItemId { get; set; }
-    public string? ItemType { get; set; }
-    public int TotalCount { get; set; }
+    public string Id { get; set; }
+    public string? Content { get; set; }
+    public List<IFormFile>? Images { get; set; }
 }

@@ -9,32 +9,30 @@ using TraVinhMaps.Application.UnitOfWorks;
 namespace TraVinhMaps.Application.Features.SellingLink;
 public class SellingLinkService : ISellingLinkService
 {
-    private readonly IBaseRepository<Domain.Entities.SellingLink> _repository;
     private readonly ISellingLinkRepository _sellingLinkRepository;
-    public SellingLinkService(IBaseRepository<Domain.Entities.SellingLink> repository, ISellingLinkRepository sellingLinkRepository)
+    public SellingLinkService(ISellingLinkRepository sellingLinkRepository)
     {
-        _repository = repository;
         _sellingLinkRepository = sellingLinkRepository;
     }
 
     public Task<Domain.Entities.SellingLink> AddAsync(Domain.Entities.SellingLink entity, CancellationToken cancellationToken = default)
     {
-        return _repository.AddAsync(entity, cancellationToken);
+        return _sellingLinkRepository.AddAsync(entity, cancellationToken);
     }
 
     public Task<long> CountAsync(Expression<Func<Domain.Entities.SellingLink, bool>> predicate = null, CancellationToken cancellationToken = default)
     {
-        return _repository.CountAsync(predicate, cancellationToken);
+        return _sellingLinkRepository.CountAsync(predicate, cancellationToken);
     }
 
     public Task DeleteAsync(Domain.Entities.SellingLink entity, CancellationToken cancellationToken = default)
     {
-        return _repository.DeleteAsync(entity, cancellationToken);
+        return _sellingLinkRepository.DeleteAsync(entity, cancellationToken);
     }
 
     public Task<Domain.Entities.SellingLink> GetByIdAsync(string id, CancellationToken cancellationToken = default)
     {
-        return _repository.GetByIdAsync(id, cancellationToken);
+        return _sellingLinkRepository.GetByIdAsync(id, cancellationToken);
     }
 
     public Task<IEnumerable<Domain.Entities.SellingLink>> GetSellingLinkByProductId(string productId, CancellationToken cancellationToken = default)
@@ -44,11 +42,11 @@ public class SellingLinkService : ISellingLinkService
 
     public Task<IEnumerable<Domain.Entities.SellingLink>> ListAllAsync(CancellationToken cancellationToken = default)
     {
-        return _repository.ListAllAsync(cancellationToken);
+        return _sellingLinkRepository.ListAllAsync(cancellationToken);
     }
 
     public Task UpdateAsync(Domain.Entities.SellingLink entity, CancellationToken cancellationToken = default)
     {
-        return _repository.UpdateAsync(entity, cancellationToken);
+        return _sellingLinkRepository.UpdateAsync(entity, cancellationToken);
     }
 }

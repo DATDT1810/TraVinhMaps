@@ -15,6 +15,7 @@ public interface ITouristDestinationRepository : IBaseRepository<TouristDestinat
     Task<String> DeleteDestinationHistoryStoryImage(string id, string imageUrl, CancellationToken cancellationToken = default);
     Task<Pagination<TouristDestination>> GetTouristDestination(TouristDestinationSpecParams touristDestinationSpecParams, CancellationToken cancellationToken = default);
     Task<bool> PlusFavorite(string id, CancellationToken cancellationToken = default);
+    Task<bool> MinusFavorite(string id, CancellationToken cancellationToken = default);
     // Overview Statistics for All Destinations
     Task<DestinationStatsOverview> GetDestinationStatsOverviewAsync(string timeRange = "month", DateTime? startDate = null, DateTime? endDate = null, CancellationToken cancellationToken = default);
     // Top Destinations by Number of Likes

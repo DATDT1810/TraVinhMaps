@@ -187,13 +187,13 @@ builder.Services.Configure<KestrelServerOptions>(options =>
 });
 
 // config for push notifications using Firebase
-if (FirebaseApp.DefaultInstance == null)
-{
-    FirebaseApp.Create(new AppOptions()
-    {
-        Credential = GoogleCredential.FromFile("travinhgo-ba688-firebase-adminsdk-fbsvc-5ffd0fa4a9.json"),
-    });
-}
+//if (FirebaseApp.DefaultInstance == null)
+//{
+//    FirebaseApp.Create(new AppOptions()
+//    {
+//        Credential = GoogleCredential.FromFile("travinhgo-ba688-firebase-adminsdk-fbsvc-5ffd0fa4a9.json"),
+//    });
+//}
 
 var app = builder.Build();
 

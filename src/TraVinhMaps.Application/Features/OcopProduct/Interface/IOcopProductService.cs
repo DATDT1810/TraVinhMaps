@@ -13,6 +13,7 @@ public interface IOcopProductService
 {
     Task<Domain.Entities.OcopProduct> GetByIdAsync(string id, CancellationToken cancellationToken = default);
     Task<IEnumerable<Domain.Entities.OcopProduct>> ListAllAsync(CancellationToken cancellationToken = default);
+    Task<IEnumerable<Domain.Entities.OcopProduct>> ListActiveAsync(CancellationToken cancellationToken = default);
     Task<Domain.Entities.OcopProduct> AddAsync(Domain.Entities.OcopProduct entity, CancellationToken cancellationToken = default);
     Task UpdateAsync(Domain.Entities.OcopProduct entity, CancellationToken cancellationToken = default);
     Task<bool> DeleteOcopProductAsync(string id, CancellationToken cancellationToken = default);
@@ -36,5 +37,6 @@ public interface IOcopProductService
     // OCOP Product Comparison
     Task<IEnumerable<OcopProductAnalytics>> CompareProductsAsync(IEnumerable<string> productIds, string timeRange = "month", DateTime? startDate = null, DateTime? endDate = null, CancellationToken cancellationToken = default);
     Task<IEnumerable<Domain.Entities.OcopProduct>> GetOcopProductsByIds(List<string> idList, CancellationToken cancellationToken = default);
+    Task<IEnumerable<Domain.Entities.OcopProduct>> GetCurrentOcopProduct(CancellationToken cancellationToken = default);
 
 }

@@ -5,12 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using TraVinhMaps.Api.Extensions;
 using TraVinhMaps.Application.Common.Exceptions;
+using TraVinhMaps.Application.Features.Company.Interface;
 using TraVinhMaps.Application.Features.Markers.Interface;
 using TraVinhMaps.Application.Features.OcopProduct;
 using TraVinhMaps.Application.Features.OcopProduct.Interface;
 using TraVinhMaps.Application.Features.OcopProduct.Mappers;
 using TraVinhMaps.Application.Features.OcopProduct.Models;
+using TraVinhMaps.Application.Features.OcopType.Interface;
 using TraVinhMaps.Domain.Entities;
+using static StackExchange.Redis.Role;
 
 namespace TraVinhMaps.Api.Controllers;
 [Route("api/[controller]")]
@@ -20,11 +23,15 @@ public class OcopProductController : ControllerBase
     private readonly IOcopProductService _service;
     private readonly IMarkerService _markerService;
     private readonly ImageManagementOcopProductServices _imageManagementOcopProductServices;
-    public OcopProductController(IOcopProductService service, ImageManagementOcopProductServices imageManagementOcopProductServices, IMarkerService markerService)
+    private readonly ICompanyService _companyService;
+    private readonly IOcopTypeService _ocopTypeService;
+    public OcopProductController(IOcopProductService service, ImageManagementOcopProductServices imageManagementOcopProductServices, IMarkerService markerService, ICompanyService companyService, IOcopTypeService _ocopTypeService)
     {
         _service = service;
         _imageManagementOcopProductServices = imageManagementOcopProductServices;
         _markerService = markerService;
+        _companyService = companyService;
+        this._ocopTypeService = _ocopTypeService;
     }
 
     [HttpGet]
@@ -34,6 +41,52 @@ public class OcopProductController : ControllerBase
         var listOcopProduct = await _service.ListAllAsync();
         return this.ApiOk(listOcopProduct);
     }
+
+    [HttpGet]
+    [Route("GetActiveOcopProduct")]
+    public async Task<IActionResult> GetActiveOcopProduct()
+    {
+        var listOcopProduct = await _service.ListActiveAsync();
+        var companies = await _companyService.ListAllAsync();
+        var companyMap = companies.ToDictionary(c => c.Id, c => c);
+        var response = listOcopProduct.Select(product =>
+        {
+            companyMap.TryGetValue(product.CompanyId, out var company);
+
+            return new OcopProductResponse
+            {
+                Id = product.Id,
+                CreatedAt = product.CreatedAt,
+                ProductName = product.ProductName,
+                ProductDescription = product.ProductDescription,
+                ProductImage = product.ProductImage,
+                ProductPrice = product.ProductPrice,
+                OcopTypeId = product.OcopTypeId,
+                Status = product.Status,
+                UpdateAt = product.UpdateAt,
+                Sellocations = product.Sellocations,
+                CompanyId = product.CompanyId,
+                OcopPoint = product.OcopPoint,
+                OcopYearRelease = product.OcopYearRelease,
+                TagId = product.TagId,
+                company = company != null
+                    ? new CompanyDto
+                    {
+                        Id = company.Id,
+                        Name = company.Name
+                    }
+                    : new CompanyDto
+                    {
+                        Id = string.Empty,
+                        Name = "Unknown"
+                    }
+            };
+        }).ToList();
+
+        return this.ApiOk(response);
+    }
+
+
     [HttpGet]
     [Route("GetOcopProductById/{id}", Name = "GetOcopProductById")]
     public async Task<IActionResult> GetOcopProductById(string id)
@@ -447,5 +500,109 @@ public class OcopProductController : ControllerBase
     public async Task<IActionResult> GetOcopProductsByIds([FromBody] List<string> listId)
     {
         return this.ApiOk(await _service.GetOcopProductsByIds(listId));
+    }
+
+    [HttpGet]
+    [Route("GetCurrentOcopProduct")]
+    public async Task<IActionResult> GetCurrentOcopProduct()
+    {
+        var ocopProducts = await _service.GetCurrentOcopProduct();
+        if (ocopProducts == null || !ocopProducts.Any())
+        {
+            return this.ApiError("No current OCOP products found.");
+        }
+        var companies = await _companyService.ListAllAsync();
+        var companyMap = companies.ToDictionary(c => c.Id, c => c);
+        var response = ocopProducts.Select(product =>
+        {
+            companyMap.TryGetValue(product.CompanyId, out var company);
+
+            return new OcopProductResponse
+            {
+                Id = product.Id,
+                CreatedAt = product.CreatedAt,
+                ProductName = product.ProductName,
+                ProductDescription = product.ProductDescription,
+                ProductImage = product.ProductImage,
+                ProductPrice = product.ProductPrice,
+                OcopTypeId = product.OcopTypeId,
+                Status = product.Status,
+                UpdateAt = product.UpdateAt,
+                Sellocations = product.Sellocations,
+                CompanyId = product.CompanyId,
+                OcopPoint = product.OcopPoint,
+                OcopYearRelease = product.OcopYearRelease,
+                TagId = product.TagId,
+                company = company != null
+                    ? new CompanyDto
+                    {
+                        Id = company.Id,
+                        Name = company.Name
+                    }
+                    : new CompanyDto
+                    {
+                        Id = string.Empty,
+                        Name = "Unknown"
+                    }
+            };
+        }).ToList();
+
+        return this.ApiOk(response);
+    }
+
+    [HttpGet]
+    [Route("GetOcopProductWithTypeById/{id}", Name = "GetOcopProductWithTypeById")]
+    public async Task<IActionResult> GetOcopProductWithTypeById(string id)
+    {
+        var ocopProduct = await _service.GetByIdAsync(id);
+        if (ocopProduct == null)
+        {
+            return NotFound($"Ocop product with id '{id}' not found.");
+        }
+
+        var company = await _companyService.GetByIdAsync(ocopProduct.CompanyId);
+
+        var ocopType = await _ocopTypeService.GetByIdAsync(ocopProduct.OcopTypeId);
+
+        var response = new OcopProductResponse
+        {
+            Id = ocopProduct.Id,
+            CreatedAt = ocopProduct.CreatedAt,
+            ProductName = ocopProduct.ProductName,
+            ProductDescription = ocopProduct.ProductDescription,
+            ProductImage = ocopProduct.ProductImage,
+            ProductPrice = ocopProduct.ProductPrice,
+            OcopTypeId = ocopProduct.OcopTypeId,
+            Status = ocopProduct.Status,
+            UpdateAt = ocopProduct.UpdateAt,
+            Sellocations = ocopProduct.Sellocations,
+            CompanyId = ocopProduct.CompanyId,
+            OcopPoint = ocopProduct.OcopPoint,
+            OcopYearRelease = ocopProduct.OcopYearRelease,
+            TagId = ocopProduct.TagId,
+            company = company != null
+                ? new CompanyDto
+                {
+                    Id = company.Id,
+                    Name = company.Name
+                }
+                : new CompanyDto
+                {
+                    Id = string.Empty,
+                    Name = "Unknown"
+                },
+            ocopType = ocopType != null
+                ? new OcopTypeDto
+                {
+                    Id = ocopType.Id,
+                    Name = ocopType.OcopTypeName,
+                }
+                : new OcopTypeDto
+                {
+                    Id = "Unknown",
+                    Name = "Unknown",
+                }
+        };
+        return this.ApiOk(response);
     }
 }

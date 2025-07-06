@@ -213,4 +213,9 @@ public class TouristDestinationService : ITouristDestinationService
     {
         return await _repository.GetDestinationsByIds(idList, cancellationToken);
     }
+
+    public async Task<bool> MinusFavorite(string id, CancellationToken cancellationToken = default)
+    {
+        return await _repository.MinusFavorite(id, cancellationToken);
+    }
 }

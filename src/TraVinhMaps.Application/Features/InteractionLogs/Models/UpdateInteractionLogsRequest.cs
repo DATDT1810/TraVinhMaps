@@ -11,7 +11,6 @@ namespace TraVinhMaps.Application.Features.InteractionLogs.Models;
 public class UpdateInteractionLogsRequest
 {
     public required string Id { get; set; }
-    public required string UserId { get; set; }
     public required string ItemId { get; set; }
     public string? ItemType { get; set; }
     public int? Duration { get; set; }

@@ -705,4 +705,14 @@ public class TouristDestinationRepository : BaseRepository<TouristDestination>, 
         var destinations = await _collection.Find(filter).ToListAsync(cancellationToken);
         return destinations;
     }
+
+    public async Task<bool> MinusFavorite(string id, CancellationToken cancellationToken = default)
+    {
+        var filter = Builders<TouristDestination>.Filter.Eq(p => p.Id, id);
+        var update = Builders<TouristDestination>.Update.Inc(p => p.FavoriteCount, -1);
+
+        var result = await _collection.UpdateOneAsync(filter, update, cancellationToken: cancellationToken);
+
+        return result.ModifiedCount > 0;
+    }
 }
