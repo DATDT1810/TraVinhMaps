@@ -28,11 +28,6 @@ public static class DataSeeding
             //await SeedOcopProducts(database, logger);
             await SeedTagSample(database, logger);
             var markers = await seedMarker(database, logger);
-            if (markers.Any())
-            {
-                var markerId = markers.First().Id; // lấy Id đầu tiên làm ví dụ
-                await seedTypeDestination(database, logger, markerId); // truyền Id vào seedTypeDestination
-            }
             await SeedRole(database, logger);
             await SeedUserAccount(database, logger);
             await SeedCompany(database, logger);
@@ -44,597 +39,597 @@ public static class DataSeeding
         }
     }
 
-//    private static async Task SeedOcopProducts(IMongoDatabase database, ILogger<IHost> logger)
-//    {
-//        var collection = database.GetCollection<OcopProduct>("OcopProduct");
-//        var count = await collection.CountDocumentsAsync(FilterDefinition<OcopProduct>.Empty);
-//        if (count > 0)
-//        {
-//            logger.LogInformation("OcopProducts collection already contains data. Skipping seeding.");
-//            return;
-//        }
+    //    private static async Task SeedOcopProducts(IMongoDatabase database, ILogger<IHost> logger)
+    //    {
+    //        var collection = database.GetCollection<OcopProduct>("OcopProduct");
+    //        var count = await collection.CountDocumentsAsync(FilterDefinition<OcopProduct>.Empty);
+    //        if (count > 0)
+    //        {
+    //            logger.LogInformation("OcopProducts collection already contains data. Skipping seeding.");
+    //            return;
+    //        }
 
-//        logger.LogInformation("Seeding OcopProducts collection...");
+    //        logger.LogInformation("Seeding OcopProducts collection...");
 
-//        // Create some sample OcopTypes to reference
-//        var ocopTypeId = await SeedOcopType(database);
-//        var companyId = await SeedCompany(database);
-//        var tagId = await SeedTag(database);
-//        var product = new List<OcopProduct>
-//        {
-//          new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Tra Vinh Coconut Candy",
-//    ProductDescription = "Traditional coconut candy with unique Tra Vinh flavor.",
-//    ProductImage = new List<string>
-//    {
-//          "https://example.com/coconut-candy.jpg",
-//                "https://example.com/candy-pack.jpg"
-//    },
-//    ProductPrice = "35000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Cua hang dac san so 3",
-//            LocationAddress = "45 Le Loi, Phuong 1, TP Tra Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.350, 9.950 }
-//            }
-//        },
-//        new SellLocation
-//        {
-//            LocationName = "Cho Tra Vinh",
-//            LocationAddress = "78 Nguyen Thi Minh Khai, Phuong 2",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.342, 9.948 }
-//            }
-//        },
-//    },
-//    OcopPoint = 5,
-//    OcopYearRelease = 2022,
-//},
+    //        // Create some sample OcopTypes to reference
+    //        var ocopTypeId = await SeedOcopType(database);
+    //        var companyId = await SeedCompany(database);
+    //        var tagId = await SeedTag(database);
+    //        var product = new List<OcopProduct>
+    //        {
+    //          new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Tra Vinh Coconut Candy",
+    //    ProductDescription = "Traditional coconut candy with unique Tra Vinh flavor.",
+    //    ProductImage = new List<string>
+    //    {
+    //          "https://example.com/coconut-candy.jpg",
+    //                "https://example.com/candy-pack.jpg"
+    //    },
+    //    ProductPrice = "35000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Cua hang dac san so 3",
+    //            LocationAddress = "45 Le Loi, Phuong 1, TP Tra Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.350, 9.950 }
+    //            }
+    //        },
+    //        new SellLocation
+    //        {
+    //            LocationName = "Cho Tra Vinh",
+    //            LocationAddress = "78 Nguyen Thi Minh Khai, Phuong 2",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.342, 9.948 }
+    //            }
+    //        },
+    //    },
+    //    OcopPoint = 5,
+    //    OcopYearRelease = 2022,
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Tra Vinh Palm Sugar",
-//    ProductDescription = "Organic palm sugar sourced from Tra Vinh's palm trees. Known for its rich caramel flavor and natural sweetness.",
-//     ProductImage = new List<string> {
-//                "https://example.com/coconut-candy.jpg",
-//                "https://example.com/candy-pack.jpg"
-//            },
-//    ProductPrice = "55000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Cua hang duong thot not",
-//            LocationAddress = "123 Tran Phu, Phuong 3, TP Tra Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.355, 9.952 }
-//            }
-//        },
-//        new SellLocation
-//        {
-//            LocationName = "Sieu thi Co.op Mart Tra Vinh",
-//            LocationAddress = "56 Nguyen Dang, TP Tra Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.349, 9.947 }
-//            }
-//        },
-//        new SellLocation
-//        {
-//            LocationName = "Cua hang dac san Tra Vinh",
-//            LocationAddress = "22 Pham Thai Buong, Phuong 4",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.340, 9.955 }
-//            }
-//        },
-//    },
-//    OcopPoint = 3,
-//    OcopYearRelease = 2023,
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Tra Vinh Palm Sugar",
+    //    ProductDescription = "Organic palm sugar sourced from Tra Vinh's palm trees. Known for its rich caramel flavor and natural sweetness.",
+    //     ProductImage = new List<string> {
+    //                "https://example.com/coconut-candy.jpg",
+    //                "https://example.com/candy-pack.jpg"
+    //            },
+    //    ProductPrice = "55000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Cua hang duong thot not",
+    //            LocationAddress = "123 Tran Phu, Phuong 3, TP Tra Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.355, 9.952 }
+    //            }
+    //        },
+    //        new SellLocation
+    //        {
+    //            LocationName = "Sieu thi Co.op Mart Tra Vinh",
+    //            LocationAddress = "56 Nguyen Dang, TP Tra Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.349, 9.947 }
+    //            }
+    //        },
+    //        new SellLocation
+    //        {
+    //            LocationName = "Cua hang dac san Tra Vinh",
+    //            LocationAddress = "22 Pham Thai Buong, Phuong 4",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.340, 9.955 }
+    //            }
+    //        },
+    //    },
+    //    OcopPoint = 3,
+    //    OcopYearRelease = 2023,
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Tra Vinh Dried Fish",
-//    ProductDescription = "Premium quality dried fish produced with traditional methods from Tra Vinh's coastal communities.",
-// ProductImage = new List<string> {
-//                "https://example.com/coconut-candy.jpg",
-//                "https://example.com/candy-pack.jpg"
-//            },
-//    ProductPrice = "85000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Cua hang hai san Tra Vinh",
-//            LocationAddress = "67 Le Duan, TP Tra Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.347, 9.949 }
-//            }
-//        },
-//        new SellLocation
-//        {
-//            LocationName = "Cho hai san Tra Vinh",
-//            LocationAddress = "34 Dinh Tien Hoang, Phuong 2",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.338, 9.944 }
-//            }
-//        },
-//    },
-//    OcopPoint = 4,
-//    OcopYearRelease = 2021,
-//}, new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Tra Vinh Honey",
-//    ProductDescription = "Natural forest honey harvested from mangrove forests in Tra Vinh.",
-//    ProductImage = new List<string> { "https://example.com/honey.jpg" },
-//    ProductPrice = "120000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Cơ sở mật ong rừng Hòa Minh",
-//            LocationAddress = "Hòa Minh, Châu Thành, Trà Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.354, 9.927 }
-//            }
-//        }
-//    },
-//    OcopPoint = 4,
-//    OcopYearRelease = 2022,
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Tra Vinh Dried Fish",
+    //    ProductDescription = "Premium quality dried fish produced with traditional methods from Tra Vinh's coastal communities.",
+    // ProductImage = new List<string> {
+    //                "https://example.com/coconut-candy.jpg",
+    //                "https://example.com/candy-pack.jpg"
+    //            },
+    //    ProductPrice = "85000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Cua hang hai san Tra Vinh",
+    //            LocationAddress = "67 Le Duan, TP Tra Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.347, 9.949 }
+    //            }
+    //        },
+    //        new SellLocation
+    //        {
+    //            LocationName = "Cho hai san Tra Vinh",
+    //            LocationAddress = "34 Dinh Tien Hoang, Phuong 2",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.338, 9.944 }
+    //            }
+    //        },
+    //    },
+    //    OcopPoint = 4,
+    //    OcopYearRelease = 2021,
+    //}, new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Tra Vinh Honey",
+    //    ProductDescription = "Natural forest honey harvested from mangrove forests in Tra Vinh.",
+    //    ProductImage = new List<string> { "https://example.com/honey.jpg" },
+    //    ProductPrice = "120000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Cơ sở mật ong rừng Hòa Minh",
+    //            LocationAddress = "Hòa Minh, Châu Thành, Trà Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.354, 9.927 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 4,
+    //    OcopYearRelease = 2022,
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Virgin Coconut Oil",
-//    ProductDescription = "Cold-pressed virgin coconut oil from Tra Vinh’s Ben Tre coconut groves.",
-//    ProductImage = new List<string> { "https://example.com/coconut-oil.jpg" },
-//    ProductPrice = "90000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Cửa hàng dầu dừa Thanh Thủy",
-//            LocationAddress = "Ap My Hoa, Cau Ke, Tra Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.285, 9.938 }
-//            }
-//        }
-//    },
-//    OcopPoint = 4,
-//    OcopYearRelease = 2021,
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Virgin Coconut Oil",
+    //    ProductDescription = "Cold-pressed virgin coconut oil from Tra Vinh’s Ben Tre coconut groves.",
+    //    ProductImage = new List<string> { "https://example.com/coconut-oil.jpg" },
+    //    ProductPrice = "90000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Cửa hàng dầu dừa Thanh Thủy",
+    //            LocationAddress = "Ap My Hoa, Cau Ke, Tra Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.285, 9.938 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 4,
+    //    OcopYearRelease = 2021,
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Purple Sticky Rice Wine",
-//    ProductDescription = "Traditional fermented wine made from local purple sticky rice.",
-//    ProductImage = new List<string> { "https://example.com/purple-wine.jpg" },
-//    ProductPrice = "150000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Làng nghề rượu Phước Hưng",
-//            LocationAddress = "Phước Hưng, Trà Cú, Trà Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.310, 9.846 }
-//            }
-//        }
-//    },
-//    OcopPoint = 5,
-//    OcopYearRelease = 2023,
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Purple Sticky Rice Wine",
+    //    ProductDescription = "Traditional fermented wine made from local purple sticky rice.",
+    //    ProductImage = new List<string> { "https://example.com/purple-wine.jpg" },
+    //    ProductPrice = "150000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Làng nghề rượu Phước Hưng",
+    //            LocationAddress = "Phước Hưng, Trà Cú, Trà Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.310, 9.846 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 5,
+    //    OcopYearRelease = 2023,
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Banana Wine",
-//    ProductDescription = "Unique wine made from fermented bananas using Khmer techniques.",
-//    ProductImage = new List<string> { "https://example.com/banana-wine.jpg" },
-//    ProductPrice = "130000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Cơ sở sản xuất rượu chuối",
-//            LocationAddress = "Ap Long Hoa, Cau Ngang, Tra Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.386, 9.850 }
-//            }
-//        }
-//    },
-//    OcopPoint = 4,
-//    OcopYearRelease = 2022,
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Banana Wine",
+    //    ProductDescription = "Unique wine made from fermented bananas using Khmer techniques.",
+    //    ProductImage = new List<string> { "https://example.com/banana-wine.jpg" },
+    //    ProductPrice = "130000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Cơ sở sản xuất rượu chuối",
+    //            LocationAddress = "Ap Long Hoa, Cau Ngang, Tra Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.386, 9.850 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 4,
+    //    OcopYearRelease = 2022,
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Mangrove Pickled Fish",
-//    ProductDescription = "Fermented fish delicacy using traditional methods from mangrove regions.",
-//    ProductImage = new List<string> { "https://example.com/pickled-fish.jpg" },
-//    ProductPrice = "70000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Chợ cá Ba Động",
-//            LocationAddress = "Ba Động, Duyen Hai, Tra Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.495, 9.667 }
-//            }
-//        }
-//    },
-//    OcopPoint = 4,
-//    OcopYearRelease = 2021,
-//},
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Khô Cá Lóc Trà Vinh",
-//    ProductDescription = "Khô cá lóc truyền thống, phơi nắng tự nhiên và tẩm ướp gia vị đặc trưng.",
-//    ProductImage = new List<string> { "https://example.com/kho-ca-loc.jpg" },
-//    ProductPrice = "85000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Cơ sở khô cá Hai Tâm",
-//            LocationAddress = "Huyện Tiểu Cần, Trà Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.343, 9.834 }
-//            }
-//        }
-//    },
-//    OcopPoint = 3,
-//    OcopYearRelease = 2020,
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Mangrove Pickled Fish",
+    //    ProductDescription = "Fermented fish delicacy using traditional methods from mangrove regions.",
+    //    ProductImage = new List<string> { "https://example.com/pickled-fish.jpg" },
+    //    ProductPrice = "70000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Chợ cá Ba Động",
+    //            LocationAddress = "Ba Động, Duyen Hai, Tra Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.495, 9.667 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 4,
+    //    OcopYearRelease = 2021,
+    //},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Khô Cá Lóc Trà Vinh",
+    //    ProductDescription = "Khô cá lóc truyền thống, phơi nắng tự nhiên và tẩm ướp gia vị đặc trưng.",
+    //    ProductImage = new List<string> { "https://example.com/kho-ca-loc.jpg" },
+    //    ProductPrice = "85000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Cơ sở khô cá Hai Tâm",
+    //            LocationAddress = "Huyện Tiểu Cần, Trà Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.343, 9.834 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 3,
+    //    OcopYearRelease = 2020,
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Bánh Tét Trà Cuốn Lá Cẩm",
-//    ProductDescription = "Bánh tét nhân đậu xanh thịt ba rọi, nấu bằng lá cẩm tạo màu tím bắt mắt.",
-//    ProductImage = new List<string> { "https://example.com/banh-tet-la-cam.jpg" },
-//    ProductPrice = "50000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Hợp tác xã bánh tét Trà Cú",
-//            LocationAddress = "Trà Cú, Trà Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.300, 9.796 }
-//            }
-//        }
-//    },
-//    OcopPoint = 4,
-//    OcopYearRelease = 2021,
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Bánh Tét Trà Cuốn Lá Cẩm",
+    //    ProductDescription = "Bánh tét nhân đậu xanh thịt ba rọi, nấu bằng lá cẩm tạo màu tím bắt mắt.",
+    //    ProductImage = new List<string> { "https://example.com/banh-tet-la-cam.jpg" },
+    //    ProductPrice = "50000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Hợp tác xã bánh tét Trà Cú",
+    //            LocationAddress = "Trà Cú, Trà Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.300, 9.796 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 4,
+    //    OcopYearRelease = 2021,
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Trà Gừng Mật Ong",
-//    ProductDescription = "Trà gừng kết hợp mật ong tự nhiên, giúp tăng cường sức khỏe và kháng khuẩn.",
-//    ProductImage = new List<string> { "https://example.com/tra-gung.jpg" },
-//    ProductPrice = "65000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "HTX nông sản sạch Long Đức",
-//            LocationAddress = "Phường Long Đức, TP Trà Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.328, 9.920 }
-//            }
-//        }
-//    },
-//    OcopPoint = 4,
-//    OcopYearRelease = 2023,
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Trà Gừng Mật Ong",
+    //    ProductDescription = "Trà gừng kết hợp mật ong tự nhiên, giúp tăng cường sức khỏe và kháng khuẩn.",
+    //    ProductImage = new List<string> { "https://example.com/tra-gung.jpg" },
+    //    ProductPrice = "65000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "HTX nông sản sạch Long Đức",
+    //            LocationAddress = "Phường Long Đức, TP Trà Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.328, 9.920 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 4,
+    //    OcopYearRelease = 2023,
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Tôm Khô Cầu Ngang",
-//    ProductDescription = "Tôm khô đỏ au, ngọt tự nhiên, được phơi nắng và đóng gói sạch sẽ.",
-//    ProductImage = new List<string> { "https://example.com/tom-kho.jpg" },
-//    ProductPrice = "250000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Cơ sở tôm khô Bảy Lựu",
-//            LocationAddress = "Cầu Ngang, Trà Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.379, 9.842 }
-//            }
-//        }
-//    },
-//    OcopPoint = 5,
-//    OcopYearRelease = 2022,
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Tôm Khô Cầu Ngang",
+    //    ProductDescription = "Tôm khô đỏ au, ngọt tự nhiên, được phơi nắng và đóng gói sạch sẽ.",
+    //    ProductImage = new List<string> { "https://example.com/tom-kho.jpg" },
+    //    ProductPrice = "250000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Cơ sở tôm khô Bảy Lựu",
+    //            LocationAddress = "Cầu Ngang, Trà Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.379, 9.842 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 5,
+    //    OcopYearRelease = 2022,
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Bánh Tráng Dừa",
-//    ProductDescription = "Bánh tráng truyền thống kết hợp dừa nạo sấy khô, thơm ngon và giòn.",
-//    ProductImage = new List<string> { "https://example.com/banh-trang-dua.jpg" },
-//    ProductPrice = "40000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "HTX Bánh Tráng Trà Vinh",
-//            LocationAddress = "Huyện Càng Long, Trà Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.288, 9.999 }
-//            }
-//        }
-//    },
-//    OcopPoint = 3,
-//    OcopYearRelease = 2021,
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Bánh Tráng Dừa",
+    //    ProductDescription = "Bánh tráng truyền thống kết hợp dừa nạo sấy khô, thơm ngon và giòn.",
+    //    ProductImage = new List<string> { "https://example.com/banh-trang-dua.jpg" },
+    //    ProductPrice = "40000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "HTX Bánh Tráng Trà Vinh",
+    //            LocationAddress = "Huyện Càng Long, Trà Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.288, 9.999 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 3,
+    //    OcopYearRelease = 2021,
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Khô Mực Một Nắng",
-//    ProductDescription = "Mực tươi được phơi một nắng, giữ được độ dai và ngọt tự nhiên.",
-//    ProductImage = new List<string> { "https://example.com/kho-muc.jpg" },
-//    ProductPrice = "320000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Chợ hải sản Duyên Hải",
-//            LocationAddress = "Duyên Hải, Trà Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.490, 9.677 }
-//            }
-//        }
-//    },
-//    OcopPoint = 5,
-//    OcopYearRelease = 2023,
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Khô Mực Một Nắng",
+    //    ProductDescription = "Mực tươi được phơi một nắng, giữ được độ dai và ngọt tự nhiên.",
+    //    ProductImage = new List<string> { "https://example.com/kho-muc.jpg" },
+    //    ProductPrice = "320000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Chợ hải sản Duyên Hải",
+    //            LocationAddress = "Duyên Hải, Trà Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.490, 9.677 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 5,
+    //    OcopYearRelease = 2023,
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Trái Nhàu Sấy Khô",
-//    ProductDescription = "Trái nhàu tươi được sấy lạnh giữ nguyên hoạt chất có lợi cho sức khỏe.",
-//    ProductImage = new List<string> { "https://example.com/trai-nhau.jpg" },
-//    ProductPrice = "100000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Công ty TNHH Trái Nhàu Trà Vinh",
-//            LocationAddress = "Phường 8, TP Trà Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.330, 9.918 }
-//            }
-//        }
-//    },
-//    OcopPoint = 4,
-//    OcopYearRelease = 2020,
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Trái Nhàu Sấy Khô",
+    //    ProductDescription = "Trái nhàu tươi được sấy lạnh giữ nguyên hoạt chất có lợi cho sức khỏe.",
+    //    ProductImage = new List<string> { "https://example.com/trai-nhau.jpg" },
+    //    ProductPrice = "100000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Công ty TNHH Trái Nhàu Trà Vinh",
+    //            LocationAddress = "Phường 8, TP Trà Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.330, 9.918 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 4,
+    //    OcopYearRelease = 2020,
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Dưa Mắm Trà Vinh",
-//    ProductDescription = "Đặc sản dưa mắm dân dã, đậm đà, ăn kèm cơm trắng hoặc cháo trắng.",
-//    ProductImage = new List<string> { "https://example.com/dua-mam.jpg" },
-//    ProductPrice = "45000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Làng nghề dưa mắm",
-//            LocationAddress = "Xã Hòa Minh, Châu Thành, Trà Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.355, 9.925 }
-//            }
-//        }
-//    },
-//    OcopPoint = 3,
-//    OcopYearRelease = 2021,
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Dưa Mắm Trà Vinh",
+    //    ProductDescription = "Đặc sản dưa mắm dân dã, đậm đà, ăn kèm cơm trắng hoặc cháo trắng.",
+    //    ProductImage = new List<string> { "https://example.com/dua-mam.jpg" },
+    //    ProductPrice = "45000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Làng nghề dưa mắm",
+    //            LocationAddress = "Xã Hòa Minh, Châu Thành, Trà Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.355, 9.925 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 3,
+    //    OcopYearRelease = 2021,
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Mắm Cá Linh",
-//    ProductDescription = "Mắm cá linh đậm đà, được ủ theo phương pháp truyền thống miền Tây.",
-//    ProductImage = new List<string> { "https://example.com/mam-ca-linh.jpg" },
-//    ProductPrice = "75000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Cơ sở mắm Út Hồng",
-//            LocationAddress = "Huyện Trà Cú, Trà Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.316, 9.802 }
-//            }
-//        }
-//    },
-//    OcopPoint = 4,
-//    OcopYearRelease = 2020
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Mắm Cá Linh",
+    //    ProductDescription = "Mắm cá linh đậm đà, được ủ theo phương pháp truyền thống miền Tây.",
+    //    ProductImage = new List<string> { "https://example.com/mam-ca-linh.jpg" },
+    //    ProductPrice = "75000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Cơ sở mắm Út Hồng",
+    //            LocationAddress = "Huyện Trà Cú, Trà Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.316, 9.802 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 4,
+    //    OcopYearRelease = 2020
+    //},
 
-//new OcopProduct
-//{
-//    Id = ObjectId.GenerateNewId().ToString(),
-//    ProductName = "Nước Mắm Nhĩ Cá Cơm",
-//    ProductDescription = "Nước mắm nhĩ truyền thống, rút từ lần đầu tiên, đậm đà vị cá cơm.",
-//    ProductImage = new List<string> { "https://example.com/nuoc-mam.jpg" },
-//    ProductPrice = "60000",
-//    OcopTypeId = ocopTypeId,
-//    CompanyId = companyId,
-//    TagId = tagId,
-//    Status = true,
-//    CreatedAt = DateTime.UtcNow,
-//    Sellocations = new List<SellLocation>
-//    {
-//        new SellLocation
-//        {
-//            LocationName = "Cơ sở nước mắm Ba Động",
-//            LocationAddress = "Xã Trường Long Hòa, Duyên Hải, Trà Vinh",
-//            Location = new Location
-//            {
-//                Type = "point",
-//                Coordinates = new List<double> { 106.496, 9.670 }
-//            }
-//        }
-//    },
-//    OcopPoint = 4,
-//    OcopYearRelease = 2022,
-//},
+    //new OcopProduct
+    //{
+    //    Id = ObjectId.GenerateNewId().ToString(),
+    //    ProductName = "Nước Mắm Nhĩ Cá Cơm",
+    //    ProductDescription = "Nước mắm nhĩ truyền thống, rút từ lần đầu tiên, đậm đà vị cá cơm.",
+    //    ProductImage = new List<string> { "https://example.com/nuoc-mam.jpg" },
+    //    ProductPrice = "60000",
+    //    OcopTypeId = ocopTypeId,
+    //    CompanyId = companyId,
+    //    TagId = tagId,
+    //    Status = true,
+    //    CreatedAt = DateTime.UtcNow,
+    //    Sellocations = new List<SellLocation>
+    //    {
+    //        new SellLocation
+    //        {
+    //            LocationName = "Cơ sở nước mắm Ba Động",
+    //            LocationAddress = "Xã Trường Long Hòa, Duyên Hải, Trà Vinh",
+    //            Location = new Location
+    //            {
+    //                Type = "point",
+    //                Coordinates = new List<double> { 106.496, 9.670 }
+    //            }
+    //        }
+    //    },
+    //    OcopPoint = 4,
+    //    OcopYearRelease = 2022,
+    //},
 
-//            };
+    //            };
 
-//        await collection.InsertManyAsync(product);
-//    }
+    //        await collection.InsertManyAsync(product);
+    //    }
 
     private static async Task SeedTagSample(IMongoDatabase database, ILogger<IHost> logger)
     {
@@ -746,36 +741,20 @@ public static class DataSeeding
                 Image = "https://res.cloudinary.com/ddaj2hsk5/image/upload/v1748795520/food_1_zkhxsb.png",
                 Status = true,
                 CreatedAt = DateTime.UtcNow,
+            },
+            new Marker
+            {
+                Id = ObjectId.GenerateNewId().ToString(),
+                Name = "Ocop Product",
+                Image =  "https://res.cloudinary.com/ddaj2hsk5/image/upload/v1748795520/ocop_1_ghqj3c.png",
+                Status = true,
+                CreatedAt = DateTime.UtcNow
             }
         };
         await collection.InsertManyAsync(markers);
         return markers;
     }
 
-    private static async Task seedTypeDestination(IMongoDatabase database, ILogger<IHost> logger, string markerId)
-    {
-        var collection = database.GetCollection<DestinationType>("DestinationType");
-        var count = await collection.CountDocumentsAsync(FilterDefinition<DestinationType>.Empty);
-        if (count > 0)
-        {
-            logger.LogInformation("Tags collection already contains data. Skipping seeding.");
-            return;
-        }
-        logger.LogInformation("Seeding Tag collection...");
-        var destinationTypeList = new List<DestinationType>()
-        {
-            new DestinationType
-            {
-                Id = ObjectId.GenerateNewId().ToString(),
-                CreatedAt= DateTime.UtcNow,
-                MarkerId= markerId,
-                Name= "Religious Buildings",
-                Status= true,
-                UpdateAt = DateTime.UtcNow,
-            },
-        };
-        await collection.InsertManyAsync(destinationTypeList);
-    }
     // Role seeding method
     private static async Task SeedRole(IMongoDatabase database, ILogger<IHost> logger)
     {
