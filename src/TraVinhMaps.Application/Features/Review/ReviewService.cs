@@ -208,4 +208,38 @@ public class ReviewService : IReviewService
         };
         return response;
     }
+
+    public async Task<IEnumerable<ReviewResponse>> GetLatestReviewsAsync(int count = 5, CancellationToken cancellationToken = default)
+    {
+        var reviews = await _reviewRepository.GetLatestReviewsAsync(count, cancellationToken);
+        var reviewResponses = new List<ReviewResponse>();
+
+        foreach (var reviewResponse in reviews)
+        {
+            var user = await _userService.GetByIdAsync(reviewResponse.UserId);
+            var destination = await _destinationTypeRepository.GetByIdAsync(reviewResponse.DestinationId);
+
+            var response = new ReviewResponse
+            {
+                Id = reviewResponse.Id,
+                Rating = reviewResponse.Rating,
+                Images = reviewResponse.Images,
+                Comment = reviewResponse.Comment,
+                UserId = reviewResponse.UserId,
+                UserName = user?.Username ?? "Unknown",
+                DestinationId = reviewResponse.DestinationId,
+                DestinationName = destination?.Name ?? "Unknown",
+                CreatedAt = reviewResponse.CreatedAt,
+                Reply = reviewResponse.Reply?.Select(r => new Reply
+                {
+                    Content = r.Content,
+                    Images = r.Images,
+                    CreatedAt = r.CreatedAt,
+                    UserId = r.UserId
+                }).ToList(),
+            };
+            reviewResponses.Add(response);
+        }
+        return reviewResponses;
+    }
 }

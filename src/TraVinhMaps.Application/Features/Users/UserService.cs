@@ -226,6 +226,29 @@ public class UserService : IUserService
         };
     }
 
+    public async Task<Dictionary<string, Dictionary<string, int>>> GetPerformanceByTagAsync(IEnumerable<string>? tagNames, bool includeOcop, bool includeDestination, bool includeLocalSpecialty, bool includeTips, bool includeFestivals, DateTime? startDate, DateTime? endDate, CancellationToken cancellationToken = default)
+    {
+        if (startDate.HasValue && endDate.HasValue)
+        {
+            if (startDate > endDate)
+                throw new ArgumentException("Start date must be before end date");
+            if (startDate > DateTime.UtcNow)
+                throw new ArgumentException("Start date cannot be in the future");
+        }
+
+        return await _userRepository.GetPerformanceByTagAsync(
+            tagNames,
+            includeOcop,
+            includeDestination,
+            includeLocalSpecialty,
+            includeTips,
+            includeFestivals,
+            startDate,
+            endDate,
+            cancellationToken
+        );
+    }
+    
     public async Task<List<Favorite>> getFavoriteUserList(CancellationToken cancellationToken = default)
     {
         var userId = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

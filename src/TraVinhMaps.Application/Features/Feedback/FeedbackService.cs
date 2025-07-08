@@ -10,7 +10,6 @@ using TraVinhMaps.Application.Features.Feedback.Mapper;
 using TraVinhMaps.Application.Features.Feedback.Models;
 using TraVinhMaps.Application.Features.Users.Interface;
 using TraVinhMaps.Application.UnitOfWorks;
-using TraVinhMaps.Domain.Entities;
 
 namespace TraVinhMaps.Application.Features.Feedback;
 public class FeedbackService : IFeedbackService
@@ -50,6 +49,8 @@ public class FeedbackService : IFeedbackService
         {
             feedback.Images = new List<string>();
         }
+
+        entity.CreatedAt = DateTime.UtcNow; 
 
         return await _feedbackRepository.AddAsync(feedback, cancellationToken);
     }

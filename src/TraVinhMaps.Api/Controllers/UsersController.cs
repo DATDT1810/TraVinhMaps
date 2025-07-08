@@ -34,15 +34,23 @@ public class UsersController : ControllerBase
     [HttpGet("all")]
     public async Task<IActionResult> GetAllUsers()
     {
-        var list = await _userService.ListAllAsync();
-        return Ok(list);
+        try
+        {
+            var list = await _userService.ListAllAsync();
+            return Ok(list ?? new List<User>());
+        }
+        catch (Exception)
+        {
+            return Ok(new List<User>());
+        }
+        
     }
 
     [HttpGet("active")]
     public async Task<IActionResult> GetActiveUsers()
     {
         var user = await _userService.ListAsync(u => u.Status == true);
-        return Ok(user);
+        return Ok(user ?? new List<User>());
     }
 
     [HttpGet("inActive")]
@@ -172,6 +180,43 @@ public class UsersController : ControllerBase
     {
         var stats = await _userService.GetUserStatisticsAsync(groupBy, timeRange);
         return this.ApiOk(stats, "User statistics retrieved successfully");
+    }
+
+    [HttpGet("performance-tags")]
+    public async Task<IActionResult> GetPerformanceByTags(
+    [FromQuery(Name = "tags")] List<string>? tags,      
+    [FromQuery] bool includeOcop = true,
+    [FromQuery] bool includeDestination = true,
+    [FromQuery] bool includeLocalSpecialty = true,
+    [FromQuery] bool includeTips = true,
+    [FromQuery] bool includeFestivals = true,
+    [FromQuery] DateTime? startDate = null,
+    [FromQuery] DateTime? endDate = null,
+    CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var result = await _userService.GetPerformanceByTagAsync(
+                tagNames: tags,          
+                includeOcop,
+                includeDestination,
+                includeLocalSpecialty,
+                includeTips,
+                includeFestivals,
+                startDate,
+                endDate,
+                cancellationToken);
+
+            return this.ApiOk(result);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, new { message = "Internal server error." });
+        }
     }
 
     [Authorize]

@@ -50,7 +50,7 @@ public class SellingLinkController : ControllerBase
     }
     [HttpPost]
     [Route("AddSellingLink")]
-    public async Task<IActionResult> AddSellingLink([FromForm] CreateSellingLinkRequest createSellingLinkRequest)
+    public async Task<IActionResult> AddSellingLink([FromBody] CreateSellingLinkRequest createSellingLinkRequest)
     {
         var exitingLink = await _service.GetSellingLinkByProductId(createSellingLinkRequest.ProductId);
         if(exitingLink != null && exitingLink.Any(l => l.Link == createSellingLinkRequest.Link))

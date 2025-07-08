@@ -45,7 +45,7 @@ public class CompanyController : ControllerBase
     }
     [HttpPost]
     [Route("AddCompany")]
-    public async Task<IActionResult> AddCompany([FromForm] CreateCompanyRequest createCompanyRequest)
+    public async Task<IActionResult> AddCompany([FromBody] CreateCompanyRequest createCompanyRequest)
     {
         var createCompany = CompanyMapper.Mapper.Map<Company>(createCompanyRequest);
         var company = await _companyService.AddAsync(createCompany);
@@ -53,7 +53,7 @@ public class CompanyController : ControllerBase
     }
     [HttpPut]
     [Route("UpdateCompany")]
-    public async Task<IActionResult> UpdateCompany([FromForm] UpdateCompanyRequest updateCompanyRequest)
+    public async Task<IActionResult> UpdateCompany([FromBody] UpdateCompanyRequest updateCompanyRequest)
     {
         var existingCompany = await _companyService.GetByIdAsync(updateCompanyRequest.Id);
         if (existingCompany == null)

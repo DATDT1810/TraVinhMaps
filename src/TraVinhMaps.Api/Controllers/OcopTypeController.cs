@@ -45,7 +45,7 @@ public class OcopTypeController : ControllerBase
     }
     [HttpPost]
     [Route("AddOcopType")]
-    public async Task<IActionResult> AddOcopType([FromForm] CreateOcopTypeRequest createOcopTypeRequest)
+    public async Task<IActionResult> AddOcopType([FromBody] CreateOcopTypeRequest createOcopTypeRequest)
     {
         var exitingOcopType = await _typeService.GetOcopTypeByName(createOcopTypeRequest.OcopTypeName);
         if (exitingOcopType != null)

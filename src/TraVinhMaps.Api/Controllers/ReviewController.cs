@@ -74,6 +74,13 @@ public class ReviewController : ControllerBase
         var countReviews = await _reviewService.CountAsync();
         return this.ApiOk(countReviews);
     }
+    [HttpGet]
+    [Route("GetLatestReviews")]
+    public async Task<IActionResult> GetLatestReviews()
+    {
+        var listLatestReview = await _reviewService.GetLatestReviewsAsync();
+        return this.ApiOk(listLatestReview);
+    }
     [Authorize]
     [HttpPost("AddReview")]
     [Consumes("multipart/form-data")]

@@ -106,25 +106,168 @@ public class TouristDestinationRepository : BaseRepository<TouristDestination>, 
         return await _collection.Find(filter).ToListAsync(cancellationToken);
     }
 
-    /// <summary>
-    /// Retrieves aggregated destination statistics including views, interactions, and favorites.
-    /// This method builds and executes a MongoDB aggregation pipeline over multiple collections:
-    /// - Destination
-    /// - Interaction
-    /// - InteractionLogs
-    /// - User (favorites)
-    /// </summary>
     public async Task<DestinationStatsOverview> GetDestinationStatsOverviewAsync(
-        string timeRange = "month",
-        DateTime? startDate = null,
-        DateTime? endDate = null,
-        CancellationToken cancellationToken = default)
+    string timeRange = "month",
+    DateTime? startDate = null,
+    DateTime? endDate = null,
+    CancellationToken cancellationToken = default)
     {
-        // Get current UTC time
-        var now = DateTime.UtcNow;
+        // Get current UTC time adjusted for +07 timezone
+        var now = DateTime.UtcNow.AddHours(7); // Adjust for +07 timezone (Vietnam)
 
+        // Lifetime counts pipeline for summary totals
+        var lifetimePipeline = new List<BsonDocument>
+    {
+        // Stage 1: Match only active destinations
+        new BsonDocument("$match", new BsonDocument("status", true)),
+
+        // Stage 2: Lookup all interactions
+        new BsonDocument("$lookup", new BsonDocument
+        {
+            { "from", "Interaction" },
+            { "localField", "_id" },
+            { "foreignField", "itemId" },
+            { "as", "interactions" }
+        }),
+
+        // Stage 3: Filter interactions by itemType, with null check
+        new BsonDocument("$addFields", new BsonDocument("interactions",
+            new BsonDocument("$filter", new BsonDocument
+            {
+                { "input", "$interactions" },
+                { "as", "interaction" },
+                { "cond", new BsonDocument("$and", new BsonArray
+                    {
+                        new BsonDocument("$eq", new BsonArray { "$$interaction.itemType", "Destination" }),
+                        new BsonDocument("$ne", new BsonArray { "$$interaction.totalCount", BsonNull.Value })
+                    })
+                }
+            })
+        )),
+
+        // Stage 4: Lookup all interaction logs
+        new BsonDocument("$lookup", new BsonDocument
+        {
+            { "from", "InteractionLogs" },
+            { "localField", "_id" },
+            { "foreignField", "itemId" },
+            { "as", "interactionLogs" }
+        }),
+
+        // Stage 5: Filter logs by itemType
+        new BsonDocument("$addFields", new BsonDocument("interactionLogs",
+            new BsonDocument("$filter", new BsonDocument
+            {
+                { "input", "$interactionLogs" },
+                { "as", "log" },
+                { "cond", new BsonDocument("$eq", new BsonArray { "$$log.itemType", "Destination" }) }
+            })
+        )),
+
+        // Stage 6: Lookup users with this destination in favorites
+        new BsonDocument("$lookup", new BsonDocument
+        {
+            { "from", "User" },
+            { "let", new BsonDocument { { "destinationId", "$_id" } } },
+            { "pipeline", new BsonArray
+                {
+                    new BsonDocument("$match", new BsonDocument
+                    {
+                        { "favorites", new BsonDocument("$ne", BsonNull.Value) },
+                        { "$expr", new BsonDocument
+                            {
+                                { "$in", new BsonArray { "$$destinationId", "$favorites.itemId" } }
+                            }
+                        }
+                    }),
+                    new BsonDocument("$unwind", new BsonDocument
+                    {
+                        { "path", "$favorites" },
+                        { "preserveNullAndEmptyArrays", false }
+                    }),
+                    new BsonDocument("$match", new BsonDocument
+                    {
+                        { "$expr", new BsonDocument
+                            {
+                                { "$and", new BsonArray
+                                    {
+                                        new BsonDocument("$eq", new BsonArray { "$favorites.itemId", "$$destinationId" }),
+                                        new BsonDocument("$ne", new BsonArray { "$favorites.itemId", BsonNull.Value })
+                                    }
+                                }
+                            }
+                        }
+                    }),
+                    new BsonDocument("$group", new BsonDocument
+                    {
+                        { "_id", new BsonDocument
+                            {
+                                { "userId", "$_id" },
+                                { "itemId", "$favorites.itemId" }
+                            }
+                        }
+                    }),
+                    new BsonDocument("$group", new BsonDocument
+                    {
+                        { "_id", BsonNull.Value },
+                        { "count", new BsonDocument("$sum", 1) }
+                    })
+                }
+            },
+            { "as", "users" }
+        }),
+
+        // Stage 7: Set FavoriteCount
+        new BsonDocument("$addFields", new BsonDocument
+        {
+            { "FavoriteCount", new BsonDocument("$cond", new BsonDocument
+                {
+                    { "if", new BsonDocument("$gt", new BsonArray { new BsonDocument("$size", "$users"), 0 }) },
+                    { "then", new BsonDocument("$arrayElemAt", new BsonArray { "$users.count", 0 }) },
+                    { "else", 0 }
+                })
+            }
+        }),
+
+        // Stage 8: Group for lifetime totals
+        new BsonDocument("$group", new BsonDocument
+        {
+            { "_id", BsonNull.Value },
+            { "TotalDestinations", new BsonDocument("$sum", 1) },
+            { "TotalViews", new BsonDocument("$sum", new BsonDocument("$size", "$interactionLogs")) },
+            { "TotalInteractions", new BsonDocument("$sum", new BsonDocument("$ifNull", new BsonArray { "$interactions.totalCount", 0 })) },
+            { "TotalFavorites", new BsonDocument("$sum", "$FavoriteCount") }
+        })
+    };
+
+        // Execute lifetime pipeline
+        var lifetimeResult = await _collection
+            .Aggregate<BsonDocument>(lifetimePipeline)
+            .FirstOrDefaultAsync(cancellationToken);
+
+        // Log lifetime pipeline result for debugging
+        Console.WriteLine($"Lifetime Pipeline Result: {lifetimeResult?.ToJson() ?? "null"}");
+
+        // Extract lifetime counts
+        var lifetimeCounts = lifetimeResult != null
+            ? new
+            {
+                TotalDestinations = lifetimeResult.GetValue("TotalDestinations", 0).ToInt32(),
+                TotalViews = lifetimeResult.GetValue("TotalViews", 0).ToInt64(),
+                TotalInteractions = lifetimeResult.GetValue("TotalInteractions", 0).ToInt64(),
+                TotalFavorites = lifetimeResult.GetValue("TotalFavorites", 0).ToInt64()
+            }
+            : new
+            {
+                TotalDestinations = 0,
+                TotalViews = 0L,
+                TotalInteractions = 0L,
+                TotalFavorites = 0L
+            };
+
+        // Time-based pipeline for DestinationDetails
         DateTime filterStartDate;
-        DateTime? filterEndDate = null;
+        DateTime filterEndDate;
 
         // Determine the date range to filter based on input or fallback to timeRange
         if (startDate.HasValue && endDate.HasValue)
@@ -134,46 +277,56 @@ public class TouristDestinationRepository : BaseRepository<TouristDestination>, 
         }
         else
         {
-            filterStartDate = startDate ?? timeRange.ToLower() switch
+            filterEndDate = now;
+            filterStartDate = timeRange.ToLower() switch
             {
-                "day" => now.AddDays(-1),
-                "week" => now.AddDays(-7),
-                "month" => new DateTime(now.Year, now.Month, 1),
-                "year" => new DateTime(now.Year, 1, 1),
-                _ => new DateTime(now.Year, now.Month, 1)
+                "day" => filterEndDate.AddDays(-1),
+                "week" => filterEndDate.AddDays(-7),
+                "month" => new DateTime(filterEndDate.Year, filterEndDate.Month, 1),
+                "year" => new DateTime(filterEndDate.Year, 1, 1),
+                _ => new DateTime(filterEndDate.Year, filterEndDate.Month, 1)
             };
         }
 
+        // Log date ranges for debugging
+        Console.WriteLine($"filterStartDate: {filterStartDate}, filterEndDate: {filterEndDate}");
+
         // Convert to BsonDateTime for filtering
-        var bsonStartDate = (BsonDateTime)filterStartDate;
-        var bsonEndDate = filterEndDate.HasValue ? (BsonDateTime)filterEndDate.Value : null;
+        var bsonStartDate = new BsonDateTime(filterStartDate);
+        var bsonEndDate = new BsonDateTime(filterEndDate);
+
+        // Log BSON dates for debugging
+        Console.WriteLine($"bsonStartDate: {bsonStartDate}, bsonEndDate: {bsonEndDate}");
 
         // Interaction filter condition
         var interactionCond = new BsonArray
     {
         new BsonDocument("$eq", new BsonArray { "$$interaction.itemType", "Destination" }),
-        new BsonDocument("$gte", new BsonArray { "$$interaction.createdAt", bsonStartDate })
+        new BsonDocument("$gte", new BsonArray { "$$interaction.createdAt", bsonStartDate }),
+        new BsonDocument("$lte", new BsonArray { "$$interaction.createdAt", bsonEndDate }),
+        new BsonDocument("$ne", new BsonArray { "$$interaction.totalCount", BsonNull.Value })
     };
-        if (bsonEndDate != null)
-            interactionCond.Add(new BsonDocument("$lte", new BsonArray { "$$interaction.createdAt", bsonEndDate }));
 
         // InteractionLogs filter condition
         var logCond = new BsonArray
     {
         new BsonDocument("$eq", new BsonArray { "$$log.itemType", "Destination" }),
-        new BsonDocument("$gte", new BsonArray { "$$log.createdAt", bsonStartDate })
+        new BsonDocument("$gte", new BsonArray { "$$log.createdAt", bsonStartDate }),
+        new BsonDocument("$lte", new BsonArray { "$$log.createdAt", bsonEndDate })
     };
-        if (bsonEndDate != null)
-            logCond.Add(new BsonDocument("$lte", new BsonArray { "$$log.createdAt", bsonEndDate }));
 
-        // Build aggregation pipeline
+        // Build time-based aggregation pipeline for DestinationDetails
         var pipeline = new List<BsonDocument>
     {
         // Stage 1: Match only active destinations
         new BsonDocument("$match", new BsonDocument("status", true)),
 
         // Stage 2: Project only needed fields
-        new BsonDocument("$project", new BsonDocument { { "_id", 1 }, { "name", 1 } }),
+        new BsonDocument("$project", new BsonDocument
+        {
+            { "_id", 1 },
+            { "name", 1 }
+        }),
 
         // Stage 3: Lookup interactions related to the destination
         new BsonDocument("$lookup", new BsonDocument
@@ -217,67 +370,113 @@ public class TouristDestinationRepository : BaseRepository<TouristDestination>, 
         new BsonDocument("$lookup", new BsonDocument
         {
             { "from", "User" },
-            { "localField", "_id" },
-            { "foreignField", "favorites.itemId" },
+            { "let", new BsonDocument { { "destinationId", "$_id" } } },
+            { "pipeline", new BsonArray
+                {
+                    new BsonDocument("$match", new BsonDocument
+                    {
+                        { "favorites", new BsonDocument("$ne", BsonNull.Value) },
+                        { "$expr", new BsonDocument
+                            {
+                                { "$in", new BsonArray { "$$destinationId", "$favorites.itemId" } }
+                            }
+                        }
+                    }),
+                    new BsonDocument("$unwind", new BsonDocument
+                    {
+                        { "path", "$favorites" },
+                        { "preserveNullAndEmptyArrays", false }
+                    }),
+                    new BsonDocument("$match", new BsonDocument
+                    {
+                        { "$expr", new BsonDocument
+                            {
+                                { "$and", new BsonArray
+                                    {
+                                        new BsonDocument("$eq", new BsonArray { "$favorites.itemId", "$$destinationId" }),
+                                        new BsonDocument("$gte", new BsonArray { "$favorites.updateAt", bsonStartDate }),
+                                        new BsonDocument("$lte", new BsonArray { "$favorites.updateAt", bsonEndDate }),
+                                        new BsonDocument("$ne", new BsonArray { "$favorites.itemId", BsonNull.Value }),
+                                        new BsonDocument("$ne", new BsonArray { "$favorites.updateAt", BsonNull.Value })
+                                    }
+                                }
+                            }
+                        }
+                    }),
+                    new BsonDocument("$group", new BsonDocument
+                    {
+                        { "_id", new BsonDocument
+                            {
+                                { "userId", "$_id" },
+                                { "itemId", "$favorites.itemId" }
+                            }
+                        }
+                    }),
+                    new BsonDocument("$group", new BsonDocument
+                    {
+                        { "_id", BsonNull.Value },
+                        { "count", new BsonDocument("$sum", 1) }
+                    })
+                }
+            },
             { "as", "users" }
         }),
 
-        // Stage 8: Count how many users favorited this destination
-        new BsonDocument("$addFields", new BsonDocument("FavoriteCount",
-            new BsonDocument("$size", "$users")
-        )),
+        // Stage 8: Set FavoriteCount
+        new BsonDocument("$addFields", new BsonDocument
+        {
+            { "FavoriteCount", new BsonDocument("$cond", new BsonDocument
+                {
+                    { "if", new BsonDocument("$gt", new BsonArray { new BsonDocument("$size", "$users"), 0 }) },
+                    { "then", new BsonDocument("$arrayElemAt", new BsonArray { "$users.count", 0 }) },
+                    { "else", 0 }
+                })
+            },
+            { "Id", new BsonDocument("$toString", "$_id") }
+        }),
 
-        // Stage 9: Add string version of destination id
-        new BsonDocument("$addFields", new BsonDocument("Id",
-            new BsonDocument("$toString", "$_id"))),
-
-        // Stage 10: Project computed fields
+        // Stage 9: Project fields for DestinationDetails
         new BsonDocument("$project", new BsonDocument
         {
             { "Id", 1 },
             { "LocationName", "$name" },
             { "ViewCount", new BsonDocument("$size", "$interactionLogs") },
-            { "InteractionCount", new BsonDocument("$sum", "$interactions.totalCount") },
+            { "InteractionCount", new BsonDocument("$sum", new BsonDocument("$ifNull", new BsonArray { "$interactions.totalCount", 0 })) },
             { "FavoriteCount", 1 }
         }),
 
-        // Stage 11: Group result into single summary + details
+        // Stage 10: Group result into single summary + details
         new BsonDocument("$group", new BsonDocument
         {
             { "_id", BsonNull.Value },
-            { "TotalDestinations", new BsonDocument("$sum", 1) },
-            { "TotalViews", new BsonDocument("$sum", "$ViewCount") },
-            { "TotalInteractions", new BsonDocument("$sum", "$InteractionCount") },
-            { "TotalFavorites", new BsonDocument("$sum", "$FavoriteCount") },
             { "DestinationDetails", new BsonDocument("$push", "$$ROOT") }
         }),
 
-        // Stage 12: Remove internal _id and keep only needed summary fields
+        // Stage 11: Remove internal _id
         new BsonDocument("$project", new BsonDocument
         {
             { "_id", 0 },
-            { "TotalDestinations", 1 },
-            { "TotalViews", 1 },
-            { "TotalInteractions", 1 },
-            { "TotalFavorites", 1 },
             { "DestinationDetails", 1 }
         })
     };
 
-        // Execute the pipeline
+        // Execute the time-based pipeline
         var bsonResult = await _collection
             .Aggregate<BsonDocument>(pipeline)
             .FirstOrDefaultAsync(cancellationToken);
+
+        // Log time-based pipeline result for debugging
+        Console.WriteLine($"Time-based Pipeline Result: {bsonResult?.ToJson() ?? "null"}");
 
         // Handle empty result
         if (bsonResult == null)
         {
             return new DestinationStatsOverview
             {
-                TotalDestinations = 0,
-                TotalViews = 0,
-                TotalInteractions = 0,
-                TotalFavorites = 0,
+                TotalDestinations = lifetimeCounts.TotalDestinations,
+                TotalViews = lifetimeCounts.TotalViews,
+                TotalInteractions = lifetimeCounts.TotalInteractions,
+                TotalFavorites = lifetimeCounts.TotalFavorites,
                 DestinationDetails = new List<DestinationAnalytics>()
             };
         }
@@ -285,16 +484,16 @@ public class TouristDestinationRepository : BaseRepository<TouristDestination>, 
         // Map BSON result to C# DTO
         var overview = new DestinationStatsOverview
         {
-            TotalDestinations = bsonResult.GetValue("TotalDestinations", 0).ToInt32(),
-            TotalViews = bsonResult.GetValue("TotalViews", 0).ToInt64(),
-            TotalInteractions = bsonResult.GetValue("TotalInteractions", 0).ToInt64(),
-            TotalFavorites = bsonResult.GetValue("TotalFavorites", 0).ToInt64(),
+            TotalDestinations = lifetimeCounts.TotalDestinations,
+            TotalViews = lifetimeCounts.TotalViews,
+            TotalInteractions = lifetimeCounts.TotalInteractions,
+            TotalFavorites = lifetimeCounts.TotalFavorites,
             DestinationDetails = bsonResult.GetValue("DestinationDetails", new BsonArray())
                 .AsBsonArray
                 .Select(item =>
                 {
                     var doc = item.AsBsonDocument;
-                    return new DestinationAnalytics
+                    var analytics = new DestinationAnalytics
                     {
                         Id = doc.GetValue("Id", "").AsString,
                         LocationName = doc.GetValue("LocationName", "").AsString,
@@ -302,6 +501,9 @@ public class TouristDestinationRepository : BaseRepository<TouristDestination>, 
                         InteractionCount = doc.GetValue("InteractionCount", 0).ToInt64(),
                         FavoriteCount = doc.GetValue("FavoriteCount", 0).ToInt64()
                     };
+                    // Log each destination for debugging
+                    Console.WriteLine($"Destination: {analytics.LocationName}, Views: {analytics.ViewCount}, Interactions: {analytics.InteractionCount}, Favorites: {analytics.FavoriteCount}");
+                    return analytics;
                 })
                 .ToList()
         };

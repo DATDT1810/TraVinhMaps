@@ -38,13 +38,13 @@ public interface IUserService
     Task<bool> DeleteUser(string id, CancellationToken cancellationToken = default);
     Task<bool> RestoreUser(string id, CancellationToken cancellationToken = default);
     Task<Pagination<User>> GetUsersAsync(UserSpecParams userSpecParams, CancellationToken cancellationToken = default);
-    //  Task<User> AddAdminAsync(AddAdminRequest request, CancellationToken cancellationToken = default);
     Task<AdminProfileResponse> GetProfileAdmin(string id, CancellationToken cancellationToken = default);
     Task UpdateProfileAdmin(UpdateProfileAdminRequest request, CancellationToken cancellationToken = default);
 
-    // chart
+    // chart statistics
     Task<Dictionary<string, object>> GetUserStatisticsAsync(string groupBy, string timeRange, CancellationToken cancellationToken = default);
-
+    // chart performance
+    Task<Dictionary<string, Dictionary<string, int>>> GetPerformanceByTagAsync(IEnumerable<string>? tagNames, bool includeOcop, bool includeDestination, bool includeLocalSpecialty, bool includeTips, bool includeFestivals, DateTime? startDate, DateTime? endDate, CancellationToken cancellationToken = default);
     Task<UserProfileResponse> GetUserProfile(string id, CancellationToken cancellationToken = default);
 
     Task<List<Favorite>> getFavoriteUserList(CancellationToken cancellationToken = default);

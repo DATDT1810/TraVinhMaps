@@ -112,168 +112,191 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
         return result.IsAcknowledged && result.ModifiedCount > 0;
     }
 
-    // ViewCount: Số lượt xem(từ bảng InteractionLogs)
-
-    // InteractionCount: Số lượng tương tác(từ bảng Interaction)
-
-    // WishlistCount: Số lượt sản phẩm được thêm vào yêu thích(từ bảng User.favorites)
+    // ViewCount: Số lượt xem (từ bảng InteractionLogs)
+    // InteractionCount: Số lượng tương tác (từ bảng Interaction)
+    // FavoriteCount: Số lượt sản phẩm được thêm vào yêu thích (từ bảng User.favorites)
     public async Task<IEnumerable<OcopProductAnalytics>> GetProductAnalyticsAsync(
     string timeRange = "month",
     DateTime? startDate = null,
     DateTime? endDate = null,
     CancellationToken cancellationToken = default)
     {
-        // Get the current UTC time
-        var now = DateTime.UtcNow;
+        // 1) Xác định khoảng thời gian (theo giờ VN UTC+7)
+        var now = DateTime.UtcNow.AddHours(7);
 
-        DateTime filterStartDate;
-        DateTime? filterEndDate = null;
-
-        // Determine the filter range
+        DateTime filterStartDate, filterEndDate;
         if (startDate.HasValue && endDate.HasValue)
         {
-            // Use explicit date range if provided
             filterStartDate = startDate.Value;
             filterEndDate = endDate.Value;
         }
         else
         {
-            // Use relative time range based on the selected timeRange
+            filterEndDate = now;
             filterStartDate = timeRange.ToLower() switch
             {
-                "day" => now.AddDays(-1),
-                "week" => now.AddDays(-7),
-                "month" => new DateTime(now.Year, now.Month, 1),
-                "year" => new DateTime(now.Year, 1, 1),
-                _ => new DateTime(now.Year, now.Month, 1)
+                "day" => filterEndDate.AddDays(-1),
+                "week" => filterEndDate.AddDays(-7),
+                "month" => new DateTime(filterEndDate.Year, filterEndDate.Month, 1),
+                "year" => new DateTime(filterEndDate.Year, 1, 1),
+                _ => new DateTime(filterEndDate.Year, filterEndDate.Month, 1)
             };
         }
 
-        // Convert C# DateTime to BsonValue for MongoDB usage
-        var bsonStartDate = BsonValue.Create(filterStartDate);
-        var bsonEndDate = filterEndDate.HasValue ? BsonValue.Create(filterEndDate.Value) : null;
+        var bsonStartDate = new BsonDateTime(filterStartDate);
+        var bsonEndDate = new BsonDateTime(filterEndDate);
 
-        // Filter conditions for Interaction collection
+        // 2) Điều kiện cho Interaction & InteractionLogs
         var interactionCond = new BsonArray
     {
-        new BsonDocument("$eq", new BsonArray { "$$interaction.itemType", "Ocop Product" }),
-        new BsonDocument("$gte", new BsonArray { "$$interaction.createdAt", bsonStartDate })
+        new BsonDocument("$eq",  new BsonArray { "$$interaction.itemType", "OcopProduct" }),
+        new BsonDocument("$gte", new BsonArray { "$$interaction.createdAt", bsonStartDate }),
+        new BsonDocument("$lte", new BsonArray { "$$interaction.createdAt", bsonEndDate })
     };
-        if (bsonEndDate != null)
-        {
-            interactionCond.Add(new BsonDocument("$lte", new BsonArray { "$$interaction.createdAt", bsonEndDate }));
-        }
 
-        // Filter conditions for InteractionLogs collection
         var logCond = new BsonArray
     {
-        new BsonDocument("$eq", new BsonArray { "$$log.itemType", "Ocop Product" }),
-        new BsonDocument("$gte", new BsonArray { "$$log.createdAt", bsonStartDate })
+        new BsonDocument("$eq",  new BsonArray { "$$log.itemType", "OcopProduct" }),
+        new BsonDocument("$gte", new BsonArray { "$$log.createdAt", bsonStartDate }),
+        new BsonDocument("$lte", new BsonArray { "$$log.createdAt", bsonEndDate })
     };
-        if (bsonEndDate != null)
-        {
-            logCond.Add(new BsonDocument("$lte", new BsonArray { "$$log.createdAt", bsonEndDate }));
-        }
 
-        // MongoDB aggregation pipeline to gather analytics
+        // 3) Pipeline
         var pipeline = new List<BsonDocument>
+    {
+        // --- Match sản phẩm còn hoạt động ---
+        new BsonDocument("$match", new BsonDocument("status", true)),
+
+        // --- Chỉ lấy trường cần thiết ---
+        new BsonDocument("$project", new BsonDocument { { "_id", 1 }, { "productName", 1 } }),
+
+        // --- Interactions ---
+        new BsonDocument("$lookup", new BsonDocument
         {
-            new("$match", new BsonDocument("status", true)),
-            new("$project", new BsonDocument
+            { "from", "Interaction" },
+            { "localField", "_id" },
+            { "foreignField", "itemId" },
+            { "as", "interactionsMed" }
+        }),
+        new BsonDocument("$addFields", new BsonDocument("interactions",
+            new BsonDocument("$filter", new BsonDocument
             {
-                { "_id", 1 },
-                { "productName", 1 }
-            }),
-            new("$lookup", new BsonDocument
-            {
-                { "from", "Interaction" },
-                { "localField", "_id" },
-                { "foreignField", "itemId" },
-                { "as", "interactionsMed" }
-            }),
-            new("$addFields", new BsonDocument("interactions",
-                new BsonDocument("$filter", new BsonDocument
-                {
-                    { "input", "$interactionsMed" },
-                    { "as", "interaction" },
-                    { "cond", new BsonDocument("$and", interactionCond) }
-                })
-            )),
-            new("$lookup", new BsonDocument
-            {
-                { "from", "InteractionLogs" },
-                { "localField", "_id" },
-                { "foreignField", "itemId" },
-                { "as", "interactionLogsMed" }
-            }),
-            new("$addFields", new BsonDocument("interactionLogs",
-                new BsonDocument("$filter", new BsonDocument
-                {
-                    { "input", "$interactionLogsMed" },
-                    { "as", "log" },
-                    { "cond", new BsonDocument("$and", logCond) }
-                })
-            )),
-            new("$lookup", new BsonDocument
-            {
-                { "from", "User" },
-                { "localField", "_id" },
-                { "foreignField", "favorites.itemId" },
-                { "as", "users" }
-            }),
-            new("$project", new BsonDocument
-            {
-                { "Id", new BsonDocument("$toString", "$_id") },
-                { "ProductName", "$productName" },
-                { "ViewCount", new BsonDocument("$size", "$interactionLogs") },
-                { "InteractionCount", new BsonDocument("$sum", "$interactions.totalCount") },
-                { "WishlistCount", new BsonDocument("$size",
-                    new BsonDocument("$reduce",
-                        new BsonDocument
-                        {
-                            { "input", "$users" },
-                            { "initialValue", new BsonArray() },
-                            { "in", new BsonDocument("$concatArrays",
-                                new BsonArray
-                                {
-                                    "$$value",
-                                    new BsonDocument("$filter",
-                                        new BsonDocument
-                                        {
-                                            { "input", "$$this.favorites" },
-                                            { "as", "fav" },
-                                            { "cond", new BsonDocument("$eq",
-                                                new BsonArray { "$$fav.itemId", "$_id" })
-                                            }
-                                        }
-                                    )
-                                }
-                            )}
-                        }
-                    )
-                )}
+                { "input", "$interactionsMed" },
+                { "as",   "interaction" },
+                { "cond", new BsonDocument("$and", interactionCond) }
             })
-        };
+        )),
 
-        // Execute pipeline and retrieve results
-        var rawAnalytics = await _collection.Aggregate<BsonDocument>(pipeline, null, cancellationToken).ToListAsync();
+        // --- InteractionLogs ---
+        new BsonDocument("$lookup", new BsonDocument
+        {
+            { "from", "InteractionLogs" },
+            { "localField", "_id" },
+            { "foreignField", "itemId" },
+            { "as", "interactionLogsMed" }
+        }),
+        new BsonDocument("$addFields", new BsonDocument("interactionLogs",
+            new BsonDocument("$filter", new BsonDocument
+            {
+                { "input", "$interactionLogsMed" },
+                { "as",   "log" },
+                { "cond", new BsonDocument("$and", logCond) }
+            })
+        )),
 
-        // Map raw Bson results to strongly-typed DTOs
-        return rawAnalytics.Select(b => new OcopProductAnalytics
+        // --- Favorite đếm theo khoảng ngày ---
+        new BsonDocument("$lookup", new BsonDocument
+        {
+            { "from", "User" },
+            { "let",  new BsonDocument("productId", "$_id") },
+            { "pipeline", new BsonArray
+                {
+                    // user có chứa productId trong favorites
+                    new BsonDocument("$match", new BsonDocument
+                    {
+                        { "favorites", new BsonDocument("$ne", BsonNull.Value) },
+                        { "$expr", new BsonDocument("$in", new BsonArray { "$$productId", "$favorites.itemId" }) }
+                    }),
+                    // bung mảng
+                    new BsonDocument("$unwind", new BsonDocument
+                    {
+                        { "path", "$favorites" },
+                        { "preserveNullAndEmptyArrays", false }
+                    }),
+                    // lọc chính xác item + timeRange
+                    new BsonDocument("$match", new BsonDocument("$expr", new BsonDocument("$and", new BsonArray
+                    {
+                        new BsonDocument("$eq",  new BsonArray { "$favorites.itemId",  "$$productId" }),
+                        new BsonDocument("$eq",  new BsonArray { "$favorites.itemType", "OcopProduct" }),
+                        new BsonDocument("$gte", new BsonArray { "$favorites.updateAt", bsonStartDate }),
+                        new BsonDocument("$lte", new BsonArray { "$favorites.updateAt", bsonEndDate }),
+                        new BsonDocument("$ne",  new BsonArray { "$favorites.updateAt", BsonNull.Value })
+                    }))),
+                    // khử trùng lặp 1 user – 1 sản phẩm
+                    new BsonDocument("$group", new BsonDocument
+                    {
+                        { "_id", new BsonDocument
+                            {
+                                { "userId", "$_id" },
+                                { "itemId", "$favorites.itemId" }
+                            }
+                        }
+                    }),
+                    // đếm
+                    new BsonDocument("$group", new BsonDocument
+                    {
+                        { "_id",   BsonNull.Value },
+                        { "count", new BsonDocument("$sum", 1) }
+                    })
+                }
+            },
+            { "as", "favoriteUsers" }
+        }),
+
+        // --- FavoriteCount ---
+        new BsonDocument("$addFields", new BsonDocument("FavoriteCount",
+            new BsonDocument("$cond", new BsonDocument
+            {
+                { "if",   new BsonDocument("$gt", new BsonArray { new BsonDocument("$size", "$favoriteUsers"), 0 }) },
+                { "then", new BsonDocument("$arrayElemAt", new BsonArray { "$favoriteUsers.count", 0 }) },
+                { "else", 0 }
+            })
+        )),
+
+        // --- Chuẩn hoá Id string ---
+        new BsonDocument("$addFields", new BsonDocument("Id",
+            new BsonDocument("$toString", "$_id"))),
+
+        // --- Project kết quả ---
+        new BsonDocument("$project", new BsonDocument
+        {
+            { "Id",              1 },
+            { "ProductName",     "$productName" },
+            { "ViewCount",       new BsonDocument("$size", "$interactionLogs") },
+            { "InteractionCount",new BsonDocument("$sum", "$interactions.totalCount") },
+            { "FavoriteCount",   1 }
+        })
+    };
+
+        // 4) Thực thi và map ra DTO
+        var raw = await _collection.Aggregate<BsonDocument>(pipeline)
+                                   .ToListAsync(cancellationToken);
+
+        return raw.Select(b => new OcopProductAnalytics
         {
             Id = b.GetValue("Id", "").AsString,
             ProductName = b.GetValue("ProductName", "").AsString,
             ViewCount = b.GetValue("ViewCount", 0).ToInt64(),
             InteractionCount = b.GetValue("InteractionCount", 0).ToInt64(),
-            WishlistCount = b.GetValue("WishlistCount", 0).ToInt64()
+            FavoriteCount = b.GetValue("FavoriteCount", 0).ToInt64()
         });
     }
 
     public async Task<IEnumerable<OcopProductUserDemographics>> GetUserDemographicsAsync(
-    string timeRange = "month",
-    DateTime? startDate = null,
-    DateTime? endDate = null,
-    CancellationToken cancellationToken = default)
+        string timeRange = "month",
+        DateTime? startDate = null,
+        DateTime? endDate = null,
+        CancellationToken cancellationToken = default)
     {
         var now = DateTime.UtcNow;
 
@@ -302,21 +325,21 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
         var bsonEndDate = BsonValue.Create(filterEndDate.Value);
 
         var interactionCond = new BsonArray
-        {
-            new BsonDocument("$eq", new BsonArray { "$$interaction.itemType", "Ocop Product" }),
-            new BsonDocument("$gte", new BsonArray { "$$interaction.createdAt", bsonStartDate }),
-            new BsonDocument("$lte", new BsonArray { "$$interaction.createdAt", bsonEndDate })
-        };
+    {
+        new BsonDocument("$eq", new BsonArray { "$$interaction.itemType", "OcopProduct" }),
+        new BsonDocument("$gte", new BsonArray { "$$interaction.createdAt", bsonStartDate }),
+        new BsonDocument("$lte", new BsonArray { "$$interaction.createdAt", bsonEndDate })
+    };
 
-            var logCond = new BsonArray
-        {
-            new BsonDocument("$eq", new BsonArray { "$$log.itemType", "Ocop Product" }),
-            new BsonDocument("$gte", new BsonArray { "$$log.createdAt", bsonStartDate }),
-            new BsonDocument("$lte", new BsonArray { "$$log.createdAt", bsonEndDate })
-        };
+        var logCond = new BsonArray
+    {
+        new BsonDocument("$eq", new BsonArray { "$$log.itemType", "OcopProduct" }),
+        new BsonDocument("$gte", new BsonArray { "$$log.createdAt", bsonStartDate }),
+        new BsonDocument("$lte", new BsonArray { "$$log.createdAt", bsonEndDate })
+    };
 
-            var pipeline = new List<BsonDocument>
-        {
+        var pipeline = new List<BsonDocument>
+    {
         // Step 1: Match active products
         new BsonDocument("$match", new BsonDocument("status", true)),
 
@@ -393,13 +416,13 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
             { "as", "logUsers" }
         }),
 
-        // Step 9: Lookup users for wishlist
+        // Step 9: Lookup users for favorites
         new BsonDocument("$lookup", new BsonDocument
         {
             { "from", "User" },
             { "localField", "_id" },
             { "foreignField", "favorites.itemId" },
-            { "as", "wishlistUsers" }
+            { "as", "favoriteUsers" }
         }),
 
         // Step 10: Combine all users
@@ -409,7 +432,7 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
             {
                 new BsonDocument("$ifNull", new BsonArray { "$interactionUsers", new BsonArray() }),
                 new BsonDocument("$ifNull", new BsonArray { "$logUsers", new BsonArray() }),
-                new BsonDocument("$ifNull", new BsonArray { "$wishlistUsers", new BsonArray() })
+                new BsonDocument("$ifNull", new BsonArray { "$favoriteUsers", new BsonArray() })
             })
             }
         }),
@@ -421,7 +444,7 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
             {
                 { "interactionsCount", new BsonDocument("$size", "$interactions") },
                 { "interactionLogsCount", new BsonDocument("$size", "$interactionLogs") },
-                { "wishlistUsersCount", new BsonDocument("$size", "$wishlistUsers") },
+                { "favoriteUsersCount", new BsonDocument("$size", "$favoriteUsers") },
                 { "allUsersCount", new BsonDocument("$size", "$allUsers") }
             }
             }
@@ -536,16 +559,16 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
             { "userCount", new BsonDocument("$sum", 1) }
         }),
 
-            // Step 16: Final projection
-            new BsonDocument("$project", new BsonDocument
-            {
-                { "Id", new BsonDocument("$toString", "$_id.productId") },
-                { "ProductName", "$_id.productName" },
-                { "AgeGroup", "$_id.ageGroup" },
-                { "Hometown", "$_id.hometown" },
-                { "UserCount", "$userCount" }
-            })
-        };
+        // Step 16: Final projection
+        new BsonDocument("$project", new BsonDocument
+        {
+            { "Id", new BsonDocument("$toString", "$_id.productId") },
+            { "ProductName", "$_id.productName" },
+            { "AgeGroup", "$_id.ageGroup" },
+            { "Hometown", "$_id.hometown" },
+            { "UserCount", "$userCount" }
+        })
+    };
 
         try
         {
@@ -554,7 +577,7 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
             Console.WriteLine($"Debug - Products after step 11: {debugResult.Count}");
             foreach (var doc in debugResult)
             {
-                Console.WriteLine($"Product: {doc["_id"]}, Interactions: {doc["debug"]["interactionsCount"]}, Logs: {doc["debug"]["interactionLogsCount"]}, Wishlist: {doc["debug"]["wishlistUsersCount"]}, AllUsers: {doc["debug"]["allUsersCount"]}");
+                Console.WriteLine($"Product: {doc["_id"]}, Interactions: {doc["debug"]["interactionsCount"]}, Logs: {doc["debug"]["interactionLogsCount"]}, Favorites: {doc["debug"]["favoriteUsersCount"]}, AllUsers: {doc["debug"]["allUsersCount"]}");
             }
 
             var rawAnalytics = await _collection.Aggregate<BsonDocument>(pipeline, null, cancellationToken).ToListAsync();
@@ -593,14 +616,14 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
     {
         var analytics = await GetProductAnalyticsAsync(timeRange, startDate, endDate, cancellationToken);
         // sort desc by WishlistCount, get top
-        return analytics.OrderByDescending(p => p.WishlistCount)
+        return analytics.OrderByDescending(p => p.FavoriteCount)
             .ThenByDescending(p => p.ViewCount)
             .ThenBy(p => p.ProductName)
             .Take(top)
             .ToList();
     }
 
-    public async Task<IEnumerable<OcopProductAnalytics>> CompareProductsAsync(IEnumerable<string> productIds, string timeRange = "month", DateTime? startDate = null, DateTime? endDate = null, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<OcopProductAnalytics>> CompareProductsAsync(IEnumerable<string> productIds, string timeRange = "lifetime", DateTime? startDate = null, DateTime? endDate = null, CancellationToken cancellationToken = default)
     {
         var analytics = await GetProductAnalyticsAsync(timeRange, startDate, endDate, cancellationToken);
         // Retrieve only the list of products to compare, preserving the input order.

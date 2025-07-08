@@ -6,12 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DnsClient;
+using System.Xml.Linq;
 using MongoDB.Driver;
 using TraVinhMaps.Application.Features.Review.Models;
 using TraVinhMaps.Application.Repositories;
 using TraVinhMaps.Domain.Entities;
 using TraVinhMaps.Infrastructure.CustomRepositories;
 using TraVinhMaps.Infrastructure.Db;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TraVinhMaps.Infrastructure.Repositories;
 public class ReviewRepository : BaseRepository<Review>, IReviewRepository
@@ -116,5 +119,22 @@ public class ReviewRepository : BaseRepository<Review>, IReviewRepository
         };
 
         return response;
+    }
+
+    public async Task<IEnumerable<ReviewResponse>> GetLatestReviewsAsync(int count = 5, CancellationToken cancellationToken = default)
+    {
+        var reviews = await _collection.Find(Builders<Review>.Filter.Empty).SortByDescending(r => r.CreatedAt).Limit(count).ToListAsync(cancellationToken);
+        var responses = reviews.Select(r => new ReviewResponse
+        {
+            Id = r.Id,
+            Rating = r.Rating,
+            Images = r.Images,
+            Comment = r.Comment,
+            UserId = r.UserId,
+            DestinationId = r.DestinationId,
+            CreatedAt = r.CreatedAt,
+            Reply = r.Reply
+        });
+        return responses;
     }
 }
