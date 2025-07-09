@@ -4,6 +4,8 @@
 using Microsoft.AspNetCore.Mvc;
 using TraVinhMaps.Api.Extensions;
 using TraVinhMaps.Application.Common.Exceptions;
+using TraVinhMaps.Application.Features.Destination;
+using TraVinhMaps.Application.Features.Destination.Interface;
 using TraVinhMaps.Application.Features.ItineraryPlan.Interface;
 using TraVinhMaps.Application.Features.ItineraryPlan.Mappers;
 using TraVinhMaps.Application.Features.ItineraryPlan.Models;
@@ -15,10 +17,12 @@ namespace TraVinhMaps.Api.Controllers;
 public class ItineraryPlanController : ControllerBase
 {
     private readonly IItineraryPlanService _itineraryPlanService;
+    private readonly ITouristDestinationService _touristDestinationService;
 
-    public ItineraryPlanController(IItineraryPlanService itineraryPlanService)
+    public ItineraryPlanController(IItineraryPlanService itineraryPlanService, ITouristDestinationService touristDestinationService)
     {
         _itineraryPlanService = itineraryPlanService;
+        _touristDestinationService = touristDestinationService;
     }
 
     [HttpGet]
@@ -117,5 +121,39 @@ public class ItineraryPlanController : ControllerBase
         await this._itineraryPlanService.UpdateAsync(itineraryPlan);
         //return NoContent();
         return this.ApiOk("Itinerary plan restor successfully");
+    }
+
+    [HttpGet]
+    [Route("GetAllItineraryPlanWithDestination")]
+    public async Task<IActionResult> GetAllItineraryPlanWithDestination()
+    {
+        var listItineraryPlan = await this._itineraryPlanService.ListAsync(p => p.Status == true);
+        var listDestination = await this._touristDestinationService.GetDestinationsByIds(listItineraryPlan.FirstOrDefault().Locations);
+        if (listItineraryPlan == null || !listItineraryPlan.Any())
+            return Ok(new List<ItineraryPlanResponse>());
+        // Tổng hợp toàn bộ location IDs từ các itinerary
+        var allLocationIds = listItineraryPlan
+            .Where(x => x.Locations != null)
+            .SelectMany(x => x.Locations!)
+            .Distinct()
+            .ToList();
+
+        // get all destination by id list
+        var allDestinations = await _touristDestinationService.GetDestinationsByIds(allLocationIds);
+
+        // Create result list
+        var result = listItineraryPlan.Select(plan => new ItineraryPlanResponse
+        {
+            Id = plan.Id,
+            Name = plan.Name,
+            Duration = plan.Duration,
+            EstimatedCost = plan.EstimatedCost,
+            Locations = plan.Locations,
+            touristDestinations = allDestinations
+                .Where(d => plan.Locations != null && plan.Locations.Contains(d.Id))
+                .ToList()
+        }).ToList();
+
+        return this.ApiOk(result);
     }
 }
