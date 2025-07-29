@@ -7600,5 +7600,29 @@
   },
   "vi:bảo tàng văn hóa dân tộc khmer": {
     "en": "Bảo tàng văn hóa dân tộc của người Khmer"
+  },
+  "en:7 days ago": {
+    "vi": "7 ngày trước"
+  },
+  "vi:7 ngày trước": {
+    "en": "7 days ago"
+  },
+  "en:21 days ago": {
+    "vi": "21 ngày trước"
+  },
+  "vi:21 ngày trước": {
+    "en": "21 days ago"
+  },
+  "en:sql in 30 days": {
+    "vi": "SQL trong 30 ngày"
+  },
+  "vi:sql trong 30 ngày": {
+    "en": "SQL in 30 days"
+  },
+  "en:343.3333333333 ,\u00A0 343.3333333333": {
+    "vi": "343.3333333333 , 343.3333333333"
+  },
+  "vi:343.3333333333 , 343.3333333333": {
+    "en": "343.3333333333 ,\u00A0 343.3333333333"
   }
 }
