@@ -422,12 +422,6 @@
   "vi:biểu tượng logo": {
     "en": "logo-icon"
   },
-  "en:search": {
-    "vi": "Tìm kiếm"
-  },
-  "vi:tìm kiếm": {
-    "en": "Find"
-  },
   "en:close": {
     "vi": "Đóng"
   },
@@ -770,12 +764,6 @@
   "vi:mô tả": {
     "en": "Description"
   },
-  "en:edit ocop product": {
-    "vi": "Chỉnh sửa sản phẩm Ocop"
-  },
-  "vi:chỉnh sửa sản phẩm ocop": {
-    "en": "Edit Ocop Product"
-  },
   "en:store of sell": {
     "vi": "Cửa hàng bán"
   },
@@ -804,7 +792,7 @@
     "vi": "Không có liên kết bán hàng."
   },
   "vi:không có liên kết bán hàng.": {
-    "en": "No Selling Link."
+    "en": "No selling links available."
   },
   "en:add new location": {
     "vi": "Thêm địa điểm mới"
@@ -1851,7 +1839,7 @@
     "vi": "Đánh giá trung bình"
   },
   "vi:đánh giá trung bình": {
-    "en": "Avarage Rating"
+    "en": "Average Rating"
   },
   "en:favorite": {
     "vi": "Yêu thích"
@@ -2151,7 +2139,7 @@
     "vi": "Địa điểm công ty"
   },
   "vi:địa điểm công ty": {
-    "en": "Company Locations"
+    "en": "Company Location"
   },
   "en:type": {
     "vi": "Loại"
@@ -2626,9 +2614,6 @@
   },
   "vi:tất cả đánh giá": {
     "en": "All Ratings"
-  },
-  "en:find": {
-    "vi": "Tìm kiếm"
   },
   "en:user name": {
     "vi": "Tên người dùng"
@@ -3966,7 +3951,7 @@
     "vi": "Tạo Đặc sản Địa phương"
   },
   "vi:tạo đặc sản địa phương": {
-    "en": "Create Local                                                 Specialty"
+    "en": "Create Local Specialties"
   },
   "en:upload local specialty images": {
     "vi": "Tải ảnh đặc sản địa phương lên"
@@ -4011,7 +3996,7 @@
     "vi": "Tạo mẹo"
   },
   "vi:tạo mẹo": {
-    "en": "Create Tip"
+    "en": "Create Tips"
   },
   "en:-- select a tag --": {
     "vi": "Chọn thẻ"
@@ -5445,9 +5430,9 @@
     "en": "9.9158303 ,\u00A0 106.3022627"
   },
   "en:free ticket": {
-    "vi": "vé miễn phí"
+    "vi": "Vé miễn phí"
   },
-  "vi:vé miễn phí": {
+  "vi:Vé miễn phí": {
     "en": "free ticket"
   },
   "en:thanh duong giao xu mac bac": {
@@ -7302,7 +7287,7 @@
     "vi": "Để đến được Ao Bà Om, các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. Nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội Ok Om Bok nhé."
   },
   "vi:để đến được ao bà om, các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội ok om bok nhé.": {
-    "en": "<p>Để đến được Ao Bà Om, các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. Nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội Ok Om Bok nhé.</p>"
+    "en": "<p>Để đến được <strong>Ao Bà Om</strong>, các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. Nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội Ok Om Bok nhé.</p>"
   },
   "en:để đến được , các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội ok om bok nhé.": {
     "vi": "Để đến được, bạn có thể di chuyển bằng xe du lịch, hoặc đi xe máy trên một con đường dài thẳng tắp được làm mát bởi cây xanh xung quanh. Nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội Ok Om Bok."
@@ -7601,6 +7586,30 @@
   "vi:bảo tàng văn hóa dân tộc khmer": {
     "en": "Bảo tàng văn hóa dân tộc của người Khmer"
   },
+  "en:6 days ago": {
+    "vi": "6 ngày trước"
+  },
+  "vi:6 ngày trước": {
+    "en": "6 days ago"
+  },
+  "en:user banned successfully": {
+    "vi": "Chặn người dùng thành công"
+  },
+  "vi:chặn người dùng thành công": {
+    "en": "User banned successfully"
+  },
+  "en:admin banned successfully": {
+    "vi": "Admin đã cấm thành công"
+  },
+  "vi:admin đã cấm thành công": {
+    "en": "Admin banned successfully"
+  },
+  "en:admin restored successfully": {
+    "vi": "Quản trị viên đã khôi phục thành công"
+  },
+  "vi:quản trị viên đã khôi phục thành công": {
+    "en": "Admin restored successfully"
+  },
   "en:7 days ago": {
     "vi": "7 ngày trước"
   },
@@ -7613,6 +7622,225 @@
   "vi:21 ngày trước": {
     "en": "21 days ago"
   },
+  "en:a delicious specialty from tra vinh": {
+    "vi": "Một đặc sản ngon từ Trà Vinh"
+  },
+  "vi:một đặc sản ngon từ trà vinh": {
+    "en": "A delicious specialty from Tra Vinh"
+  },
+  "en:updated at:": {
+    "vi": "Cập nhật lúc:"
+  },
+  "vi:cập nhật lúc:": {
+    "en": "Updated At:"
+  },
+  "en:locations where you can find bánh bao vĩnh kim": {
+    "vi": "Các địa điểm bạn có thể tìm thấy Bánh Bao Vĩnh Kim"
+  },
+  "vi:các địa điểm bạn có thể tìm thấy bánh bao vĩnh kim": {
+    "en": "Locations where you can find Bánh Bao Vĩnh Kim"
+  },
+  "en:locations": {
+    "vi": "Địa điểm"
+  },
+  "vi:địa điểm": {
+    "en": "Locations"
+  },
+  "en:create tips": {
+    "vi": "Tạo Mẹo"
+  },
+  "en:create local specialties": {
+    "vi": "Tạo Đặc sản địa phương"
+  },
+  "en:showing 1 to 10 of 108 entries": {
+    "vi": "Hiển thị 1 đến 10 trong số 108 mục"
+  },
+  "vi:hiển thị 1 đến 10 trong số 108 mục": {
+    "en": "Showing 1 to 10 of 108 entries"
+  },
+  "en:average rating": {
+    "vi": "Đánh giá trung bình"
+  },
+  "en:ticket price:": {
+    "vi": "Giá vé:"
+  },
+  "vi:giá vé:": {
+    "en": "Ticket Price:"
+  },
+  "en:now": {
+    "vi": "Hiện tại"
+  },
+  "vi:hiện tại": {
+    "en": "Now"
+  },
+  "en:am": {
+    "vi": "Sáng"
+  },
+  "vi:sáng": {
+    "en": "AM"
+  },
+  "en:pm": {
+    "vi": "Chiều"
+  },
+  "vi:chiều": {
+    "en": "PM"
+  },
+  "en:currently closed": {
+    "vi": "Hiện đang đóng cửa"
+  },
+  "vi:hiện đang đóng cửa": {
+    "en": "Currently closed"
+  },
+  "en:total duration": {
+    "vi": "Tổng thời gian"
+  },
+  "vi:tổng thời gian": {
+    "en": "Total Duration"
+  },
+  "en:12 hours/day": {
+    "vi": "12 giờ/ngày"
+  },
+  "vi:12 giờ/ngày": {
+    "en": "12 hours/day"
+  },
+  "en:map": {
+    "vi": "Bản đồ"
+  },
+  "vi:bản đồ": {
+    "en": "Map"
+  },
+  "en:high-quality ocop product from the mekong delta": {
+    "vi": "Sản phẩm OCOP chất lượng cao từ Đồng bằng sông Cửu Long"
+  },
+  "vi:sản phẩm ocop chất lượng cao từ đồng bằng sông cửu long": {
+    "en": "High-quality OCOP product from the Mekong Delta"
+  },
+  "en:ocop rating:": {
+    "vi": "Đánh giá OCOP:"
+  },
+  "vi:đánh giá ocop:": {
+    "en": "OCOP Rating:"
+  },
+  "en:year of recognition:": {
+    "vi": "Năm công nhận:"
+  },
+  "vi:năm công nhận:": {
+    "en": "Year of Recognition:"
+  },
+  "en:status:": {
+    "vi": "Tình trạng:"
+  },
+  "vi:tình trạng:": {
+    "en": "Status:"
+  },
+  "en:● active": {
+    "vi": "● Hoạt động"
+  },
+  "vi:● hoạt động": {
+    "en": "● Active"
+  },
+  "en:selling points of the product": {
+    "vi": "Điểm nổi bật của sản phẩm"
+  },
+  "vi:điểm nổi bật của sản phẩm": {
+    "en": "Selling Points of the Product"
+  },
+  "en:selling points": {
+    "vi": "Điểm nổi bật"
+  },
+  "vi:điểm nổi bật": {
+    "en": "Selling Points"
+  },
+  "en:store of selling link": {
+    "vi": "Liên kết bán hàng"
+  },
+  "vi:liên kết bán hàng": {
+    "en": "Store of selling link"
+  },
+  "en:add new link": {
+    "vi": "Thêm liên kết mới"
+  },
+  "vi:thêm liên kết mới": {
+    "en": "Add New Link"
+  },
+  "en:no selling links available.": {
+    "vi": "Không có liên kết bán hàng."
+  },
+  "en:add new selling link": {
+    "vi": "Thêm liên kết bán hàng mới"
+  },
+  "vi:thêm liên kết bán hàng mới": {
+    "en": "Add New Selling Link"
+  },
+  "en:save link": {
+    "vi": "Lưu liên kết"
+  },
+  "vi:lưu liên kết": {
+    "en": "Save Link"
+  },
+  "en:professional manufacturing and trading company": {
+    "vi": "Công ty sản xuất và kinh doanh chuyên nghiệp"
+  },
+  "vi:công ty sản xuất và kinh doanh chuyên nghiệp": {
+    "en": "Professional manufacturing and trading company"
+  },
+  "en:update soon": {
+    "vi": "Sẽ cập nhật sớm"
+  },
+  "vi:sẽ cập nhật sớm": {
+    "en": "Update soon"
+  },
+  "en:company location": {
+    "vi": "Địa điểm công ty"
+  },
+  "en:company update form": {
+    "vi": "Mẫu cập nhật công ty"
+  },
+  "vi:mẫu cập nhật công ty": {
+    "en": "Company Update form"
+  },
+  "en:basic information": {
+    "vi": "Thông tin cơ bản"
+  },
+  "vi:thông tin cơ bản": {
+    "en": "Basic Information"
+  },
+  "en:address & location": {
+    "vi": "Địa chỉ & Vị trí"
+  },
+  "vi:địa chỉ & vị trí": {
+    "en": "Address & Location"
+  },
+  "en:start typing an address...": {
+    "vi": "Bắt đầu nhập địa chỉ..."
+  },
+  "vi:bắt đầu nhập địa chỉ...": {
+    "en": "Start typing an address..."
+  },
+  "en:no.: activate to sort column ascending": {
+    "vi": "Số: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "vi:số: kích hoạt để sắp xếp cột tăng dần": {
+    "en": "No.: activate to sort column ascending"
+  },
+  "en:user name: activate to sort column descending": {
+    "vi": "Tên người dùng: kích hoạt để sắp xếp cột giảm dần"
+  },
+  "vi:tên người dùng: kích hoạt để sắp xếp cột giảm dần": {
+    "en": "User Name: activate to sort column descending"
+  },
+  "en:created at: activate to sort column descending": {
+    "vi": "Thời gian tạo: nhấn để sắp xếp cột giảm dần"
+  },
+  "vi:thời gian tạo: nhấn để sắp xếp cột giảm dần": {
+    "en": "Created At: activate to sort column descending"
+  },
+  "en:destination: activate to sort column descending": {
+    "vi": "Điểm đến: kích hoạt để sắp xếp cột giảm dần"
+  },
+  "vi:điểm đến: kích hoạt để sắp xếp cột giảm dần": {
+    "en": "Destination: activate to sort column descending"
+  },
   "en:sql in 30 days": {
     "vi": "SQL trong 30 ngày"
   },
@@ -7624,5 +7852,518 @@
   },
   "vi:343.3333333333 , 343.3333333333": {
     "en": "343.3333333333 ,\u00A0 343.3333333333"
+  },
+  "en:duongtandat1810@gmail.com": {
+    "vi": "duongtandat1810@ gmail. com"
+  },
+  "vi:duongtandat1810@ gmail. com": {
+    "en": "duongtandat1810@gmail.com"
+  },
+  "en:22:38": {
+    "vi": "22: 38"
+  },
+  "vi:22: 38": {
+    "en": "22:38"
+  },
+  "en:7:00": {
+    "vi": "7: 00"
+  },
+  "vi:7: 00": {
+    "en": "7:00"
+  },
+  "en:aobaom@gmail.com": {
+    "vi": "aobaom@ gmail. com"
+  },
+  "vi:aobaom@ gmail. com": {
+    "en": "aobaom@gmail.com"
+  },
+  "en:https://vi.wikipedia.org": {
+    "vi": "https:// vi. wikipedia. org"
+  },
+  "vi:https:// vi. wikipedia. org": {
+    "en": "https://vi.wikipedia.org"
+  },
+  "en:© 1987–2025 here": {
+    "vi": "© 1987– 2025 HERE"
+  },
+  "vi:© 1987– 2025 here": {
+    "en": "© 1987–2025 HERE"
+  },
+  "en:ao bà om (ao vuông)": {
+    "vi": "Ao Bà Om ( ao Vuông)"
+  },
+  "vi:ao bà om ( ao vuông)": {
+    "en": "Ao Bà Om (ao Vuông)"
+  },
+  "en:69.000₫": {
+    "vi": "69. 000₫"
+  },
+  "vi:69. 000₫": {
+    "en": "69.000₫"
+  },
+  "en:cacao mass hay còn gọi là nhân cacao là sản phẩm được tạo ra từ quá trình nghiền mịn hạt cacao đã được rang. đây là nguyên liệu thô quan trọng để sản xuất ra nhiều sản phẩm từ cacao khác như bột cacao, bơ cacao, sô cô la...": {
+    "vi": "Cacao Mass hay còn gọi là nhân cacao là sản phẩm được tạo ra từ quá trình nghiền mịn hạt cacao đã được rang. Đây là nguyên liệu thô quan trọng để sản xuất ra nhiều sản phẩm từ cacao khác như bột cacao, bơ cacao, sô cô la.. ."
+  },
+  "vi:cacao mass hay còn gọi là nhân cacao là sản phẩm được tạo ra từ quá trình nghiền mịn hạt cacao đã được rang. đây là nguyên liệu thô quan trọng để sản xuất ra nhiều sản phẩm từ cacao khác như bột cacao, bơ cacao, sô cô la.. .": {
+    "en": "Cacao Mass hay còn gọi là nhân cacao là sản phẩm được tạo ra từ quá trình nghiền mịn hạt cacao đã được rang. Đây là nguyên liệu thô quan trọng để sản xuất ra nhiều sản phẩm từ cacao khác như bột cacao, bơ cacao, sô cô la..."
+  },
+  "en:no updates yet": {
+    "vi": "Chưa có cập nhật nào"
+  },
+  "vi:chưa có cập nhật nào": {
+    "en": "No updates yet"
+  },
+  "en:edit ocop product": {
+    "vi": "Chỉnh sửa sản phẩm OCOP"
+  },
+  "vi:chỉnh sửa sản phẩm ocop": {
+    "en": "Edit OCOP Product"
+  },
+  "en:add selling point": {
+    "vi": "Thêm điểm bán hàng"
+  },
+  "vi:thêm điểm bán hàng": {
+    "en": "Add Selling Point"
+  },
+  "en:search": {
+    "vi": "Tìm kiếm"
+  },
+  "vi:tìm kiếm": {
+    "en": "Search"
+  },
+  "en:66.000₫": {
+    "vi": "66.000₫"
+  },
+  "vi:66.000₫₫": {
+    "en": "66.000₫"
+  },
+  "en:kẹo dừa sáp vicosap nguyên chất với công thức đặc biệt được phát triển để mang đến hương vị tự nhiên, thơm ngon và tươi mới. sản phẩm được làm từ dừa sáp nguyên chất, kết hợp với quy trình sản xuất tinh tế, giữ trọn vẹn độ béo ngậy tự nhiên của dừa.": {
+    "vi": "Kẹo Dừa Sáp Vicosap Nguyên Chất với công thức đặc biệt được phát triển để mang đến hương vị tự nhiên, thơm ngon và tươi mới. Sản phẩm được làm từ dừa sáp nguyên chất, kết hợp với quy trình sản xuất tinh tế, giữ trọn vẹn độ béo ngậy tự nhiên của dừa.."
+  },
+  "vi:kẹo dừa sáp vicosap nguyên chất với công thức đặc biệt được phát triển để mang đến hương vị tự nhiên, thơm ngon và tươi mới. sản phẩm được làm từ dừa sáp nguyên chất, kết hợp với quy trình sản xuất tinh tế, giữ trọn vẹn độ béo ngậy tự nhiên của dừa..": {
+    "en": "Kẹo Dừa Sáp Vicosap Nguyên Chất với công thức đặc biệt được phát triển để mang đến hương vị tự nhiên, thơm ngon và tươi mới. Sản phẩm được làm từ dừa sáp nguyên chất, kết hợp với quy trình sản xuất tinh tế, giữ trọn vẹn độ béo ngậy tự nhiên của dừa."
+  },
+  "en:366 đ. phan văn trị, phường 5, gò vấp, thành phố hồ chí minh.": {
+    "vi": "366 Đ. Phan Văn Trị, Phường 5, Gò Vấp, Thành phố Hồ Chí Minh.."
+  },
+  "vi:366 đ. phan văn trị, phường 5, gò vấp, thành phố hồ chí minh..": {
+    "en": "366 Đ. Phan Văn Trị, Phường 5, Gò Vấp, Thành phố Hồ Chí Minh."
+  },
+  "en:chùa bà thiên hậu càu quan, q469+cv5, tt. cầu quan, tiểu cần, trà vinh, việt nam": {
+    "vi": "Chùa Bà Thiên Hậu Cầu Quan, Q469+CV5, TT. Cầu Quan, Tiểu Cần, Trà Vinh, Việt Nam"
+  },
+  "vi:chùa bà thiên hậu cầu quan, q469+cv5, tt. cầu quan, tiểu cần, trà vinh, việt nam": {
+    "en": "Chùa Bà Thiên Hậu Càu Quan, Q469+CV5, TT. Cầu Quan, Tiểu Cần, Trà Vinh, Việt Nam"
+  },
+  "en:13 hours/day": {
+    "vi": "13 giờ/ngày"
+  },
+  "vi:13 giờ/ngày": {
+    "en": "13 hours/day"
+  },
+  "en:(thiên hậu cung) tọa lạc tại thị trấn tiểu cần, huyện tiểu cần, trà vinh, được xây dựng hơn 180 năm trước. đây là công trình kiến trúc nghệ thuật đặc sắc của người hoa, mang đậm nét văn hóa phương đông.": {
+    "vi": "((Thiên Hậu Cung) tọa lạc tại thị trấn Tiểu Cần, huyện Tiểu Cần, Trà Vinh, được xây dựng hơn 180 năm trước. Đây là công trình kiến trúc nghệ thuật đặc sắc của người Hoa, mang đậm nét văn hóa phương Đông.."
+  },
+  "vi:((thiên hậu cung) tọa lạc tại thị trấn tiểu cần, huyện tiểu cần, trà vinh, được xây dựng hơn 180 năm trước. đây là công trình kiến trúc nghệ thuật đặc sắc của người hoa, mang đậm nét văn hóa phương đông..": {
+    "en": "(Thiên Hậu Cung) tọa lạc tại thị trấn Tiểu Cần, huyện Tiểu Cần, Trà Vinh, được xây dựng hơn 180 năm trước. Đây là công trình kiến trúc nghệ thuật đặc sắc của người Hoa, mang đậm nét văn hóa phương Đông."
+  },
+  "en:chùa có ba khu chính: tiền điện, trung điện, chính điện, thiết kế theo kiểu “nội công ngoại quốc”. mái chùa trang trí tượng rồng, nhật thần, nguyệt thần, biểu trưng cho sự thịnh vượng. bên trong có nhiều phù điêu, tranh vẽ về các điển tích trung hoa.": {
+    "vi": "Chùa có ba khu chính: tiền điện, trung điện, chính điện, thiết kế theo kiểu “nội công ngoại quốc”. Mái chùa trang trí tượng rồng, nhật thần, nguyệt thần, biểu trưng cho sự thịnh vượng. Bên trong có nhiều phù điêu, tranh vẽ về các điển tích Trung Hoa.."
+  },
+  "vi:chùa có ba khu chính: tiền điện, trung điện, chính điện, thiết kế theo kiểu “nội công ngoại quốc”. mái chùa trang trí tượng rồng, nhật thần, nguyệt thần, biểu trưng cho sự thịnh vượng. bên trong có nhiều phù điêu, tranh vẽ về các điển tích trung hoa..": {
+    "en": "Chùa có ba khu chính: tiền điện, trung điện, chính điện, thiết kế theo kiểu “nội công ngoại quốc”. Mái chùa trang trí tượng rồng, nhật thần, nguyệt thần, biểu trưng cho sự thịnh vượng. Bên trong có nhiều phù điêu, tranh vẽ về các điển tích Trung Hoa."
+  },
+  "en:kiến trúc:": {
+    "vi": "Kiến trúc::"
+  },
+  "vi:kiến trúc::": {
+    "en": "Kiến trúc:"
+  },
+  "en:ngày 22/10/2020, chùa được công nhận là di tích kiến trúc nghệ thuật cấp tỉnh.": {
+    "vi": "Ngày 22/10/2020, chùa được công nhận là di tích kiến trúc nghệ thuật cấp tỉnh.."
+  },
+  "vi:ngày 22/10/2020, chùa được công nhận là di tích kiến trúc nghệ thuật cấp tỉnh..": {
+    "en": "Ngày 22/10/2020, chùa được công nhận là di tích kiến trúc nghệ thuật cấp tỉnh."
+  },
+  "en:25.000₫": {
+    "vi": "25.000₫₫"
+  },
+  "vi:25.000₫₫": {
+    "en": "25.000₫"
+  },
+  "en:96.000₫": {
+    "vi": "96.000₫₫"
+  },
+  "vi:96.000₫₫": {
+    "en": "96.000₫"
+  },
+  "en:75.000₫": {
+    "vi": "75.000₫₫"
+  },
+  "vi:75.000₫₫": {
+    "en": "75.000₫"
+  },
+  "en:300.000₫": {
+    "vi": "300.000₫₫"
+  },
+  "vi:300.000₫₫": {
+    "en": "300.000₫"
+  },
+  "en:80.000₫": {
+    "vi": "80.000₫₫"
+  },
+  "vi:80.000₫₫": {
+    "en": "80.000₫"
+  },
+  "en:dầu dừa nguyên chất phương huỳnh …": {
+    "vi": "Dầu dừa nguyên chất Phương Huỳnh … …"
+  },
+  "vi:dầu dừa nguyên chất phương huỳnh … …": {
+    "en": "Dầu dừa nguyên chất Phương Huỳnh …"
+  },
+  "en:90.000₫": {
+    "vi": "90.000₫₫"
+  },
+  "vi:90.000₫₫": {
+    "en": "90.000₫"
+  },
+  "en:182.000₫": {
+    "vi": "182.000₫₫"
+  },
+  "vi:182.000₫₫": {
+    "en": "182.000₫"
+  },
+  "en:82.000₫": {
+    "vi": "82.000₫₫"
+  },
+  "vi:82.000₫₫": {
+    "en": "82.000₫"
+  },
+  "en:tôi đã có khoảng thời gian tuyệt vời ở đây.": {
+    "vi": "Tôi đã có khoảng thời gian tuyệt vời ở đây.."
+  },
+  "vi:tôi đã có khoảng thời gian tuyệt vời ở đây..": {
+    "en": "Tôi đã có khoảng thời gian tuyệt vời ở đây."
+  },
+  "en:người dân thân thiện, môi trường sạch sẽ.": {
+    "vi": "Người dân thân thiện, môi trường sạch sẽ.."
+  },
+  "vi:người dân thân thiện, môi trường sạch sẽ..": {
+    "en": "Người dân thân thiện, môi trường sạch sẽ."
+  },
+  "en:rất yên bình và đẹp.": {
+    "vi": "Rất yên bình và đẹp.."
+  },
+  "vi:rất yên bình và đẹp..": {
+    "en": "Rất yên bình và đẹp."
+  },
+  "en:thích hợp cho chuyến đi gia đình!": {
+    "vi": "Thích hợp cho chuyến đi gia đình!!"
+  },
+  "vi:thích hợp cho chuyến đi gia đình!!": {
+    "en": "Thích hợp cho chuyến đi gia đình!"
+  },
+  "en:22 days ago": {
+    "vi": "22 ngày trước"
+  },
+  "vi:22 ngày trước": {
+    "en": "22 days ago"
+  },
+  "en:find": {
+    "vi": "Tìm"
+  },
+  "vi:tìm": {
+    "en": "Find"
+  },
+  "en:muốn quay lại lần nữa.": {
+    "vi": "Muốn quay lại lần nữa.."
+  },
+  "vi:muốn quay lại lần nữa..": {
+    "en": "Muốn quay lại lần nữa."
+  },
+  "en:kiến trúc và thiên nhiên đều tuyệt vời.": {
+    "vi": "Kiến trúc và thiên nhiên đều tuyệt vời.."
+  },
+  "vi:kiến trúc và thiên nhiên đều tuyệt vời..": {
+    "en": "Kiến trúc và thiên nhiên đều tuyệt vời."
+  },
+  "en:nơi đây thật tuyệt vời!": {
+    "vi": "Nơi đây thật tuyệt vời!!"
+  },
+  "vi:nơi đây thật tuyệt vời!!": {
+    "en": "Nơi đây thật tuyệt vời!"
+  },
+  "en:rất đáng để ghé thăm.": {
+    "vi": "Rất đáng để ghé thăm.."
+  },
+  "vi:rất đáng để ghé thăm..": {
+    "en": "Rất đáng để ghé thăm."
+  },
+  "en:open now": {
+    "vi": "Đang mở cửa"
+  },
+  "vi:đang mở cửa": {
+    "en": "Open now"
+  },
+  "en:- hạt : hạt mịn, hạt trung và hạt to.   - màu : trắng tinh khiết của dừa   - hàm lượng dầu : tối thiểu 63%   - độ ẩm : tối đa 3%   - hàm lượng ffa : tối đa 0,5%   - vi sinh : không nhiễm salmonella, e.coli và aflatoxin.": {
+    "vi": "- - Hạt: Hạt mịn, hạt trung và hạt lớn. - Màu: Trắng tinh khiết của dừa - Hàm lượng dầu: Tối thiểu 63% - Độ ẩm: Tối đa 3% - Hàm lượng FFA: Tối đa 0,5% - Vi sinh: Không nhiễm salmonella, E.coli và Aflatoxin.."
+  },
+  "vi:- - hạt: hạt mịn, hạt trung và hạt lớn. - màu: trắng tinh khiết của dừa - hàm lượng dầu: tối thiểu 63% - độ ẩm: tối đa 3% - hàm lượng ffa: tối đa 0,5% - vi sinh: không nhiễm salmonella, e.coli và aflatoxin..": {
+    "en": "- Hạt : Hạt mịn, hạt trung và hạt to.   - Màu : Trắng tinh khiết của dừa   - Hàm lượng dầu : Tối thiểu 63%   - Độ ẩm : Tối đa 3%   - Hàm lượng FFA : Tối đa 0,5%   - Vi sinh : Không nhiễm salmonella, E.coli và Aflatoxin."
+  },
+  "en:-cửa hàng sản phẩm ocop hợp tác xã tỉnh trà vinh": {
+    "vi": "--Cửa hàng sản phẩm OCOP Hợp tác xã tỉnh Trà Vinh"
+  },
+  "vi:--cửa hàng sản phẩm ocop hợp tác xã tỉnh trà vinh": {
+    "en": "-Cửa hàng sản phẩm OCOP hợp tác xã tỉnh Trà Vinh"
+  },
+  "en:các hệ thống vinmart ở khắp trà vinh": {
+    "vi": "Các hệ thống VinMart khắp Trà Vinh"
+  },
+  "vi:các hệ thống vinmart khắp trà vinh": {
+    "en": "Các hệ thống vinmart ở khắp Trà vinh"
+  },
+  "en:locations where you can find bún nước lèo": {
+    "vi": "Các địa điểm có Bún Nước Lèo"
+  },
+  "vi:các địa điểm có bún nước lèo": {
+    "en": "Locations where you can find Bún Nước Lèo"
+  },
+  "en:locations where you can find bún suông": {
+    "vi": "Địa điểm tìm thấy Bún Suông"
+  },
+  "vi:địa điểm tìm thấy bún suông": {
+    "en": "Locations where you can find Bún Suông"
+  },
+  "en:56/2 đường hùng vương, phường 3, trà vinh, 084000, vietnam": {
+    "vi": "56/2 Đường Hùng Vương, Phường 3, Trà Vinh, 084000, Việt Nam"
+  },
+  "vi:56/2 đường hùng vương, phường 3, trà vinh, 084000, việt nam": {
+    "en": "56/2 Đường Hùng Vương, Phường 3, Trà Vinh, 084000, Vietnam"
+  },
+  "en:mỗi khi tháng 10 âm lịch về, người dân trà vinh lại háo hức chờ đón mùa cốm dẹp. đây là thời gian lễ hội của cộng đồng khmer và cốm dẹp trở thành món đặc sản không thể thiếu, làm say lòng mọi người tham gia lễ hội.": {
+    "vi": "Mỗi khi tháng 10 âm lịch về, người dân Trà Vinh lại háo hức chờ đón mùa cốm dẹp. Đây là thời gian lễ hội của cộng đồng Khmer và cốm dẹp trở thành món đặc sản không thể thiếu, làm say lòng mọi người tham gia lễ hội.."
+  },
+  "vi:mỗi khi tháng 10 âm lịch về, người dân trà vinh lại háo hức chờ đón mùa cốm dẹp. đây là thời gian lễ hội của cộng đồng khmer và cốm dẹp trở thành món đặc sản không thể thiếu, làm say lòng mọi người tham gia lễ hội..": {
+    "en": "Mỗi khi tháng 10 âm lịch về, người dân Trà Vinh lại háo hức chờ đón mùa cốm dẹp. Đây là thời gian lễ hội của cộng đồng Khmer và cốm dẹp trở thành món đặc sản không thể thiếu, làm say lòng mọi người tham gia lễ hội."
+  },
+  "en:khi mùa lúa nếp đã chín, bạn sẽ được chứng kiến khung cảnh người khmer bắt tay vào việc làm cốm dẹp để bảo đảm rằng hạt nếp giữ trọn vẹn hương vị tinh túy nhất. cốm dẹp vừa được làm xong có độ giòn, dẻo vừa phải, mang đến một trải nghiệm ẩm thực đầy thú vị. hương thơm từ cám nếp thoang thoảng trong không khí, khiến ai nấy cũng đều dễ dàng cảm nhận sự đặc biệt của món ngon này.": {
+    "vi": "Khi mùa lúa nếp đã chín, bạn sẽ được chứng kiến khung cảnh người Khmer bắt tay vào việc làm cốm dẹp để bảo đảm rằng hạt nếp giữ trọn vẹn hương vị tinh túy nhất. Cốm dẹp vừa được làm xong có độ giòn, dẻo vừa phải, mang đến một trải nghiệm ẩm thực đầy thú vị. Hương thơm từ cám nếp thoang thoảng trong không khí, khiến ai nấy cũng đều dễ dàng cảm nhận sự đặc biệt của món ngon này.."
+  },
+  "vi:khi mùa lúa nếp đã chín, bạn sẽ được chứng kiến khung cảnh người khmer bắt tay vào việc làm cốm dẹp để bảo đảm rằng hạt nếp giữ trọn vẹn hương vị tinh túy nhất. cốm dẹp vừa được làm xong có độ giòn, dẻo vừa phải, mang đến một trải nghiệm ẩm thực đầy thú vị. hương thơm từ cám nếp thoang thoảng trong không khí, khiến ai nấy cũng đều dễ dàng cảm nhận sự đặc biệt của món ngon này..": {
+    "en": "Khi mùa lúa nếp đã chín, bạn sẽ được chứng kiến khung cảnh người Khmer bắt tay vào việc làm cốm dẹp để bảo đảm rằng hạt nếp giữ trọn vẹn hương vị tinh túy nhất. Cốm dẹp vừa được làm xong có độ giòn, dẻo vừa phải, mang đến một trải nghiệm ẩm thực đầy thú vị. Hương thơm từ cám nếp thoang thoảng trong không khí, khiến ai nấy cũng đều dễ dàng cảm nhận sự đặc biệt của món ngon này."
+  },
+  "en:cốm dẹp, được chế biến từ những hạt nếp non, là sản phẩm của một quá trình tỉ mỉ từ việc thu hoạch nếp sớm, ngâm, rang đến giã để tạo nên món đặc sản này. khi kết hợp với đường và dừa, cốm dẹp mang lại hương vị đậm đà, ngọt ngào khó quên. chính vì thế, nhiều du khách đến trà vinh không quên mua những hộp cốm dẹp làm quà tặng người thân và bạn bè.": {
+    "vi": "Cốm dẹp, được chế biến từ những hạt nếp non, là sản phẩm của một quá trình tỉ mỉ từ việc thu hoạch nếp sớm, ngâm, rang đến giã để tạo nên món đặc sản này. Khi kết hợp với đường và dừa, cốm dẹp mang lại hương vị đậm đà, ngọt ngào khó quên. Chính vì thế, nhiều du khách đến Trà Vinh không quên mua những hộp cốm dẹp làm quà tặng người thân và bạn bè.."
+  },
+  "vi:cốm dẹp, được chế biến từ những hạt nếp non, là sản phẩm của một quá trình tỉ mỉ từ việc thu hoạch nếp sớm, ngâm, rang đến giã để tạo nên món đặc sản này. khi kết hợp với đường và dừa, cốm dẹp mang lại hương vị đậm đà, ngọt ngào khó quên. chính vì thế, nhiều du khách đến trà vinh không quên mua những hộp cốm dẹp làm quà tặng người thân và bạn bè..": {
+    "en": "Cốm dẹp, được chế biến từ những hạt nếp non, là sản phẩm của một quá trình tỉ mỉ từ việc thu hoạch nếp sớm, ngâm, rang đến giã để tạo nên món đặc sản này. Khi kết hợp với đường và dừa, cốm dẹp mang lại hương vị đậm đà, ngọt ngào khó quên. Chính vì thế, nhiều du khách đến Trà Vinh không quên mua những hộp cốm dẹp làm quà tặng người thân và bạn bè."
+  },
+  "en:locations where you can find cốm dẹp": {
+    "vi": "Địa điểm có thể tìm thấy Cốm Dẹp"
+  },
+  "vi:địa điểm có thể tìm thấy cốm dẹp": {
+    "en": "Locations where you can find Cốm Dẹp"
+  },
+  "en:19 hours/day": {
+    "vi": "19 giờ/ngày"
+  },
+  "vi:19 giờ/ngày": {
+    "en": "19 hours/day"
+  },
+  "en:công ty tnhh chế biến dừa sáp cầu kè (vicosap)": {
+    "vi": "Công ty TNHH Chế biến Dừa sáp Cầu Kè (VICOSAP))"
+  },
+  "vi:công ty tnhh chế biến dừa sáp cầu kè (vicosap))": {
+    "en": "Công ty TNHH Chế biến Dừa sáp Cầu Kè (VICOSAP)"
+  },
+  "en:công ty tnhh trà vinh farm (sokfarm)": {
+    "vi": "Công ty TNHH Trà Vinh Farm (Sokfarm))"
+  },
+  "vi:công ty tnhh trà vinh farm (sokfarm))": {
+    "en": "Công ty TNHH Trà Vinh Farm (Sokfarm)"
+  },
+  "en:1 star": {
+    "vi": "1 sao"
+  },
+  "vi:1 sao": {
+    "en": "1 star"
+  },
+  "en:2 star": {
+    "vi": "2 sao"
+  },
+  "vi:2 sao": {
+    "en": "2 star"
+  },
+  "en:3 star": {
+    "vi": "3 sao"
+  },
+  "vi:3 sao": {
+    "en": "3 star"
+  },
+  "en:4 star": {
+    "vi": "4 sao"
+  },
+  "vi:4 sao": {
+    "en": "4 star"
+  },
+  "en:5 star": {
+    "vi": "5 sao"
+  },
+  "vi:5 sao": {
+    "en": "5 star"
+  },
+  "en:ocop certification year": {
+    "vi": "Năm chứng nhận OCOP"
+  },
+  "vi:năm chứng nhận ocop": {
+    "en": "OCOP Certification Year"
+  },
+  "en:lạp  xưởng vạn thành": {
+    "vi": "Lạp Xưởng Vạn Thành"
+  },
+  "vi:lạp xưởng vạn thành": {
+    "en": "Lạp  Xưởng Vạn Thành"
+  },
+  "en:1.000₫": {
+    "vi": "1.000₫₫"
+  },
+  "vi:1.000₫₫": {
+    "en": "1.000₫"
+  },
+  "en:100.000₫": {
+    "vi": "100.000₫₫"
+  },
+  "vi:100.000₫₫": {
+    "en": "100.000₫"
+  },
+  "en:bánh dinh dưỡng vicosap - dừa …": {
+    "vi": "Bánh dinh dưỡng Vicosap - Dừa … …"
+  },
+  "vi:bánh dinh dưỡng vicosap - dừa … …": {
+    "en": "Bánh dinh dưỡng Vicosap - Dừa …"
+  },
+  "en:49.000₫": {
+    "vi": "49.000₫₫"
+  },
+  "vi:49.000₫₫": {
+    "en": "49.000₫"
+  },
+  "en:mứt chuối tá quạ ( táo …": {
+    "vi": "Mứt chuối tá quạ ( táo … …"
+  },
+  "vi:mứt chuối tá quạ ( táo … …": {
+    "en": "Mứt chuối tá quạ ( táo …"
+  },
+  "en:20.000₫": {
+    "vi": "20.000₫₫"
+  },
+  "vi:20.000₫₫": {
+    "en": "20.000₫"
+  },
+  "en:0₫": {
+    "vi": "0₫₫"
+  },
+  "vi:0₫₫": {
+    "en": "0₫"
+  },
+  "en:★: nhấn để sắp xếp cột tăng dần": {
+    "vi": "★: ★: nhấn để sắp xếp cột tăng dần"
+  },
+  "vi:★: ★: nhấn để sắp xếp cột tăng dần": {
+    "en": "★: nhấn để sắp xếp cột tăng dần"
+  },
+  "en:82.000 ₫": {
+    "vi": "82.000 ₫ ₫"
+  },
+  "vi:82.000 ₫ ₫": {
+    "en": "82.000 ₫"
+  },
+  "en:quán óc bà 7": {
+    "vi": "QUÁN ỐC BÀ 7"
+  },
+  "vi:quán ốc bà 7": {
+    "en": "QUÁN ÓC BÀ 7"
+  },
+  "en:price": {
+    "vi": "Giá"
+  },
+  "vi:giá": {
+    "en": "Price"
+  },
+  "en:<p>để đến được <strong>ao bà om</strong>, các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội ok om bok nhé.</p>": {
+    "vi": "Để đến được Ao Bà Om, các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. Nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội Ok Om Bok nhé."
+  },
+  "en:history image": {
+    "vi": "Hình ảnh lịch sử"
+  },
+  "vi:hình ảnh lịch sử": {
+    "en": "History Image"
+  },
+  "en:14/07/25, 17:58": {
+    "vi": "25/07/14, 17:58"
+  },
+  "vi:25/07/14, 17:58": {
+    "en": "14/07/25, 17:58"
+  },
+  "en:<p>đền thờ chủ tịch hồ chí minh, hay còn gọi là đền thờ bác hồ, nằm tại ấp vĩnh hội, xã long đức, thành phố trà vinh. công trình mang ý nghĩa thiêng liêng, là biểu tượng tấm lòng của nhân dân trà vinh với bác hồ. được bộ văn hóa xếp hạng di tích lịch sử – văn hóa cấp quốc gia năm 1989.</p>": {
+    "vi": "Đền thờ Chủ tịch Hồ Chí Minh, hay còn gọi là Đền thờ Bác Hồ, nằm tại ấp Vĩnh Hội, xã Long Đức, thành phố Trà Vinh. Công trình mang ý nghĩa thiêng liêng, là biểu tượng tấm lòng của nhân dân Trà Vinh với Bác Hồ. Được Bộ Văn hóa xếp hạng di tích lịch sử – văn hóa cấp quốc gia năm 1989."
+  },
+  "vi:đền thờ chủ tịch hồ chí minh, hay còn gọi là đền thờ bác hồ, nằm tại ấp vĩnh hội, xã long đức, thành phố trà vinh. công trình mang ý nghĩa thiêng liêng, là biểu tượng tấm lòng của nhân dân trà vinh với bác hồ. được bộ văn hóa xếp hạng di tích lịch sử – văn hóa cấp quốc gia năm 1989.": {
+    "en": "<p>Đền thờ Chủ tịch Hồ Chí Minh, hay còn gọi là Đền thờ Bác Hồ, nằm tại ấp Vĩnh Hội, xã Long Đức, thành phố Trà Vinh. Công trình mang ý nghĩa thiêng liêng, là biểu tượng tấm lòng của nhân dân Trà Vinh với Bác Hồ. Được Bộ Văn hóa xếp hạng di tích lịch sử – văn hóa cấp quốc gia năm 1989.</p>"
+  },
+  "en:17 hours/day": {
+    "vi": "17 giờ/ngày"
+  },
+  "vi:17 giờ/ngày": {
+    "en": "17 hours/day"
+  },
+  "en:chả hoa năm thụy là một đặc sản nổi tiếng của đất trà vinh, như tên gọi chả hoa khi cắt ra sẽ có hình giống như bông hoa ở giữa là trứng muối, xung quanh là nấm mèo, chả, ngoài cùng là lớp trứng gà đánh tan chiên thành tấm cuộn bên ngoài, vừa thơm ngon vừa đẹp mắt. ngoài ra còn có chả thủ, ba tê cuộn trứng, chả hoa hình con cá cùng thương hiệu": {
+    "vi": "Chả Hoa Năm Thụy là một đặc sản nổi tiếng của Trà Vinh. Như tên gọi, khi cắt ra, chả hoa sẽ có hình giống như bông hoa: ở giữa là trứng muối, xung quanh là nấm mèo và chả, ngoài cùng là lớp trứng gà đánh tan chiên thành tấm cuộn bên ngoài, vừa thơm ngon vừa đẹp mắt. Ngoài ra, thương hiệu còn có chả thủ, pa-tê cuộn trứng và chả hoa hình con cá."
+  },
+  "vi:chả hoa năm thụy là một đặc sản nổi tiếng của trà vinh. như tên gọi, khi cắt ra, chả hoa sẽ có hình giống như bông hoa: ở giữa là trứng muối, xung quanh là nấm mèo và chả, ngoài cùng là lớp trứng gà đánh tan chiên thành tấm cuộn bên ngoài, vừa thơm ngon vừa đẹp mắt. ngoài ra, thương hiệu còn có chả thủ, pa-tê cuộn trứng và chả hoa hình con cá.": {
+    "en": "Chả Hoa Năm Thụy là một đặc sản nổi tiếng của đất Trà Vinh, như tên gọi chả hoa khi cắt ra sẽ có hình giống như bông hoa ở giữa là trứng muối, xung quanh là nấm mèo, chả, ngoài cùng là lớp trứng gà đánh tan chiên thành tấm cuộn bên ngoài, vừa thơm ngon vừa đẹp mắt. Ngoài ra còn có chả thủ, ba tê cuộn trứng, chả hoa hình con cá cùng thương hiệu"
+  },
+  "en:stt": {
+    "vi": "Số thứ tự"
+  },
+  "vi:số thứ tự": {
+    "en": "STT"
+  },
+  "en:stt: activate to sort column descending": {
+    "vi": "STT: kích hoạt để sắp xếp cột giảm dần"
+  },
+  "vi:stt: kích hoạt để sắp xếp cột giảm dần": {
+    "en": "STT: activate to sort column descending"
+  },
+  "en:tên sản phẩm: activate to sort column ascending": {
+    "vi": "Tên sản phẩm: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "vi:tên sản phẩm: kích hoạt để sắp xếp cột tăng dần": {
+    "en": "Tên sản phẩm: activate to sort column ascending"
+  },
+  "en:giá tham khảo: activate to sort column ascending": {
+    "vi": "Giá tham khảo: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "vi:giá tham khảo: kích hoạt để sắp xếp cột tăng dần": {
+    "en": "Giá tham khảo: activate to sort column ascending"
+  },
+  "en:năm phát hành: activate to sort column ascending": {
+    "vi": "Năm phát hành: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "vi:năm phát hành: kích hoạt để sắp xếp cột tăng dần": {
+    "en": "Năm phát hành: activate to sort column ascending"
+  },
+  "en:ngày tạo: activate to sort column ascending": {
+    "vi": "Ngày tạo: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "vi:ngày tạo: kích hoạt để sắp xếp cột tăng dần": {
+    "en": "Ngày tạo: activate to sort column ascending"
+  },
+  "en:bột cacao nguyên chất mekong": {
+    "vi": "Bột ca cao nguyên chất Mekong"
+  },
+  "vi:bột ca cao nguyên chất mekong": {
+    "en": "Bột Cacao nguyên chất Mekong"
   }
 }

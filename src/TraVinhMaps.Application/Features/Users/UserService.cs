@@ -27,14 +27,16 @@ public class UserService : IUserService
     private readonly IBaseRepository<Role> _roleRepository;
     private readonly ICloudinaryService _cloudinaryService;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IEmailSender _emailSender;
 
-    public UserService(IUserRepository userRepository, ITouristDestinationService touristDestinationService, IBaseRepository<Role> roleRepository, ICloudinaryService cloudinaryService, IHttpContextAccessor httpContextAccessor)
+    public UserService(IUserRepository userRepository, ITouristDestinationService touristDestinationService, IBaseRepository<Role> roleRepository, ICloudinaryService cloudinaryService, IHttpContextAccessor httpContextAccessor, IEmailSender emailSender)
     {
         _userRepository = userRepository;
         _roleRepository = roleRepository;
         _cloudinaryService = cloudinaryService;
         _httpContextAccessor = httpContextAccessor;
         _touristDestinationService = touristDestinationService;
+        _emailSender = emailSender;
     }
 
     public async Task<User> AddAsync(User entity, CancellationToken cancellationToken = default)
@@ -72,7 +74,28 @@ public class UserService : IUserService
 
     public async Task<bool> DeleteUser(string id, CancellationToken cancellationToken = default)
     {
-        return await _userRepository.DeleteUser(id, cancellationToken);
+        // Get Id
+        var user = await _userRepository.GetByIdAsync(id, cancellationToken);
+        if (user == null)
+            return false;
+
+        // Ban user
+        var result = await _userRepository.DeleteUser(id, cancellationToken);
+        if (!result)
+            return false;
+
+        // Send email
+        var subject = "Your Account Has Been Banned";
+        var reason = "Violation of community rules";
+
+        await _emailSender.SendEmailBanedAsync(
+            user.Email,
+            subject,
+            $"{user.Profile.FullName}|{reason}",
+            cancellationToken
+        );
+
+        return true;
     }
 
     public async Task<User> GetByIdAsync(string id, CancellationToken cancellationToken = default)
@@ -98,7 +121,26 @@ public class UserService : IUserService
 
     public async Task<bool> RestoreUser(string id, CancellationToken cancellationToken = default)
     {
-        return await _userRepository.RestoreUser(id, cancellationToken);
+        var user = await _userRepository.GetByIdAsync(id, cancellationToken);
+
+        if (user == null)
+            return false;
+
+        var result = await _userRepository.RestoreUser(id, cancellationToken);
+        if (!result)
+            return false;
+
+        var subject = "Your Account Has Been Reactivated";
+        // Send email
+        await _emailSender.SendEmailUnbanAsync(
+            user.Email,
+            subject,
+            user.Profile.FullName,
+            cancellationToken
+        );
+
+        return true;
+
     }
 
     public async Task UpdateAsync(User entity, CancellationToken cancellationToken = default)

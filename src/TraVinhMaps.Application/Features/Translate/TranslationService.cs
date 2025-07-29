@@ -279,7 +279,7 @@ public sealed class TranslationService : ITranslationService, IDisposable
     private static string Normalize(string s) =>
         s.Trim().ToLowerInvariant().Normalize(NormalizationForm.FormC);
 
-    // ✅ Updated TranslationCache with multi-language mapping
+    // Updated TranslationCache with multi-language mapping
     private sealed class TranslationCache
     {
         private readonly object _lock = new();

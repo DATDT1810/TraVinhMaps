@@ -56,8 +56,7 @@ public class AdminService : IAdminService
         await _emailSender.SendEmailPasswordAsync(
         admin.Email,
         "Welcome to TraVinhMaps - Admin Account Created",
-        $"{admin.Username}|{admin.Email}|admin123@"
-    );
+        $"{admin.Username}|{admin.Email}|admin123@");
             return admin;
         }
 
@@ -78,8 +77,30 @@ public class AdminService : IAdminService
 
     public async Task<bool> DeleteAdmin(string id, CancellationToken cancellationToken = default)
     {
-        return await _adminRepository.DeleteAdmin(id, cancellationToken);
+        // Get info
+        var admin = await _adminRepository.GetByIdAsync(id, cancellationToken);
+        if (admin == null)
+            return false;
+
+        // Delete
+        var result = await _adminRepository.DeleteAdmin(id, cancellationToken);
+        if (!result)
+            return false;
+
+        // Send email 
+        var subject = "Your Admin Account Has Been Banned";
+        var reason = "Violation of admin policies";
+
+        await _emailSender.SendEmailBanedAdminAsync(
+            admin.Email,
+            subject,
+            $"{admin.Username}|{reason}",
+            cancellationToken
+        );
+
+        return true;
     }
+
 
     public async Task<User> GetByIdAsync(string id, CancellationToken cancellationToken = default)
     {
@@ -107,7 +128,27 @@ public class AdminService : IAdminService
 
     public async Task<bool> RestoreAdmin(string id, CancellationToken cancellationToken = default)
     {
-        return await _adminRepository.RestoreAdmin(id, cancellationToken);
+        // Get info 
+        var admin = await _adminRepository.GetByIdAsync(id, cancellationToken);
+        if (admin == null)
+            return false;
+
+        // Restore
+        var result = await _adminRepository.RestoreAdmin(id, cancellationToken);
+        if (!result)
+            return false;
+
+        // Send email
+        var subject = "Your Admin Account Has Been Reactivated";
+
+        await _emailSender.SendEmailUnbanAdminAsync(
+            admin.Email,
+            subject,
+            admin.Username,
+            cancellationToken
+        );
+
+        return true;
     }
 
     public async Task<string> RequestOtpForUpdate(string identifier, string authen, CancellationToken cancellationToken = default)

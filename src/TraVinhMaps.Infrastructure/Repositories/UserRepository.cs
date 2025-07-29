@@ -393,7 +393,7 @@ public class UserRepository : BaseRepository<User>, IUserRepository
                 new BsonDocument("profile.dateOfBirth", new BsonDocument("$exists", false)),
                 new BsonDocument("profile.dateOfBirth", BsonNull.Value)
             });
-                ageStats["Unknown"] = (int)await _collection.CountDocumentsAsync(unknownDobFilter, cancellationToken:cancellationToken);
+                ageStats["Unknown"] = (int)await _collection.CountDocumentsAsync(unknownDobFilter, cancellationToken: cancellationToken);
 
                 result["age"] = ageStats;
             }
@@ -439,50 +439,50 @@ public class UserRepository : BaseRepository<User>, IUserRepository
             {
                 // Sửa lỗi bằng cách thay thế hàm Javascript bằng logic đơn giản và đáng tin cậy hơn.
                 var pipeline = new List<BsonDocument>
-    {
-        new BsonDocument("$match", baseMatch),
-        new BsonDocument("$addFields", new BsonDocument("normalizedAddress",
-            new BsonDocument("$function", new BsonDocument
-            {
-                { "body", @"
-                    function(addr) {
-                        // 1. Luôn kiểm tra đầu vào để đảm bảo an toàn
-                        if (!addr || typeof addr !== 'string' || addr.trim() === '') {
-                            return 'Unknown';
-                        }
+                {
+                    new BsonDocument("$match", baseMatch),
+                    new BsonDocument("$addFields", new BsonDocument("normalizedAddress",
+                        new BsonDocument("$function", new BsonDocument
+                        {
+                            { "body", @"
+                                function(addr) {
+                                    // 1. Luôn kiểm tra đầu vào để đảm bảo an toàn
+                                    if (!addr || typeof addr !== 'string' || addr.trim() === '') {
+                                        return 'Unknown';
+                                    }
                         
-                        // 2. Tách địa chỉ bằng dấu phẩy, cắt bỏ khoảng trắng thừa và loại bỏ các phần tử rỗng
-                        const parts = addr.split(',').map(p => p.trim()).filter(p => p);
+                                    // 2. Tách địa chỉ bằng dấu phẩy, cắt bỏ khoảng trắng thừa và loại bỏ các phần tử rỗng
+                                    const parts = addr.split(',').map(p => p.trim()).filter(p => p);
 
-                        // 3. Áp dụng quy tắc xử lý:
-                        if (parts.length >= 2) {
-                            // Nếu có 2 phần trở lên, lấy 2 phần cuối cùng.
-                            // Đây là trường hợp phổ biến nhất (Quận/Huyện, Tỉnh/Thành phố).
-                            // Ví dụ: 'Q. Ô Môn, TP. Cần Thơ'
-                            return `${parts[parts.length - 2]}, ${parts[parts.length - 1]}`;
-                        } 
+                                    // 3. Áp dụng quy tắc xử lý:
+                                    if (parts.length >= 2) {
+                                        // Nếu có 2 phần trở lên, lấy 2 phần cuối cùng.
+                                        // Đây là trường hợp phổ biến nhất (Quận/Huyện, Tỉnh/Thành phố).
+                                        // Ví dụ: 'Q. Ô Môn, TP. Cần Thơ'
+                                        return `${parts[parts.length - 2]}, ${parts[parts.length - 1]}`;
+                                    } 
                         
-                        if (parts.length === 1) {
-                            // Nếu chỉ có 1 phần, trả về chính nó (thường là chỉ có Tỉnh/Thành phố).
-                            // Ví dụ: 'Cần Thơ'
-                            return parts[0];
-                        } 
+                                    if (parts.length === 1) {
+                                        // Nếu chỉ có 1 phần, trả về chính nó (thường là chỉ có Tỉnh/Thành phố).
+                                        // Ví dụ: 'Cần Thơ'
+                                        return parts[0];
+                                    } 
                         
-                        // Nếu địa chỉ rỗng hoặc chỉ chứa dấu phẩy, trả về 'Unknown'.
-                        return 'Unknown';
-                    }
-                " },
-                { "args", new BsonArray { "$profile.address" } },
-                { "lang", "js" }
-            })
-        )),
-        new BsonDocument("$group", new BsonDocument
-        {
-            { "_id", "$normalizedAddress" },
-            { "count", new BsonDocument("$sum", 1) }
-        }),
-        new BsonDocument("$sort", new BsonDocument("count", -1))
-    };
+                                    // Nếu địa chỉ rỗng hoặc chỉ chứa dấu phẩy, trả về 'Unknown'.
+                                    return 'Unknown';
+                                }
+                            " },
+                            { "args", new BsonArray { "$profile.address" } },
+                            { "lang", "js" }
+                        })
+                    )),
+                    new BsonDocument("$group", new BsonDocument
+                    {
+                        { "_id", "$normalizedAddress" },
+                        { "count", new BsonDocument("$sum", 1) }
+                    }),
+                    new BsonDocument("$sort", new BsonDocument("count", -1))
+                };
 
                 var docs = await _collection.Aggregate<BsonDocument>(pipeline).ToListAsync(cancellationToken);
 
