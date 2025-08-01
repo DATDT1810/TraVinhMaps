@@ -690,7 +690,7 @@
     "vi": "Ngày tạo"
   },
   "vi:ngày tạo": {
-    "en": "Creat At"
+    "en": "CREATED DATE"
   },
   "en:action": {
     "vi": "Hành động"
@@ -8365,5 +8365,146 @@
   },
   "vi:bột ca cao nguyên chất mekong": {
     "en": "Bột Cacao nguyên chất Mekong"
+  },
+  "en:cultural and social event held in the region": {
+    "vi": "Sự kiện văn hóa và xã hội được tổ chức trong khu vực"
+  },
+  "vi:sự kiện văn hóa và xã hội được tổ chức trong khu vực": {
+    "en": "Cultural and social event held in the region"
+  },
+  "en:coordinates:": {
+    "vi": "Tọa độ:"
+  },
+  "vi:tọa độ:": {
+    "en": "Coordinates:"
+  },
+  "en:343.3333333333,                                             343.3333333333": {
+    "vi": "343.3333333333, 343.3333333333"
+  },
+  "vi:343.3333333333, 343.3333333333": {
+    "en": "343.3333333333,                                             343.3333333333"
+  },
+  "en:event type:": {
+    "vi": "Loại sự kiện:"
+  },
+  "vi:loại sự kiện:": {
+    "en": "Event Type:"
+  },
+  "en:56 mins ago": {
+    "vi": "56 phút trước"
+  },
+  "vi:56 phút trước": {
+    "en": "56 mins ago"
+  },
+  "en:8 days ago": {
+    "vi": "8 ngày trước"
+  },
+  "vi:8 ngày trước": {
+    "en": "8 days ago"
+  },
+  "en:một trong những sự kiện lơn nhất năm ở cần thơ": {
+    "vi": "Một trong những sự kiện lớn nhất năm ở Cần Thơ"
+  },
+  "vi:một trong những sự kiện lớn nhất năm ở cần thơ": {
+    "en": "Một trong những sự kiện lơn nhất năm ở Cần Thơ"
+  },
+  "en:3 hrs ago": {
+    "vi": "3 giờ trước"
+  },
+  "vi:3 giờ trước": {
+    "en": "3 hrs ago"
+  },
+  "en:category": {
+    "vi": "DANH MỤC"
+  },
+  "vi:danh mục": {
+    "en": "CATEGORY"
+  },
+  "en:created date": {
+    "vi": "NGÀY TẠO"
+  },
+  "en:coordinates": {
+    "vi": "TỌA ĐỘ"
+  },
+  "vi:tọa độ": {
+    "en": "COORDINATES"
+  },
+  "en:event description": {
+    "vi": "Mô tả sự kiện"
+  },
+  "vi:mô tả sự kiện": {
+    "en": "Event Description"
+  },
+  "en:4 hrs ago": {
+    "vi": "4 giờ trước"
+  },
+  "vi:4 giờ trước": {
+    "en": "4 hrs ago"
+  },
+  "en:finished": {
+    "vi": "Hoàn thành"
+  },
+  "vi:hoàn thành": {
+    "en": "Finished"
+  },
+  "en:ended": {
+    "vi": "Đã kết thúc"
+  },
+  "vi:đã kết thúc": {
+    "en": "Ended"
+  },
+  "en:showing 1 to 10 of 12 entries (filtered from 15 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong số 12 mục (được lọc từ tổng số 15 mục)"
+  },
+  "vi:hiển thị 1 đến 10 trong số 12 mục (được lọc từ tổng số 15 mục)": {
+    "en": "Showing 1 to 10 of 12 entries (filtered from 15 total entries)"
+  },
+  "en:<p><strong>một trong những sự kiện lớn nhất năm ở cần thơ. </strong>đây là dịp để con cháu quây quần và tưởng nhớ đến thế hệ ông cha ta &nbsp;</p>": {
+    "vi": "Một trong những sự kiện lớn nhất năm ở Cần Thơ. Đây là dịp để con cháu quây quần và tưởng nhớ đến thế hệ ông cha ta"
+  },
+  "vi:một trong những sự kiện lớn nhất năm ở cần thơ. đây là dịp để con cháu quây quần và tưởng nhớ đến thế hệ ông cha ta": {
+    "en": "<p><strong>Một trong những sự kiện lớn nhất năm ở Cần Thơ. </strong>Đây là dịp để con cháu quây quần và tưởng nhớ đến thế hệ ông cha ta &nbsp;</p>"
+  },
+  "en:total links": {
+    "vi": "Tổng số liên kết"
+  },
+  "vi:tổng số liên kết": {
+    "en": "Total Links"
+  },
+  "en:platforms": {
+    "vi": "Nền tảng"
+  },
+  "vi:nền tảng": {
+    "en": "Platforms"
+  },
+  "en:social media platform": {
+    "vi": "Nền tảng mạng xã hội"
+  },
+  "vi:nền tảng mạng xã hội": {
+    "en": "Social Media Platform"
+  },
+  "en:selling link url": {
+    "vi": "ĐỊA CHỈ URL LIÊN KẾT BÁN HÀNG"
+  },
+  "vi:địa chỉ url liên kết bán hàng": {
+    "en": "SELLING LINK URL"
+  },
+  "en:go to link": {
+    "vi": "Đi đến liên kết"
+  },
+  "vi:đi đến liên kết": {
+    "en": "Go to link"
+  },
+  "en:delete selling link": {
+    "vi": "Xóa liên kết bán hàng"
+  },
+  "vi:xóa liên kết bán hàng": {
+    "en": "Delete Selling Link"
+  },
+  "en:locations where you can find loi choi": {
+    "vi": "Địa điểm bạn có thể tìm thấy Loi Choi"
+  },
+  "vi:địa điểm bạn có thể tìm thấy loi choi": {
+    "en": "Locations where you can find Loi Choi"
   }
 }
