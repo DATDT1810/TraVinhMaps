@@ -2469,13 +2469,13 @@
     "vi": "Đánh giá trung bình: kích hoạt để sắp xếp cột tăng dần"
   },
   "vi:đánh giá trung bình: kích hoạt để sắp xếp cột tăng dần": {
-    "en": "AvarageRating: activate to sort column ascending"
+    "en": "Đánh giá trung bình: activate to sort column ascending"
   },
   "en:favorite: activate to sort column ascending": {
     "vi": "Yêu thích: kích hoạt để sắp xếp cột tăng dần"
   },
   "vi:yêu thích: kích hoạt để sắp xếp cột tăng dần": {
-    "en": "Favorite: activate to sort column ascending"
+    "en": "Yêu thích: activate to sort column ascending"
   },
   "en:destination details": {
     "vi": "Chi tiết Điểm đến"
@@ -8324,12 +8324,6 @@
   "vi:chả hoa năm thụy là một đặc sản nổi tiếng của trà vinh. như tên gọi, khi cắt ra, chả hoa sẽ có hình giống như bông hoa: ở giữa là trứng muối, xung quanh là nấm mèo và chả, ngoài cùng là lớp trứng gà đánh tan chiên thành tấm cuộn bên ngoài, vừa thơm ngon vừa đẹp mắt. ngoài ra, thương hiệu còn có chả thủ, pa-tê cuộn trứng và chả hoa hình con cá.": {
     "en": "Chả Hoa Năm Thụy là một đặc sản nổi tiếng của đất Trà Vinh, như tên gọi chả hoa khi cắt ra sẽ có hình giống như bông hoa ở giữa là trứng muối, xung quanh là nấm mèo, chả, ngoài cùng là lớp trứng gà đánh tan chiên thành tấm cuộn bên ngoài, vừa thơm ngon vừa đẹp mắt. Ngoài ra còn có chả thủ, ba tê cuộn trứng, chả hoa hình con cá cùng thương hiệu"
   },
-  "en:stt": {
-    "vi": "Số thứ tự"
-  },
-  "vi:số thứ tự": {
-    "en": "STT"
-  },
   "en:stt: activate to sort column descending": {
     "vi": "STT: kích hoạt để sắp xếp cột giảm dần"
   },
@@ -8366,35 +8360,53 @@
   "vi:bột ca cao nguyên chất mekong": {
     "en": "Bột Cacao nguyên chất Mekong"
   },
-  "en:cultural and social event held in the region": {
-    "vi": "Sự kiện văn hóa và xã hội được tổ chức trong khu vực"
+  "en:itinerary plan title": {
+    "vi": "Tiêu đề lịch trình"
   },
-  "vi:sự kiện văn hóa và xã hội được tổ chức trong khu vực": {
-    "en": "Cultural and social event held in the region"
+  "vi:tiêu đề lịch trình": {
+    "en": "Itinerary Plan title"
   },
-  "en:coordinates:": {
-    "vi": "Tọa độ:"
+  "en:3 days 2 night": {
+    "vi": "3 ngày 2 đêm"
   },
-  "vi:tọa độ:": {
-    "en": "Coordinates:"
+  "vi:3 ngày 2 đêm": {
+    "en": "3 days 2 night"
   },
-  "en:343.3333333333,                                             343.3333333333": {
-    "vi": "343.3333333333, 343.3333333333"
+  "en:5 days 4 night": {
+    "vi": "5 ngày 4 đêm"
   },
-  "vi:343.3333333333, 343.3333333333": {
-    "en": "343.3333333333,                                             343.3333333333"
+  "vi:5 ngày 4 đêm": {
+    "en": "5 days 4 night"
   },
-  "en:event type:": {
-    "vi": "Loại sự kiện:"
+  "en:4 million": {
+    "vi": "4 triệu"
   },
-  "vi:loại sự kiện:": {
-    "en": "Event Type:"
+  "vi:4 triệu": {
+    "en": "4 million"
   },
-  "en:56 mins ago": {
-    "vi": "56 phút trước"
+  "en:5 million": {
+    "vi": "5 triệu"
   },
-  "vi:56 phút trước": {
-    "en": "56 mins ago"
+  "vi:5 triệu": {
+    "en": "5 million"
+  },
+  "en:choosing destination for itinerary plan": {
+    "vi": "Chọn điểm đến cho lịch trình"
+  },
+  "vi:chọn điểm đến cho lịch trình": {
+    "en": "Choosing destination for itinerary plan"
+  },
+  "en:please select at least 2 locations": {
+    "vi": "Vui lòng chọn ít nhất 2 địa điểm"
+  },
+  "vi:vui lòng chọn ít nhất 2 địa điểm": {
+    "en": "Please select at least 2 locations"
+  },
+  "en:write or choose destination": {
+    "vi": "Viết hoặc chọn điểm đến"
+  },
+  "vi:viết hoặc chọn điểm đến": {
+    "en": "write or choose destination"
   },
   "en:8 days ago": {
     "vi": "8 ngày trước"
@@ -8402,109 +8414,154 @@
   "vi:8 ngày trước": {
     "en": "8 days ago"
   },
-  "en:một trong những sự kiện lơn nhất năm ở cần thơ": {
-    "vi": "Một trong những sự kiện lớn nhất năm ở Cần Thơ"
+  "en:23 days ago": {
+    "vi": "23 ngày trước"
   },
-  "vi:một trong những sự kiện lớn nhất năm ở cần thơ": {
-    "en": "Một trong những sự kiện lơn nhất năm ở Cần Thơ"
+  "vi:23 ngày trước": {
+    "en": "23 days ago"
   },
-  "en:3 hrs ago": {
-    "vi": "3 giờ trước"
+  "en:5:00": {
+    "vi": "5 giờ"
   },
-  "vi:3 giờ trước": {
-    "en": "3 hrs ago"
+  "vi:5 giờ": {
+    "en": "5:00"
   },
-  "en:category": {
-    "vi": "DANH MỤC"
+  "en:are you want to update your email?": {
+    "vi": "Bạn có muốn cập nhật email không?"
   },
-  "vi:danh mục": {
-    "en": "CATEGORY"
+  "vi:bạn có muốn cập nhật email không?": {
+    "en": "Are you want to update your email?"
   },
-  "en:created date": {
-    "vi": "NGÀY TẠO"
+  "en:are you want to update your phone number?": {
+    "vi": "Bạn có muốn cập nhật số điện thoại không?"
   },
-  "en:coordinates": {
-    "vi": "TỌA ĐỘ"
+  "vi:bạn có muốn cập nhật số điện thoại không?": {
+    "en": "Are you want to update your phone number?"
   },
-  "vi:tọa độ": {
-    "en": "COORDINATES"
+  "en:are you want to update your password?": {
+    "vi": "Bạn có muốn cập nhật mật khẩu của mình không?"
   },
-  "en:event description": {
-    "vi": "Mô tả sự kiện"
+  "vi:bạn có muốn cập nhật mật khẩu của mình không?": {
+    "en": "Are you want to update your password?"
   },
-  "vi:mô tả sự kiện": {
-    "en": "Event Description"
+  "en:showing 11 to 20 of 106 entries (filtered from 108 total entries)": {
+    "vi": "Đang hiển thị từ 11 đến 20 trong số 106 mục (đã lọc từ 108 mục tổng cộng)"
   },
-  "en:4 hrs ago": {
-    "vi": "4 giờ trước"
+  "vi:đang hiển thị từ 11 đến 20 trong số 106 mục (đã lọc từ 108 mục tổng cộng)": {
+    "en": "Showing 11 to 20 of 106 entries (filtered from 108 total entries)"
   },
-  "vi:4 giờ trước": {
-    "en": "4 hrs ago"
+  "en:họ và tên: activate to sort column ascending": {
+    "vi": "Họ và Tên: nhấn để sắp xếp cột tăng dần"
   },
-  "en:finished": {
-    "vi": "Hoàn thành"
+  "vi:họ và tên: nhấn để sắp xếp cột tăng dần": {
+    "en": "Họ và Tên: activate to sort column ascending"
   },
-  "vi:hoàn thành": {
-    "en": "Finished"
+  "en:thư điện tử: activate to sort column ascending": {
+    "vi": "Thư điện tử: nhấn để sắp xếp cột tăng dần"
   },
-  "en:ended": {
-    "vi": "Đã kết thúc"
+  "vi:thư điện tử: nhấn để sắp xếp cột tăng dần": {
+    "en": "Thư điện tử: activate to sort column ascending"
   },
-  "vi:đã kết thúc": {
-    "en": "Ended"
+  "en:điện thoại: activate to sort column ascending": {
+    "vi": "Điện thoại: nhấn để sắp xếp cột tăng dần"
   },
-  "en:showing 1 to 10 of 12 entries (filtered from 15 total entries)": {
-    "vi": "Hiển thị 1 đến 10 trong số 12 mục (được lọc từ tổng số 15 mục)"
+  "vi:điện thoại: nhấn để sắp xếp cột tăng dần": {
+    "en": "Điện thoại: activate to sort column ascending"
   },
-  "vi:hiển thị 1 đến 10 trong số 12 mục (được lọc từ tổng số 15 mục)": {
-    "en": "Showing 1 to 10 of 12 entries (filtered from 15 total entries)"
+  "en:showing 1 to 3 of 3 entries (filtered from 4 total entries)": {
+    "vi": "Hiển thị 1 đến 3 trong tổng số 3 mục (được lọc từ 4 mục tổng cộng)"
   },
-  "en:<p><strong>một trong những sự kiện lớn nhất năm ở cần thơ. </strong>đây là dịp để con cháu quây quần và tưởng nhớ đến thế hệ ông cha ta &nbsp;</p>": {
-    "vi": "Một trong những sự kiện lớn nhất năm ở Cần Thơ. Đây là dịp để con cháu quây quần và tưởng nhớ đến thế hệ ông cha ta"
+  "vi:hiển thị 1 đến 3 trong tổng số 3 mục (được lọc từ 4 mục tổng cộng)": {
+    "en": "Showing 1 to 3 of 3 entries (filtered from 4 total entries)"
   },
-  "vi:một trong những sự kiện lớn nhất năm ở cần thơ. đây là dịp để con cháu quây quần và tưởng nhớ đến thế hệ ông cha ta": {
-    "en": "<p><strong>Một trong những sự kiện lớn nhất năm ở Cần Thơ. </strong>Đây là dịp để con cháu quây quần và tưởng nhớ đến thế hệ ông cha ta &nbsp;</p>"
+  "en:your otp is sent to verify": {
+    "vi": "Mã OTP của bạn đã được gửi để xác minh"
   },
-  "en:total links": {
-    "vi": "Tổng số liên kết"
+  "vi:mã otp của bạn đã được gửi để xác minh": {
+    "en": "Your OTP is sent to verify"
   },
-  "vi:tổng số liên kết": {
-    "en": "Total Links"
+  "en:verify to change password": {
+    "vi": "Xác minh để đổi mật khẩu"
   },
-  "en:platforms": {
-    "vi": "Nền tảng"
+  "vi:xác minh để đổi mật khẩu": {
+    "en": "Verify to change password"
   },
-  "vi:nền tảng": {
-    "en": "Platforms"
+  "en:verify new phone number your otp is sent to now": {
+    "vi": "Xác minh Số Điện Thoại Mới Mã OTP của bạn đã được gửi ngay bây giờ"
   },
-  "en:social media platform": {
-    "vi": "Nền tảng mạng xã hội"
+  "vi:xác minh số điện thoại mới mã otp của bạn đã được gửi ngay bây giờ": {
+    "en": "Verify New Phone Number Your OTP is sent to now"
   },
-  "vi:nền tảng mạng xã hội": {
-    "en": "Social Media Platform"
+  "en:your otp is sent to now": {
+    "vi": "Mã OTP của bạn đã được gửi ngay bây giờ"
   },
-  "en:selling link url": {
-    "vi": "ĐỊA CHỈ URL LIÊN KẾT BÁN HÀNG"
+  "vi:mã otp của bạn đã được gửi ngay bây giờ": {
+    "en": "Your OTP is sent to now"
   },
-  "vi:địa chỉ url liên kết bán hàng": {
-    "en": "SELLING LINK URL"
+  "en:delete destination successfully": {
+    "vi": "Xóa điểm đến thành công"
   },
-  "en:go to link": {
-    "vi": "Đi đến liên kết"
+  "vi:xóa điểm đến thành công": {
+    "en": "Delete destination successfully"
   },
-  "vi:đi đến liên kết": {
-    "en": "Go to link"
+  "en:destination restore successfully": {
+    "vi": "Điểm đến đã khôi phục thành công."
   },
-  "en:delete selling link": {
-    "vi": "Xóa liên kết bán hàng"
+  "vi:điểm đến đã khôi phục thành công.": {
+    "en": "Destination restore successfully"
   },
-  "vi:xóa liên kết bán hàng": {
-    "en": "Delete Selling Link"
+  "en:18/05/25, 10:19": {
+    "vi": "Ngày 18 tháng 5 năm 2025, 10 giờ 19 phút"
   },
-  "en:locations where you can find loi choi": {
-    "vi": "Địa điểm bạn có thể tìm thấy Loi Choi"
+  "vi:ngày 18 tháng 5 năm 2025, 10 giờ 19 phút": {
+    "en": "18/05/25, 10:19"
   },
-  "vi:địa điểm bạn có thể tìm thấy loi choi": {
-    "en": "Locations where you can find Loi Choi"
+  "en:delete ocop product successfully": {
+    "vi": "Xóa sản phẩm OCOP thành công"
+  },
+  "vi:xóa sản phẩm ocop thành công": {
+    "en": "Delete OCOP product successfully"
+  },
+  "en:showing 1 to 10 of 21 entries (filtered from 23 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong tổng số 21 mục (đã lọc từ 23 mục tổng cộng)"
+  },
+  "vi:hiển thị 1 đến 10 trong tổng số 21 mục (đã lọc từ 23 mục tổng cộng)": {
+    "en": "Showing 1 to 10 of 21 entries (filtered from 23 total entries)"
+  },
+  "en:showing 1 to 10 of 105 entries (filtered from 108 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong số 105 mục (đã lọc từ 108 mục tổng cộng)"
+  },
+  "vi:hiển thị 1 đến 10 trong số 105 mục (đã lọc từ 108 mục tổng cộng)": {
+    "en": "Showing 1 to 10 of 105 entries (filtered from 108 total entries)"
+  },
+  "en:showing 1 to 3 of 3 entries (filtered from 108 total entries)": {
+    "vi": "Hiển thị 1 đến 3 trong tổng số 3 mục (đã lọc từ 108 mục)"
+  },
+  "vi:hiển thị 1 đến 3 trong tổng số 3 mục (đã lọc từ 108 mục)": {
+    "en": "Showing 1 to 3 of 3 entries (filtered from 108 total entries)"
+  },
+  "en:25 days ago": {
+    "vi": "25 ngày trước"
+  },
+  "vi:25 ngày trước": {
+    "en": "25 days ago"
+  },
+  "en:tên điểm đến: activate to sort column ascending": {
+    "vi": "Tên điểm đến: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "vi:tên điểm đến: kích hoạt để sắp xếp cột tăng dần": {
+    "en": "Tên điểm đến: activate to sort column ascending"
+  },
+  "en:đánh giá trung bình: activate to sort column ascending": {
+    "vi": "Đánh giá trung bình: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "en:yêu thích: activate to sort column ascending": {
+    "vi": "Yêu thích: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "en:showing 1 to 10 of 20 entries (filtered from 23 total entries)": {
+    "vi": "Hiển thị 1 đến 10 của 20 mục (được lọc từ 23 mục tổng cộng)"
+  },
+  "vi:hiển thị 1 đến 10 của 20 mục (được lọc từ 23 mục tổng cộng)": {
+    "en": "Showing 1 to 10 of 20 entries (filtered from 23 total entries)"
   }
 }
