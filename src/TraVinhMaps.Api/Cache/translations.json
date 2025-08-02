@@ -8563,5 +8563,23 @@
   },
   "vi:hiển thị 1 đến 10 của 20 mục (được lọc từ 23 mục tổng cộng)": {
     "en": "Showing 1 to 10 of 20 entries (filtered from 23 total entries)"
+  },
+  "en:1 hrs ago": {
+    "vi": "1 giờ trước"
+  },
+  "vi:1 giờ trước": {
+    "en": "1 hrs ago"
+  },
+  "en:change": {
+    "vi": "Thay đổi"
+  },
+  "vi:thay đổi": {
+    "en": "Change"
+  },
+  "en:not forbidden": {
+    "vi": "Không cấm"
+  },
+  "vi:không cấm": {
+    "en": "Not Forbidden"
   }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TraVinhMaps.Api.Extensions;
 using TraVinhMaps.Application.Common.Exceptions;
+using TraVinhMaps.Application.Common.Extensions;
 using TraVinhMaps.Application.Features.Admins.Interface;
 using TraVinhMaps.Application.Features.Admins.Models;
 
@@ -124,7 +125,7 @@ public class AdminsController : ControllerBase
 
     [Authorize]
     [HttpGet("request-otp-update")]
-    public async Task<IActionResult> RequestOtpUpdate([FromQuery] string identifier)
+    public async Task<IActionResult> RequestOtpUpdate([FromQuery] string identifier, [FromQuery] string? useFor)
     {
         //  var authen = "6832df81e1226b4811255384";
         var authen = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -132,7 +133,25 @@ public class AdminsController : ControllerBase
         {
             return this.ApiError("account is not allowed", HttpStatusCode.Unauthorized);
         }
-        var result = await _adminService.RequestOtpForUpdate(identifier, authen);
+        RequestOtpUpdateType? requestOtpUpdate = null;
+
+        /** useFor:
+         * 1 -> step 1 : ChangeCurrentIdentifier - yêu cầu OTP để được đổi identifier hiện tại
+         * 2 -> step 2 : UpdateToNewIdentifier - yêu cầu OTP để cập nhật identifier mới
+         */
+        switch (useFor?.ToLower())
+        {
+            case "1":
+                requestOtpUpdate = RequestOtpUpdateType.ChangeCurrentIdentifier;
+                break;
+            case "2":
+                requestOtpUpdate = RequestOtpUpdateType.UpdateToNewIdentifier;
+                break;
+            default:
+                break; // No specific request type, will use default
+        }
+
+        var result = await _adminService.RequestOtpForUpdate(identifier, authen, requestOtpUpdate);
         if (result == null)
         {
             return this.ApiError("Failed to request OTP", HttpStatusCode.BadRequest);
