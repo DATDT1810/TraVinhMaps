@@ -289,4 +289,18 @@ public class LocalSpecialtiesController : ControllerBase
         await _cacheService.SetData(cacheKey, result, cacheTTL);
         return this.ApiOk(result);
     }
+
+    // GET: api/LocalSpecialties/search?name={name}
+    // Searches for local specialties by name
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchLocalSpecialtiesByName([FromQuery] string name)
+    {
+        if (string.IsNullOrEmpty(name))
+        {
+            return this.ApiError("Name parameter cannot be empty.");
+        }
+
+        var response = await _localSpecialtiesService.SearchByNameAsync(name);
+        return this.ApiOk(response);
+    }
 }

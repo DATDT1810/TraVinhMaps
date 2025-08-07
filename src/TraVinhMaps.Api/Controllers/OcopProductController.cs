@@ -134,6 +134,13 @@ public class OcopProductController : ControllerBase
         var listOcopProduct = await _service.GetOcopProductByName(name);
         return this.ApiOk(listOcopProduct);
     }
+
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchOcopProductByName(string name)
+    {
+        var listOcopProduct = await _service.SearchOcopProductByNameAsync(name);
+        return this.ApiOk(listOcopProduct);
+    }
     [HttpGet]
     [Route("CountOcopProducts")]
     public async Task<IActionResult> CountOcopProducts()

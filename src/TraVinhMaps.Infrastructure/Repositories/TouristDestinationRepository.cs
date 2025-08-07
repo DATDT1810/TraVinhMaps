@@ -924,4 +924,14 @@ public class TouristDestinationRepository : BaseRepository<TouristDestination>, 
         var update = Builders<TouristDestination>.Update.Set(x => x.AvarageRating, newAverageRating);
         await _collection.UpdateOneAsync(filter, update, cancellationToken: cancellationToken);
     }
+
+    public async Task<IEnumerable<TouristDestination>> SearchTouristDestinationByNameAsync(string name, CancellationToken cancellationToken = default)
+    {
+        var builder = Builders<TouristDestination>.Filter;
+        var filter = builder.And(
+            builder.Regex(x => x.Name, new BsonRegularExpression(name, "i")),
+            builder.Eq(x => x.status, true)
+        );
+        return await _collection.Find(filter).ToListAsync(cancellationToken);
+    }
 }

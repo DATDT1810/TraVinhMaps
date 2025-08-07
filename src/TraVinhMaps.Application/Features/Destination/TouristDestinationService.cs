@@ -303,5 +303,9 @@ public class TouristDestinationService : ITouristDestinationService
         return results.ToList();
 
     }
-}
 
+    public async Task<IEnumerable<TouristDestination>> SearchTouristDestinationByNameAsync(string name, CancellationToken cancellationToken = default)
+    {
+        return await _repository.SearchTouristDestinationByNameAsync(name, cancellationToken);
+    }
+}

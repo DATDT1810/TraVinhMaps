@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using TraVinhMaps.Application.Features.OcopProduct.Interface;
 using TraVinhMaps.Application.Features.OcopProduct.Models;
 using TraVinhMaps.Application.Repositories;
+using TraVinhMaps.Application.UnitOfWorks;
 using TraVinhMaps.Domain.Entities;
 using TraVinhMaps.Domain.Specs;
-using TraVinhMaps.Application.UnitOfWorks;
 
 namespace TraVinhMaps.Application.Features.OcopProduct;
 public class OcopProductService : IOcopProductService
@@ -179,7 +179,7 @@ public class OcopProductService : IOcopProductService
     }
 
     // CompareProductsAsync
-    public async Task<IEnumerable<OcopProductAnalytics>> CompareProductsAsync(IEnumerable<string> productIds, string timeRange = "month", DateTime? startDate = null, DateTime? endDate = null,  CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<OcopProductAnalytics>> CompareProductsAsync(IEnumerable<string> productIds, string timeRange = "month", DateTime? startDate = null, DateTime? endDate = null, CancellationToken cancellationToken = default)
     {
         // Validation
         if (!string.IsNullOrEmpty(timeRange) && !new[] { "day", "week", "month", "year" }.Contains(timeRange.ToLower()))
@@ -215,5 +215,10 @@ public class OcopProductService : IOcopProductService
     public async Task<Pagination<Domain.Entities.OcopProduct>> GetOcopProductPaging(OcopProductSpecParams specParams, CancellationToken cancellationToken = default)
     {
         return await _ocopProductRepository.GetOcopProductPaging(specParams, cancellationToken);
+    }
+
+    public async Task<IEnumerable<Domain.Entities.OcopProduct>> SearchOcopProductByNameAsync(string name, CancellationToken cancellationToken = default)
+    {
+        return await _ocopProductRepository.SearchOcopProductByNameAsync(name, cancellationToken);
     }
 }

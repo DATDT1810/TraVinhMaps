@@ -157,4 +157,9 @@ public class LocalSpecialtiesService : ILocalSpecialtiesService
         var result = await _localSpecialtiesRepository.GetLocalSpecialtiesPaging(specParams);
         return new Pagination<Domain.Entities.LocalSpecialties>(specParams.PageIndex, specParams.PageSize, (int)result.Count, result.Data);
     }
+
+    public async Task<IEnumerable<Domain.Entities.LocalSpecialties>> SearchByNameAsync(string name, CancellationToken cancellationToken = default)
+    {
+        return await _localSpecialtiesRepository.ListAsync(l => l.FoodName.ToLower().Contains(name.ToLower()), cancellationToken);
+    }
 }

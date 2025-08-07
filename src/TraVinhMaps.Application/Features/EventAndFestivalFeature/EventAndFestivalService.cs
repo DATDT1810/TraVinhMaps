@@ -89,4 +89,9 @@ public class EventAndFestivalService : IEventAndFestivalService
     {
         return await _repository.GetEventAndFestivalPaging(specParams, cancellationToken);
     }
+
+    public async Task<IEnumerable<EventAndFestival>> SearchEventAndFestivalByNameAsync(string name, CancellationToken cancellationToken = default)
+    {
+        return await _repository.SearchEventAndFestivalByNameAsync(name, cancellationToken);
+    }
 }

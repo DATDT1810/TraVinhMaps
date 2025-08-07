@@ -221,6 +221,13 @@ public class EventAndFestivalController : ControllerBase
         return this.ApiOk(events);
     }
 
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchEventAndFestivalByName(string name)
+    {
+        var list = await _eventAndFestivalService.SearchEventAndFestivalByNameAsync(name);
+        return this.ApiOk(list);
+    }
+
     [HttpGet]
     [Route("GetEventAndFestivalPaging")]
     public async Task<IActionResult> GetEventAndFestivalPaging([FromQuery] EventAndFestivalSpecParams specParams)

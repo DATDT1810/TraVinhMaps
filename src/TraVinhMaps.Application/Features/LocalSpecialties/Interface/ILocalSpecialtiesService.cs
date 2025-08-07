@@ -30,5 +30,5 @@ public interface ILocalSpecialtiesService
     Task<LocalSpecialtyLocation> AddSellLocationAsync(string id, LocalSpecialtyLocation request, CancellationToken cancellationToken = default);
     Task<bool> RemoveSellLocationAsync(string id, string sellLocationId, CancellationToken cancellationToken = default);
     Task<LocalSpecialtyLocation> UpdateSellLocationAsync(string id, LocalSpecialtyLocation request, CancellationToken cancellationToken = default);
-
+    Task<IEnumerable<Domain.Entities.LocalSpecialties>> SearchByNameAsync(string name, CancellationToken cancellationToken = default);
 }

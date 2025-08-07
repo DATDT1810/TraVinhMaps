@@ -30,11 +30,23 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
             Builders<User>.IndexKeys.Ascending("favorites.favorite_itemId").Ascending("favorites.favorite_type")));
         _interactionLogsCollection.Indexes.CreateOne(new CreateIndexModel<InteractionLogs>(
             Builders<InteractionLogs>.IndexKeys.Ascending(i => i.ItemId).Ascending(i => i.ItemType).Ascending(i => i.CreatedAt)));
+
+        var indexKeysDefinition = Builders<OcopProduct>.IndexKeys.Ascending(p => p.ProductName);
+        var indexModel = new CreateIndexModel<OcopProduct>(indexKeysDefinition);
+        _collection.Indexes.CreateOne(indexModel);
     }
     public async Task<OcopProduct> GetOcopProductByName(string name, CancellationToken cancellationToken = default)
     {
         var filter = Builders<OcopProduct>.Filter.Eq(c => c.ProductName, name) & Builders<OcopProduct>.Filter.Eq(s => s.Status, true);
         return await _collection.Find(filter).FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<IEnumerable<OcopProduct>> SearchOcopProductByNameAsync(string name, CancellationToken cancellationToken = default)
+    {
+        var nameFilter = Builders<OcopProduct>.Filter.Regex(p => p.ProductName, new BsonRegularExpression(name, "i"));
+        var statusFilter = Builders<OcopProduct>.Filter.Eq(s => s.Status, true);
+        var filter = Builders<OcopProduct>.Filter.And(nameFilter, statusFilter);
+        return await _collection.Find(filter).ToListAsync(cancellationToken);
     }
     public async Task<IEnumerable<OcopProduct>> GetOcopProductByCompanyId(string companyId, CancellationToken cancellationToken = default)
     {

@@ -21,6 +21,7 @@ public interface IOcopProductService
     Task<bool> RestoreOcopProductAsync(string id, CancellationToken cancellationToken = default);
     Task<long> CountAsync(Expression<Func<Domain.Entities.OcopProduct, bool>> predicate = null, CancellationToken cancellationToken = default);
     Task<Domain.Entities.OcopProduct> GetOcopProductByName(string name, CancellationToken cancellationToken = default);
+    Task<IEnumerable<Domain.Entities.OcopProduct>> SearchOcopProductByNameAsync(string name, CancellationToken cancellationToken = default);
     Task<Domain.Entities.SellLocation> GetSellLocationByName(string id, string name, CancellationToken cancellationToken = default);
     Task<IEnumerable<Domain.Entities.OcopProduct>> GetOcopProductByOcopTypeId(string ocopTypeId, CancellationToken cancellationToken = default);
     Task<IEnumerable<Domain.Entities.OcopProduct>> GetOcopProductByCompanyId(string companyId, CancellationToken cancellationToken = default);

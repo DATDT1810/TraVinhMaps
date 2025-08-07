@@ -147,5 +147,5 @@ public interface ITouristDestinationService
     Task<List<TouristDestination>> GetNearbyDestinationsAsync(
       double latitude, double longitude, double radiusKm, int limit, string? destinationTypeId);
     Task<List<TouristDestination>> GetTopDestinationsAsync(int limit);
-
+    Task<IEnumerable<TouristDestination>> SearchTouristDestinationByNameAsync(string name, CancellationToken cancellationToken = default);
 }

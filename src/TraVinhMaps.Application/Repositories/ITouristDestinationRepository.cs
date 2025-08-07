@@ -28,4 +28,5 @@ public interface ITouristDestinationRepository : IBaseRepository<TouristDestinat
     // Compare destination
     Task<IEnumerable<DestinationAnalytics>> CompareDestinationsAsync(IEnumerable<string> destinationIds, string timeRange = "month", DateTime? startDate = null, DateTime? endDate = null, CancellationToken cancellationToken = default);
     Task<IEnumerable<TouristDestination>> GetDestinationsByIds(List<string> idList, CancellationToken cancellationToken = default);
+    Task<IEnumerable<TouristDestination>> SearchTouristDestinationByNameAsync(string name, CancellationToken cancellationToken = default);
 }

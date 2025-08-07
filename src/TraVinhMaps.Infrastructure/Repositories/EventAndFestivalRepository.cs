@@ -122,4 +122,15 @@ public class EventAndFestivalRepository : BaseRepository<EventAndFestival>, IEve
                     .ToListAsync(cancellationToken);
         }
     }
+
+    public async Task<IEnumerable<EventAndFestival>> SearchEventAndFestivalByNameAsync(string name, CancellationToken cancellationToken = default)
+    {
+        var builder = Builders<EventAndFestival>.Filter;
+        var filter = builder.And(
+            builder.Regex(x => x.NameEvent, new BsonRegularExpression(name, "i")),
+            builder.Gte(x => x.EndDate, DateTime.Now),
+            builder.Eq(x => x.Status, true)
+        );
+        return await _collection.Find(filter).ToListAsync(cancellationToken);
+    }
 }

@@ -101,6 +101,13 @@ public class TouristDestinationController : ControllerBase
         return this.ApiOk(count);
     }
 
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchTouristDestinationByName(string name)
+    {
+        var list = await _touristDestinationService.SearchTouristDestinationByNameAsync(name);
+        return this.ApiOk(list);
+    }
+
     [HttpGet]
     [Route("[action]/{id}", Name = "GetDestinationById")]
     public async Task<IActionResult> GetDestinationById(string id)

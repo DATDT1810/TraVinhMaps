@@ -44,4 +44,5 @@ public interface IEventAndFestivalService
     Task<string> DeleteEventAndFestivalImage(string id, string imageUrl, CancellationToken cancellationToken = default);
     Task<IEnumerable<EventAndFestival>> GetTopUpcomingEvents(CancellationToken cancellationToken = default);
     Task<Pagination<EventAndFestival>> GetEventAndFestivalPaging(EventAndFestivalSpecParams specParams, CancellationToken cancellationToken = default);
+    Task<IEnumerable<EventAndFestival>> SearchEventAndFestivalByNameAsync(string name, CancellationToken cancellationToken = default);
 }

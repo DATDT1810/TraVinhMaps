@@ -10,6 +10,7 @@ namespace TraVinhMaps.Application.Repositories;
 public interface IOcopProductRepository : IBaseRepository<OcopProduct>
 {
     Task<OcopProduct> GetOcopProductByName(string name, CancellationToken cancellationToken = default);
+    Task<IEnumerable<OcopProduct>> SearchOcopProductByNameAsync(string name, CancellationToken cancellationToken = default);
     Task<Domain.Entities.SellLocation> GetSellLocationByName(string id, string name, CancellationToken cancellationToken = default);
     Task<IEnumerable<OcopProduct>> GetOcopProductByCompanyId(string companyId, CancellationToken cancellationToken = default);
     Task<IEnumerable<OcopProduct>> GetOcopProductByOcopTypeId(string ocopTypeId, CancellationToken cancellationToken = default);
