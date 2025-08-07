@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Linq.Expressions;
+using MongoDB.Driver;
 using TraVinhMaps.Domain.Entities;
 
 namespace TraVinhMaps.Application.UnitOfWorks;
@@ -39,4 +40,10 @@ public interface IBaseRepository<T> where T : BaseEntity
     /// <returns></returns>
     Task<long> CountAsync(Expression<Func<T, bool>> predicate = null, CancellationToken cancellationToken = default);
     Task<T> GetAsyns(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default);
+
+    Task<IEnumerable<T>> ListAsync(
+   FilterDefinition<T> filter,
+   SortDefinition<T>? sort = null,
+   int? limit = null,
+   CancellationToken cancellationToken = default);
 }

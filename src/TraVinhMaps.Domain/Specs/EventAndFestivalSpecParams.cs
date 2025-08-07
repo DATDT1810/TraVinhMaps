@@ -2,8 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 namespace TraVinhMaps.Domain.Specs;
-
-public class UserSpecParams
+public class EventAndFestivalSpecParams
 {
     private const int MaxPageSize = 70;
     public int PageIndex { get; set; } = 1;
@@ -13,7 +12,6 @@ public class UserSpecParams
         get => _pageSize;
         set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
     }
-
-    public string Search { get; set; }
-    public string Sort { get; set; }
+    public string? Sort { get; set; }
+    public string? Search { get; set; }
 }

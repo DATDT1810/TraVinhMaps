@@ -87,7 +87,7 @@
     "vi": "Cài đặt"
   },
   "vi:cài đặt": {
-    "en": "Settings"
+    "en": "Setting"
   },
   "en:log                                             out": {
     "vi": "Đăng xuất"
@@ -149,11 +149,11 @@
   "vi:quản lý đánh giá": {
     "en": "Reviews Management"
   },
-  "en:local specialties": {
+  "en:local specialty": {
     "vi": "Đặc sản địa phương"
   },
   "vi:đặc sản địa phương": {
-    "en": "Local Specialty"
+    "en": "Local Specialties"
   },
   "en:event and festival": {
     "vi": "Sự kiện và Lễ hội"
@@ -174,9 +174,9 @@
     "en": "Send Notification"
   },
   "en:marker managment": {
-    "vi": "Quản lý Điểm đánh dấu"
+    "vi": "Điểm đánh dấu"
   },
-  "vi:quản lý điểm đánh dấu": {
+  "vi:điểm đánh dấu": {
     "en": "Marker Managment"
   },
   "en:itineraries": {
@@ -239,9 +239,6 @@
   "vi:hiệu suất theo thẻ": {
     "en": "Performance by Tag"
   },
-  "en:local specialty": {
-    "vi": "Đặc sản địa phương"
-  },
   "en:tips": {
     "vi": "Mẹo"
   },
@@ -258,7 +255,7 @@
     "vi": "Tất cả"
   },
   "vi:tất cả": {
-    "en": "All"
+    "en": "All()"
   },
   "en:select tags": {
     "vi": "Chọn thẻ"
@@ -369,7 +366,7 @@
     "vi": "STT"
   },
   "vi:stt": {
-    "en": "No. &nbsp;"
+    "en": "No."
   },
   "en:customer": {
     "vi": "Khách hàng"
@@ -424,12 +421,6 @@
   },
   "vi:biểu tượng logo": {
     "en": "logo-icon"
-  },
-  "en:search": {
-    "vi": "Tìm kiếm"
-  },
-  "vi:tìm kiếm": {
-    "en": "Find"
   },
   "en:close": {
     "vi": "Đóng"
@@ -773,12 +764,6 @@
   "vi:mô tả": {
     "en": "Description"
   },
-  "en:edit ocop product": {
-    "vi": "Chỉnh sửa sản phẩm Ocop"
-  },
-  "vi:chỉnh sửa sản phẩm ocop": {
-    "en": "Edit Ocop Product"
-  },
   "en:store of sell": {
     "vi": "Cửa hàng bán"
   },
@@ -807,7 +792,7 @@
     "vi": "Không có liên kết bán hàng."
   },
   "vi:không có liên kết bán hàng.": {
-    "en": "No Selling Link."
+    "en": "No selling links available."
   },
   "en:add new location": {
     "vi": "Thêm địa điểm mới"
@@ -2154,7 +2139,7 @@
     "vi": "Địa điểm công ty"
   },
   "vi:địa điểm công ty": {
-    "en": "Company Locations"
+    "en": "Company Location"
   },
   "en:type": {
     "vi": "Loại"
@@ -2484,13 +2469,13 @@
     "vi": "Đánh giá trung bình: kích hoạt để sắp xếp cột tăng dần"
   },
   "vi:đánh giá trung bình: kích hoạt để sắp xếp cột tăng dần": {
-    "en": "AvarageRating: activate to sort column ascending"
+    "en": "Đánh giá trung bình: activate to sort column ascending"
   },
   "en:favorite: activate to sort column ascending": {
     "vi": "Yêu thích: kích hoạt để sắp xếp cột tăng dần"
   },
   "vi:yêu thích: kích hoạt để sắp xếp cột tăng dần": {
-    "en": "Favorite: activate to sort column ascending"
+    "en": "Yêu thích: activate to sort column ascending"
   },
   "en:destination details": {
     "vi": "Chi tiết Điểm đến"
@@ -2571,7 +2556,7 @@
     "vi": "Xem thêm"
   },
   "vi:xem thêm": {
-    "en": "See more"
+    "en": "Show more items"
   },
   "en:no history description available.": {
     "vi": "Không có mô tả lịch sử."
@@ -2629,9 +2614,6 @@
   },
   "vi:tất cả đánh giá": {
     "en": "All Ratings"
-  },
-  "en:find": {
-    "vi": "Tìm kiếm"
   },
   "en:user name": {
     "vi": "Tên người dùng"
@@ -3933,15 +3915,15 @@
     "en": "Index"
   },
   "en:total users review": {
-    "vi": "Tổng số lượt đánh giá người dùng"
+    "vi": "Tổng số người dùng đánh giá"
   },
-  "vi:tổng số lượt đánh giá người dùng": {
+  "vi:tổng số người dùng đánh giá": {
     "en": "Total Users Review"
   },
   "en:user has the most comments": {
-    "vi": "Người dùng có nhiều bình luận nhất"
+    "vi": "Người dùng đánh giá nhiều nhất"
   },
-  "vi:người dùng có nhiều bình luận nhất": {
+  "vi:người dùng đánh giá nhiều nhất": {
     "en": "User Has The Most Comments"
   },
   "en:not available": {
@@ -3969,7 +3951,7 @@
     "vi": "Tạo Đặc sản Địa phương"
   },
   "vi:tạo đặc sản địa phương": {
-    "en": "Create Local                                                 Specialty"
+    "en": "Create Local Specialties"
   },
   "en:upload local specialty images": {
     "vi": "Tải ảnh đặc sản địa phương lên"
@@ -4014,7 +3996,7 @@
     "vi": "Tạo mẹo"
   },
   "vi:tạo mẹo": {
-    "en": "Create Tip"
+    "en": "Create Tips"
   },
   "en:-- select a tag --": {
     "vi": "Chọn thẻ"
@@ -5235,9 +5217,9 @@
     "en": "Destination Type"
   },
   "en:opent time": {
-    "vi": "Thời gian mở cửa"
+    "vi": "Giờ mở cửa"
   },
-  "vi:thời gian mở cửa": {
+  "vi:giờ mở cửa": {
     "en": "Opent Time"
   },
   "en:12 am": {
@@ -5448,9 +5430,9 @@
     "en": "9.9158303 ,\u00A0 106.3022627"
   },
   "en:free ticket": {
-    "vi": "vé miễn phí"
+    "vi": "Vé miễn phí"
   },
-  "vi:vé miễn phí": {
+  "vi:Vé miễn phí": {
     "en": "free ticket"
   },
   "en:thanh duong giao xu mac bac": {
@@ -6371,353 +6353,335 @@
   "vi:hiển thị 11 đến 19 trên tổng số 19 mục": {
     "en": "Showing 11 to 19 of 19 entries"
   },
-  "en:all(3)": {
-    "vi": "Tất cả (3)"
+  "en:showing 1 to 2 of 2 entries (filtered from 107 total entries)": {
+    "vi": "Hiển thị 1 đến 2 trong số 2 mục (đã lọc từ tổng số 107 mục)"
   },
-  "vi:tất cả (3)": {
-    "en": "All(3)"
+  "vi:hiển thị 1 đến 2 trong số 2 mục (đã lọc từ tổng số 107 mục)": {
+    "en": "Showing 1 to 2 of 2 entries (filtered from 107 total entries)"
   },
-  "en:showing 1 to 1 of 1 entries": {
-    "vi": "Hiển thị 1 đến 1 trên tổng số 1 mục"
+  "en:showing 11 to 20 of 106 entries (filtered from 107 total entries)": {
+    "vi": "Hiển thị 11 đến 20 trong 106 mục (đã lọc từ tổng số 107 mục)"
   },
-  "vi:hiển thị 1 đến 1 trên tổng số 1 mục": {
-    "en": "Showing 1 to 1 of 1 entries"
+  "vi:hiển thị 11 đến 20 trong 106 mục (đã lọc từ tổng số 107 mục)": {
+    "en": "Showing 11 to 20 of 106 entries (filtered from 107 total entries)"
   },
-  "en:showing 1 to 10 of 107 entries": {
-    "vi": "Hiển thị 1 đến 10 trên 107 mục"
+  "en:188/45 nguyen van cu, can tho": {
+    "vi": "188/45 Nguyễn Văn Cừ, Cần Thơ"
   },
-  "vi:hiển thị 1 đến 10 trên 107 mục": {
-    "en": "Showing 1 to 10 of 107 entries"
+  "vi:188/45 nguyễn văn cừ, cần thơ": {
+    "en": "188/45 nguyen van cu, can tho"
   },
-  "en:showing 1 to 1 of 1 entries (filtered from 107 total entries)": {
-    "vi": "Hiển thị 1 đến 1 trong 1 mục (đã lọc từ 107 mục tổng cộng)"
+  "en:(chôl sangkran chmây)": {
+    "vi": "(Chôl Chnăm Thmây)"
   },
-  "vi:hiển thị 1 đến 1 trong 1 mục (đã lọc từ 107 mục tổng cộng)": {
-    "en": "Showing 1 to 1 of 1 entries (filtered from 107 total entries)"
+  "vi:(chôl chnăm thmây)": {
+    "en": "(Chôl sangkran Chmây)"
   },
-  "en:stt": {
-    "vi": "No."
+  "en:chùa bà thiên hậu cầu quan 天后古廟": {
+    "vi": "Chùa Bà Thiên Hậu Cầu Quan Thiên Hậu Cổ Miếu"
   },
-  "vi:no.": {
-    "en": "STT"
+  "vi:chùa bà thiên hậu cầu quan thiên hậu cổ miếu": {
+    "en": "Chùa Bà Thiên Hậu Cầu Quan 天后古廟"
   },
-  "en:họ và tên": {
-    "vi": "Full Name"
+  "en:showing 1 to 10 of 18 entries (filtered from 19 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong số 18 mục (đã lọc từ tổng số 19 mục)"
   },
-  "vi:full name": {
-    "en": "Họ và Tên"
+  "vi:hiển thị 1 đến 10 trong số 18 mục (đã lọc từ tổng số 19 mục)": {
+    "en": "Showing 1 to 10 of 18 entries (filtered from 19 total entries)"
   },
-  "en:thư điện tử": {
-    "vi": "Email"
+  "en:showing 1 to 1 of 1 entries (filtered from 19 total entries)": {
+    "vi": "Hiển thị 1 đến 1 trên tổng số 1 mục (được lọc từ 19 mục)"
   },
-  "vi:email": {
-    "en": "Thư điện tử"
+  "vi:hiển thị 1 đến 1 trên tổng số 1 mục (được lọc từ 19 mục)": {
+    "en": "Showing 1 to 1 of 1 entries (filtered from 19 total entries)"
   },
-  "en:điện thoại": {
-    "vi": "Phone"
+  "en:setting": {
+    "vi": "Cài đặt"
   },
-  "vi:phone": {
-    "en": "Điện thoại"
+  "en:security information": {
+    "vi": "Thông tin bảo mật"
   },
-  "en:trạng thái": {
-    "vi": "Status"
+  "vi:thông tin bảo mật": {
+    "en": "Security Information"
   },
-  "vi:status": {
-    "en": "Trạng thái"
+  "en:change email": {
+    "vi": "Đổi Email"
   },
-  "en:ngày tạo": {
-    "vi": "Creation Date"
+  "vi:đổi email": {
+    "en": "Change Email"
   },
-  "vi:creation date": {
-    "en": "Ngày tạo"
+  "en:no phone number yet.": {
+    "vi": "Chưa có số điện thoại."
   },
-  "en:hành động": {
-    "vi": "Action"
+  "vi:chưa có số điện thoại.": {
+    "en": "No phone number yet."
   },
-  "vi:action": {
-    "en": "Hành động"
+  "en:change phone number": {
+    "vi": "Đổi số điện thoại"
   },
-  "en:03/06/25, 12:24": {
-    "vi": "03/06/2025, 12:24"
+  "vi:đổi số điện thoại": {
+    "en": "Change Phone Number"
   },
-  "vi:03/06/2025, 12:24": {
-    "en": "03/06/25, 12:24"
+  "en:password has been set.": {
+    "vi": "Mật khẩu đã được đặt."
   },
-  "en:nttram140876@hotmail.com": {
-    "vi": "NMTram140876@hotmail.com"
+  "vi:mật khẩu đã được thiết lập.": {
+    "en": "Password has been set."
   },
-  "vi:nmtram140876@hotmail.com": {
-    "en": "NTTram140876@hotmail.com"
+  "en:change password": {
+    "vi": "Đổi mật khẩu"
   },
-  "en:13 days ago": {
-    "vi": "13 ngày trước"
+  "vi:đổi mật khẩu": {
+    "en": "Change Password"
   },
-  "vi:13 ngày trước": {
-    "en": "13 days ago"
+  "en:verify                     current email": {
+    "vi": "Xác minh Email hiện tại"
   },
-  "en:trankhanhvan": {
-    "vi": "Trần Khánh Vân"
+  "vi:xác minh email hiện tại": {
+    "en": "Verify                     Current Email"
   },
-  "vi:trần khánh vân": {
-    "en": "TranKhanhVan"
+  "en:your otp is                     sent to joongnguyen2712@gmail.com now": {
+    "vi": "Mã OTP của bạn đã được gửi đến joongnguyen2712@gmail.com"
   },
-  "en:nguyenminhvu": {
-    "vi": "Nguyễn Minh Vũ"
+  "vi:mã otp của bạn đã được gửi đến joongnguyen2712@gmail.com": {
+    "en": "Your OTP is                     sent to joongnguyen2712@gmail.com now"
   },
-  "vi:nguyễn minh vũ": {
-    "en": "NguyenMinhVu"
+  "en:confirm otp": {
+    "vi": "Xác nhận OTP"
   },
-  "en:creation date": {
-    "vi": "Ngày tạo"
+  "vi:xác nhận otp": {
+    "en": "Confirm OTP"
   },
-  "en:16/06/2025": {
-    "vi": "16 tháng 06, 2025"
+  "en:verify": {
+    "vi": "Xác minh"
   },
-  "vi:16 tháng 06, 2025": {
-    "en": "16/06/2025"
+  "vi:xác minh": {
+    "en": "Verify"
   },
-  "en:showing 1 to 10 of 103 entries (filtered from 107 total entries)": {
-    "vi": "Hiển thị 1 đến 10 trong số 103 mục (đã lọc từ 107 mục tổng cộng)"
+  "en:resend otp after": {
+    "vi": "Gửi lại OTP sau"
   },
-  "vi:hiển thị 1 đến 10 trong số 103 mục (đã lọc từ 107 mục tổng cộng)": {
-    "en": "Showing 1 to 10 of 103 entries (filtered from 107 total entries)"
+  "vi:gửi lại otp sau": {
+    "en": "Resend OTP after"
   },
-  "en:không hoạt động": {
-    "vi": "Inactive"
+  "en:update email": {
+    "vi": "Cập nhật Email"
   },
-  "vi:inactive": {
-    "en": "Không hoạt động"
+  "vi:cập nhật email": {
+    "en": "Update Email"
   },
-  "en:bun nuoc leo": {
-    "vi": "Bún Nước Lèo"
+  "en:new email                             address": {
+    "vi": "Địa chỉ Email mới"
   },
-  "vi:bún nước lèo": {
-    "en": "Bun Nuoc Leo"
+  "vi:địa chỉ email mới": {
+    "en": "New Email                             Address"
   },
-  "en:this is a fairly popular dish of the …": {
-    "vi": "Đây là một món ăn khá phổ biến của…"
+  "en:please enter a valid email address.": {
+    "vi": "Vui lòng nhập một địa chỉ email hợp lệ."
   },
-  "vi:đây là một món ăn khá phổ biến của…": {
-    "en": "This is a fairly popular dish of the …"
+  "vi:vui lòng nhập địa chỉ email hợp lệ.": {
+    "en": "Please enter a valid email address."
   },
-  "en:good good good": {
-    "vi": "tốt tốt tốt"
+  "en:update phone number": {
+    "vi": "Cập nhật Số điện thoại"
   },
-  "vi:tốt tốt tốt": {
-    "en": "good good good"
+  "vi:cập nhật số điện thoại": {
+    "en": "Update Phone Number"
   },
-  "en:18/05/25, 01:24": {
-    "vi": "25/05/18, 01:24"
+  "en:new phone                             number": {
+    "vi": "Số điện thoại mới"
   },
-  "vi:25/05/18, 01:24": {
-    "en": "18/05/25, 01:24"
+  "vi:số điện thoại mới": {
+    "en": "New Phone                             Number"
   },
-  "en:18/05/25, 01:26": {
-    "vi": "25/05/18, 01:26"
+  "en:please enter a valid phone number.": {
+    "vi": "Vui lòng nhập một số điện thoại hợp lệ."
   },
-  "vi:25/05/18, 01:26": {
-    "en": "18/05/25, 01:26"
+  "vi:vui lòng nhập số điện thoại hợp lệ.": {
+    "en": "Please enter a valid phone number."
   },
-  "en:bun nuoc leo hem lý thường kiệt": {
-    "vi": "Bún nước lèo hẻm Lý Thường Kiệt"
+  "en:update password": {
+    "vi": "Cập nhật Mật khẩu"
   },
-  "vi:bún nước lèo hẻm lý thường kiệt": {
-    "en": "Bun nuoc leo hem Lý Thường Kiệt"
+  "vi:cập nhật mật khẩu": {
+    "en": "Update Password"
   },
-  "en:hem ly thuong kiet , p. 4, tp. tra vinh": {
-    "vi": "Hẻm Lý Thường Kiệt, P. 4, TP. Trà Vinh"
+  "en:current                             password": {
+    "vi": "Mật khẩu hiện tại"
   },
-  "vi:hẻm lý thường kiệt, p. 4, tp. trà vinh": {
-    "en": "Hem Ly Thuong Kiet , P. 4, Tp. Tra Vinh"
+  "vi:mật khẩu hiện tại": {
+    "en": "Current                             Password"
   },
-  "en:this is a fairly popular dish of the western provinces, but tra vinh vermicelli thanks to its unique ingredients has become the second most delicious vermicelli dish. tra vinh vermicelli is famous for being cooked with beef sauce.": {
-    "vi": "Đây là món ăn khá phổ biến ở các tỉnh miền Tây, nhưng bún Trà Vinh nhờ nguyên liệu độc đáo đã trở thành món bún ngon thứ hai. Bún Trà Vinh nổi tiếng vì được nấu với nước lèo bò."
+  "en:please enter your current password.": {
+    "vi": "Vui lòng nhập mật khẩu hiện tại của bạn."
   },
-  "vi:đây là món ăn khá phổ biến ở các tỉnh miền tây, nhưng bún trà vinh nhờ nguyên liệu độc đáo đã trở thành món bún ngon thứ hai. bún trà vinh nổi tiếng vì được nấu với nước lèo bò.": {
-    "en": "This is a fairly popular dish of the western provinces, but Tra Vinh vermicelli thanks to its unique ingredients has become the second most delicious vermicelli dish. Tra Vinh vermicelli is famous for being cooked with beef sauce."
+  "vi:vui lòng nhập mật khẩu hiện tại của bạn.": {
+    "en": "Please enter your current password."
   },
-  "en:itinerary plan title": {
-    "vi": "Tiêu đề Kế hoạch Hành trình"
+  "en:password must be at least 8 characters.": {
+    "vi": "Mật khẩu phải có ít nhất 8 ký tự."
   },
-  "vi:tiêu đề kế hoạch hành trình": {
-    "en": "Itinerary Plan title"
+  "vi:mật khẩu phải có ít nhất 8 ký tự.": {
+    "en": "Password must be at least 8 characters."
   },
-  "en:3 days 2 night": {
-    "vi": "3 ngày 2 đêm"
+  "en:confirm new                             password": {
+    "vi": "Xác nhận Mật khẩu mới"
   },
-  "vi:3 ngày 2 đêm": {
-    "en": "3 days 2 night"
+  "vi:xác nhận mật khẩu mới": {
+    "en": "Confirm New                             Password"
   },
-  "en:5 days 4 night": {
-    "vi": "5 ngày 4 đêm"
+  "en:passwords must match.": {
+    "vi": "Mật khẩu phải trùng khớp."
   },
-  "vi:5 ngày 4 đêm": {
-    "en": "5 days 4 night"
+  "vi:mật khẩu phải khớp.": {
+    "en": "Passwords must match."
   },
-  "en:4 million": {
-    "vi": "4 triệu"
+  "en:enter your new email": {
+    "vi": "Nhập email mới của bạn"
   },
-  "vi:4 triệu": {
-    "en": "4 million"
+  "vi:nhập email mới của bạn": {
+    "en": "Enter your new email"
   },
-  "en:5 million": {
-    "vi": "5 triệu"
+  "en:enter your new phone number": {
+    "vi": "Nhập số điện thoại mới của bạn"
   },
-  "vi:5 triệu": {
-    "en": "5 million"
+  "vi:nhập số điện thoại mới của bạn": {
+    "en": "Enter your new phone number"
   },
-  "en:choosing destination for itinerary plan": {
-    "vi": "Chọn điểm đến cho kế hoạch hành trình"
+  "en:enter your current password": {
+    "vi": "Nhập mật khẩu hiện tại của bạn"
   },
-  "vi:chọn điểm đến cho kế hoạch hành trình": {
-    "en": "Choosing destination for itinerary plan"
+  "vi:nhập mật khẩu hiện tại của bạn": {
+    "en": "Enter your current password"
   },
-  "en:please select at least 2 locations": {
-    "vi": "Vui lòng chọn ít nhất 2 địa điểm"
+  "en:enter your new password": {
+    "vi": "Nhập mật khẩu mới của bạn"
   },
-  "vi:vui lòng chọn ít nhất 2 địa điểm": {
-    "en": "Please select at least 2 locations"
+  "vi:nhập mật khẩu mới của bạn": {
+    "en": "Enter your new password"
   },
-  "en:write or choose destination": {
-    "vi": "Viết hoặc chọn điểm đến"
+  "en:confirm your new password": {
+    "vi": "Xác nhận mật khẩu mới của bạn"
   },
-  "vi:viết hoặc chọn điểm đến": {
-    "en": "write or choose destination"
+  "vi:xác nhận mật khẩu mới của bạn": {
+    "en": "Confirm your new password"
   },
-  "en:add at least 2 destination, please try again": {
-    "vi": "Vui lòng thêm ít nhất 2 điểm đến, vui lòng thử lại"
+  "vi:mật khẩu đã được đặt.": {
+    "en": "Password has been set."
   },
-  "vi:vui lòng thêm ít nhất 2 điểm đến, vui lòng thử lại": {
-    "en": "Add at least 2 Destination, please try again"
+  "vi:vui lòng nhập một địa chỉ email hợp lệ.": {
+    "en": "Please enter a valid email address."
   },
-  "en:create itinerary plan successfull": {
-    "vi": "Tạo kế hoạch hành trình thành công"
+  "vi:vui lòng nhập một số điện thoại hợp lệ.": {
+    "en": "Please enter a valid phone number."
   },
-  "vi:tạo kế hoạch hành trình thành công": {
-    "en": "Create itinerary plan successfull"
+  "vi:mật khẩu phải trùng khớp.": {
+    "en": "Passwords must match."
   },
-  "en:sell location edit": {
-    "vi": "Chỉnh sửa địa điểm bán"
+  "en:26/05/25, 00:00 to                                                  29/05/25, 00:00": {
+    "vi": "26/05/25, 00:00 to 29/05/25, 00:00"
   },
-  "vi:chỉnh sửa địa điểm bán": {
-    "en": "Sell Location Edit"
+  "vi:26/05/25, 00:00 to 29/05/25, 00:00": {
+    "en": "26/05/25, 00:00 to                                                  29/05/25, 00:00"
   },
-  "en:edit ocop type": {
-    "vi": "Chỉnh sửa loại OCOP"
+  "en:angkorajaborey pagoda (chùa khmer chùa âng)": {
+    "vi": "Chùa Angkorajaborey (Chùa Khmer Chùa Âng)"
   },
-  "vi:chỉnh sửa loại ocop": {
-    "en": "Edit Ocop Type"
+  "vi:chùa angkorajaborey (chùa khmer chùa âng)": {
+    "en": "Angkorajaborey Pagoda (Chùa Khmer Chùa Âng)"
   },
-  "en:ocop type updated successfully!": {
-    "vi": "Loại Ocop đã cập nhật thành công!"
+  "en:show more items": {
+    "vi": "Xem thêm"
   },
-  "vi:loại ocop đã cập nhật thành công!": {
-    "en": "Ocop type updated successfully!"
+  "en:là một trong những …": {
+    "vi": "là một trong những…"
   },
-  "en:drink": {
-    "vi": "Đồ uống"
+  "vi:là một trong những…": {
+    "en": "là một trong những …"
   },
-  "vi:đồ uống": {
-    "en": "Đồ Uôngs"
+  "en:bánh canh bến có nổi tiếng hơn 20 …": {
+    "vi": "Bánh canh Bến Có nổi tiếng hơn 20…"
   },
-  "en:food": {
-    "vi": "Thức ăn"
+  "vi:bánh canh bến có nổi tiếng hơn 20…": {
+    "en": "Bánh canh Bến Có nổi tiếng hơn 20 …"
   },
-  "vi:thức ăn": {
-    "en": "Food"
+  "en:bún nước lèo là món ăn đặc sản …": {
+    "vi": "Bún nước lèo là món ăn đặc sản…"
   },
-  "en:showing 1 to 7 of 7 entries": {
-    "vi": "Hiển thị 1 đến 7 trong tổng số 7 mục"
+  "vi:bún nước lèo là món ăn đặc sản…": {
+    "en": "Bún nước lèo là món ăn đặc sản …"
   },
-  "vi:hiển thị 1 đến 7 trong tổng số 7 mục": {
-    "en": "Showing 1 to 7 of 7 entries"
+  "en:theo người dân địa phương, bún suông là …": {
+    "vi": "Theo người dân địa phương, bún suông là…"
   },
-  "en:company e": {
-    "vi": "Công ty E"
+  "vi:theo người dân địa phương, bún suông là…": {
+    "en": "Theo người dân địa phương, bún suông là …"
   },
-  "vi:công ty e": {
-    "en": "Company E"
+  "en:dừa sáp, viên ngọc quý của vùng đất …": {
+    "vi": "Dừa Sáp, viên ngọc quý của vùng đất…"
   },
-  "en:hau giang": {
-    "vi": "Hậu Giang"
+  "vi:dừa sáp, viên ngọc quý của vùng đất…": {
+    "en": "Dừa Sáp, viên ngọc quý của vùng đất …"
   },
-  "vi:hậu giang": {
-    "en": "Hau Giang"
+  "en:chuối táo quạ nổi tiếng với kích thước …": {
+    "vi": "Chuối táo quạ nổi tiếng với kích thước…"
   },
-  "en:longitude: 0": {
-    "vi": "Kinh độ: 0"
+  "vi:chuối táo quạ nổi tiếng với kích thước…": {
+    "en": "Chuối táo quạ nổi tiếng với kích thước …"
   },
-  "vi:kinh độ: 0": {
-    "en": "Longitude: 0"
+  "en:mỗi khi tháng 10 âm lịch về, người …": {
+    "vi": "Mỗi khi tháng 10 âm lịch về, người…"
   },
-  "en:latitude: 0": {
-    "vi": "Vĩ độ: 0"
+  "vi:mỗi khi tháng 10 âm lịch về, người…": {
+    "en": "Mỗi khi tháng 10 âm lịch về, người …"
   },
-  "vi:vĩ độ: 0": {
-    "en": "Latitude: 0"
+  "en:cháo là món ăn phổ biến ở nhiều …": {
+    "vi": "Cháo là món ăn phổ biến ở nhiều…"
   },
-  "en:company updated successfully!": {
-    "vi": "Cập nhật công ty thành công!"
+  "vi:cháo là món ăn phổ biến ở nhiều…": {
+    "en": "Cháo là món ăn phổ biến ở nhiều …"
   },
-  "vi:cập nhật công ty thành công!": {
-    "en": "Company updated successfully!"
+  "en:về trà vinh, bạn đừng quên cái tên …": {
+    "vi": "Về Trà Vinh, bạn đừng quên cái tên…"
   },
-  "en:company c": {
-    "vi": "Công ty C"
+  "vi:về trà vinh, bạn đừng quên cái tên…": {
+    "en": "Về Trà Vinh, bạn đừng quên cái tên …"
   },
-  "vi:công ty c": {
-    "en": "Company C"
+  "en:can tho, ninh kieu": {
+    "vi": "Cần Thơ, Ninh Kiều"
   },
-  "en:marker details": {
-    "vi": "Chi tiết điểm đánh dấu"
+  "vi:cần thơ, ninh kiều": {
+    "en": "Can tho, ninh kieu"
   },
-  "vi:chi tiết điểm đánh dấu": {
-    "en": "Marker Details"
+  "en:6/12/2025 1:01:14 am": {
+    "vi": "6/12/2025 1:01:14 SA"
   },
-  "en:marker name": {
-    "vi": "Tên điểm đánh dấu"
+  "vi:6/12/2025 1:01:14 sa": {
+    "en": "6/12/2025 1:01:14 AM"
   },
-  "en:upload new image marker": {
-    "vi": "Tải lên điểm đánh dấu hình ảnh mới"
+  "en:management company": {
+    "vi": "Công ty quản lý"
   },
-  "vi:tải lên điểm đánh dấu hình ảnh mới": {
-    "en": "Upload new image marker"
+  "vi:công ty quản lý": {
+    "en": "Management Company"
   },
-  "en:destination image": {
-    "vi": "Hình ảnh đích"
+  "en:company create form": {
+    "vi": "Mẫu tạo công ty"
   },
-  "vi:hình ảnh đích": {
-    "en": "Destination Image"
+  "vi:mẫu tạo công ty": {
+    "en": "Company Create form"
   },
-  "en:update marker image failed, please try again": {
-    "vi": "Cập nhật hình ảnh điểm đánh dấu không thành công, vui lòng thử lại"
+  "en:no reviews available.": {
+    "vi": "Chưa có đánh giá."
   },
-  "vi:cập nhật hình ảnh điểm đánh dấu không thành công, vui lòng thử lại": {
-    "en": "Update marker image failed, please try again"
+  "vi:chưa có đánh giá.": {
+    "en": "No reviews available."
   },
-  "en:tỉnh hau giang": {
-    "vi": "tỉnh Hậu Giang"
+  "en:showing 1 to 10 of 15 entries (filtered from 18 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong số 15 mục (được lọc từ 18 mục tổng cộng)"
   },
-  "vi:tỉnh hậu giang": {
-    "en": "tinh  Hau Giang"
-  },
-  "en:review details": {
-    "vi": "Chi tiết đánh giá"
-  },
-  "vi:chi tiết đánh giá": {
-    "en": "Review Details"
-  },
-  "en:no image available": {
-    "vi": "Không có hình ảnh"
-  },
-  "vi:không có hình ảnh": {
-    "en": "No image available"
-  },
-  "en:14 days ago": {
-    "vi": "14 ngày trước"
-  },
-  "vi:14 ngày trước": {
-    "en": "14 days ago"
+  "vi:hiển thị 1 đến 10 trong số 15 mục (được lọc từ 18 mục tổng cộng)": {
+    "en": "Showing 1 to 10 of 15 entries (filtered from 18 total entries)"
   },
   "en:please enter a valid 6-digit code": {
     "vi": "Vui lòng nhập mã gồm 6 chữ số hợp lệ"
@@ -6725,14 +6689,8 @@
   "vi:vui lòng nhập mã gồm 6 chữ số hợp lệ": {
     "en": "Please enter a valid 6-digit code"
   },
-  "en:sending new code...": {
-    "vi": "Đang gửi mã mới..."
-  },
-  "vi:đang gửi mã mới...": {
-    "en": "Sending new code..."
-  },
   "en:or sign in with": {
-    "vi": "Hoặc đăng nhập bằng"
+    "vi": "Hoặc Đăng nhập bằng"
   },
   "vi:hoặc đăng nhập bằng": {
     "en": "Or Sign in with"
@@ -6756,9 +6714,9 @@
     "en": "Enter your email & password to login"
   },
   "en:remember password": {
-    "vi": "Ghi nhớ mật khẩu"
+    "vi": "Nhớ mật khẩu"
   },
-  "vi:ghi nhớ mật khẩu": {
+  "vi:nhớ mật khẩu": {
     "en": "Remember password"
   },
   "en:sign in": {
@@ -6768,9 +6726,9 @@
     "en": "Sign in"
   },
   "en:show": {
-    "vi": "Hiển thị"
+    "vi": "Hiện"
   },
-  "vi:hiển thị": {
+  "vi:hiện": {
     "en": "show"
   },
   "en:hide": {
@@ -6778,15 +6736,6 @@
   },
   "vi:ẩn": {
     "en": "hide"
-  },
-  "en:entries": {
-    "vi": "mục"
-  },
-  "vi:mục": {
-    "en": "entries"
-  },
-  "en:submit": {
-    "vi": "Gửi"
   },
   "en:create new password": {
     "vi": "Tạo mật khẩu mới"
@@ -6830,11 +6779,206 @@
   "vi:gửi lại mã": {
     "en": "Resend Code"
   },
-  "en:verify": {
-    "vi": "Xác minh"
+  "en:entries": {
+    "vi": "mục"
   },
-  "vi:xác minh": {
-    "en": "Verify"
+  "vi:mục": {
+    "en": "entries"
+  },
+  "en:13 days ago": {
+    "vi": "13 ngày trước"
+  },
+  "vi:13 ngày trước": {
+    "en": "13 days ago"
+  },
+  "en:edit ocop type": {
+    "vi": "Chỉnh sửa loại Ocop"
+  },
+  "vi:chỉnh sửa loại ocop": {
+    "en": "Edit Ocop Type"
+  },
+  "en:mini bao thọ phát trà vinh": {
+    "vi": "Bánh bao mini Thọ Phát Trà Vinh"
+  },
+  "vi:bánh bao mini thọ phát trà vinh": {
+    "en": "Mini Bao Thọ Phát Trà Vinh"
+  },
+  "en:lễ hội còn có tên lễ cúng trăng diễn ra vào rằm tháng 10 âm lịch, là hội truyền thống lâu đời của đồng bào khmer. người dân tổ chức lễ này để tỏ lòng biết ơn đối với mặt trăng - vị thần thiên nhiên đã giúp đỡ họ trong việc bảo vệ mùa màng, đem lại ấm no!": {
+    "vi": "Lễ hội còn có tên lễ Cúng Trăng diễn ra vào rằm tháng 10 âm lịch, là lễ hội truyền thống lâu đời của đồng bào Khmer. Người dân tổ chức lễ này để tỏ lòng biết ơn đối với mặt Trăng - vị thần thiên nhiên đã giúp đỡ họ trong việc bảo vệ mùa màng, đem lại ấm no!"
+  },
+  "vi:lễ hội còn có tên lễ cúng trăng diễn ra vào rằm tháng 10 âm lịch, là lễ hội truyền thống lâu đời của đồng bào khmer. người dân tổ chức lễ này để tỏ lòng biết ơn đối với mặt trăng - vị thần thiên nhiên đã giúp đỡ họ trong việc bảo vệ mùa màng, đem lại ấm no!": {
+    "en": "Lễ hội còn có tên lễ Cúng Trăng diễn ra vào rằm tháng 10 âm lịch, là hội truyền thống lâu đời của đồng bào Khmer. Người dân tổ chức lễ này để tỏ lòng biết ơn đối với mặt Trăng - vị thần thiên nhiên đã giúp đỡ họ trong việc bảo vệ mùa màng, đem lại ấm no!"
+  },
+  "en:lễ hội mang đậm dấu ấn tâm linh của ngư dân vùng biển ở nam bộ. lễ nghinh ông được xem là lễ hội dân gian truyền thống tiêu biểu ở trà vinh diễn ra vào tháng 5 âm lịch.": {
+    "vi": "Lễ hội mang đậm dấu ấn tâm linh của ngư dân vùng biển Nam Bộ. Lễ nghinh ông được xem là lễ hội dân gian truyền thống tiêu biểu ở Trà Vinh diễn ra vào tháng 5 âm lịch."
+  },
+  "vi:lễ hội mang đậm dấu ấn tâm linh của ngư dân vùng biển nam bộ. lễ nghinh ông được xem là lễ hội dân gian truyền thống tiêu biểu ở trà vinh diễn ra vào tháng 5 âm lịch.": {
+    "en": "Lễ hội mang đậm dấu ấn tâm linh của ngư dân vùng biển ở Nam Bộ. Lễ nghinh ông được xem là lễ hội dân gian truyền thống tiêu biểu ở Trà Vinh diễn ra vào tháng 5 âm lịch."
+  },
+  "en:tip updated successfully!": {
+    "vi": "Đã cập nhật mẹo thành công!"
+  },
+  "vi:đã cập nhật mẹo thành công!": {
+    "en": "Tip updated successfully!"
+  },
+  "en:admin create": {
+    "vi": "Quản trị viên tạo"
+  },
+  "vi:quản trị viên tạo": {
+    "en": "Admin Create"
+  },
+  "en:enter email *": {
+    "vi": "Nhập email *"
+  },
+  "vi:nhập email *": {
+    "en": "Enter email *"
+  },
+  "en:marker details": {
+    "vi": "Chi tiết điểm đánh dấu"
+  },
+  "vi:chi tiết điểm đánh dấu": {
+    "en": "Marker Details"
+  },
+  "en:marker name": {
+    "vi": "Tên điểm đánh dấu"
+  },
+  "en:upload new image marker": {
+    "vi": "Tải lên ảnh điểm đánh dấu mới"
+  },
+  "vi:tải lên ảnh điểm đánh dấu mới": {
+    "en": "Upload new image marker"
+  },
+  "en:update marker image failed, please try again": {
+    "vi": "Cập nhật ảnh điểm đánh dấu thất bại, vui lòng thử lại"
+  },
+  "vi:cập nhật ảnh điểm đánh dấu thất bại, vui lòng thử lại": {
+    "en": "Update marker image failed, please try again"
+  },
+  "en:destination image": {
+    "vi": "Ảnh đích"
+  },
+  "vi:ảnh đích": {
+    "en": "Destination Image"
+  },
+  "en:please wait 4.8 seconds before translating again.": {
+    "vi": "Vui lòng đợi 4.8 giây trước khi dịch lại."
+  },
+  "vi:vui lòng đợi 4.8 giây trước khi dịch lại.": {
+    "en": "Please wait 4.8 seconds before translating again."
+  },
+  "en:please wait 0.5 seconds before translating again.": {
+    "vi": "Vui lòng chờ 0,5 giây trước khi dịch lại."
+  },
+  "vi:vui lòng chờ 0,5 giây trước khi dịch lại.": {
+    "en": "Please wait 0.5 seconds before translating again."
+  },
+  "en:please wait 4.7 seconds before translating again.": {
+    "vi": "Vui lòng đợi 4.7 giây trước khi dịch lại."
+  },
+  "vi:vui lòng đợi 4.7 giây trước khi dịch lại.": {
+    "en": "Please wait 4.7 seconds before translating again."
+  },
+  "en:submit": {
+    "vi": "Gửi"
+  },
+  "en:please wait 4.9 seconds before translating again.": {
+    "vi": "Vui lòng đợi 4,9 giây trước khi dịch lại."
+  },
+  "vi:vui lòng đợi 4,9 giây trước khi dịch lại.": {
+    "en": "Please wait 4.9 seconds before translating again."
+  },
+  "en:please wait 1.7 seconds before translating again.": {
+    "vi": "Vui lòng đợi 1.7 giây trước khi dịch lại."
+  },
+  "vi:vui lòng đợi 1.7 giây trước khi dịch lại.": {
+    "en": "Please wait 1.7 seconds before translating again."
+  },
+  "en:please wait 3.8 seconds before translating again.": {
+    "vi": "Vui lòng chờ 3.8 giây trước khi dịch lại."
+  },
+  "vi:vui lòng chờ 3.8 giây trước khi dịch lại.": {
+    "en": "Please wait 3.8 seconds before translating again."
+  },
+  "en:please wait 5.0 seconds before translating again.": {
+    "vi": "Vui lòng đợi 5.0 giây trước khi dịch lại."
+  },
+  "vi:vui lòng đợi 5.0 giây trước khi dịch lại.": {
+    "en": "Please wait 5.0 seconds before translating again."
+  },
+  "en:add event/festival failure, please try again": {
+    "vi": "Thêm sự kiện/lễ hội thất bại, vui lòng thử lại"
+  },
+  "vi:thêm sự kiện/lễ hội thất bại, vui lòng thử lại": {
+    "en": "Add event/festival failure, please try again"
+  },
+  "en:showing 1 to 10 of 13 entries (filtered from 14 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong số 13 mục (đã lọc từ tổng số 14 mục)"
+  },
+  "vi:hiển thị 1 đến 10 trong số 13 mục (đã lọc từ tổng số 14 mục)": {
+    "en": "Showing 1 to 10 of 13 entries (filtered from 14 total entries)"
+  },
+  "en:showing 1 to 10 of 15 entries (filtered from 16 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong số 15 mục (đã lọc từ tổng số 16 mục)"
+  },
+  "vi:hiển thị 1 đến 10 trong số 15 mục (đã lọc từ tổng số 16 mục)": {
+    "en": "Showing 1 to 10 of 15 entries (filtered from 16 total entries)"
+  },
+  "en:add event/festival successfull": {
+    "vi": "Thêm sự kiện/lễ hội thành công"
+  },
+  "vi:thêm sự kiện/lễ hội thành công": {
+    "en": "Add event/festival successfull"
+  },
+  "en:mm/dd/yyyy": {
+    "vi": "Tháng/Ngày/Năm"
+  },
+  "vi:tháng/ngày/năm": {
+    "en": "MM/dd/yyyy"
+  },
+  "en:showing 1 to 1 of 1 entries": {
+    "vi": "Hiển thị 1 đến 1 trong tổng số 1 mục"
+  },
+  "vi:hiển thị 1 đến 1 trong tổng số 1 mục": {
+    "en": "Showing 1 to 1 of 1 entries"
+  },
+  "en:app bi giat lag qua nhieu": {
+    "vi": "App bị giật lag quá nhiều"
+  },
+  "vi:app bị giật lag quá nhiều": {
+    "en": "App bi giat lag qua nhieu"
+  },
+  "en:app da sap thanh cong roi": {
+    "vi": "Ứng dụng đã sập thành công rồi"
+  },
+  "vi:ứng dụng đã sập thành công rồi": {
+    "en": "app da sap thanh cong roi"
+  },
+  "en:app nay dung rat tot": {
+    "vi": "Ứng dụng này dùng rất tốt"
+  },
+  "vi:ứng dụng này dùng rất tốt": {
+    "en": "app nay dung rat tot"
+  },
+  "en:no data available": {
+    "vi": "Không có dữ liệu"
+  },
+  "vi:không có dữ liệu": {
+    "en": "No data                                                 available"
+  },
+  "en:no data                                                 available": {
+    "vi": "Không có dữ liệu"
+  },
+  "en:ba om pond": {
+    "vi": "Ao Bà Om"
+  },
+  "vi:ao bà om": {
+    "en": "Ba Om Pond"
+  },
+  "en:sending new code...": {
+    "vi": "Đang gửi mã mới..."
+  },
+  "vi:đang gửi mã mới...": {
+    "en": "Sending new code..."
   },
   "en:verification code has been resent successfully": {
     "vi": "Mã xác minh đã được gửi lại thành công"
@@ -6842,34 +6986,397 @@
   "vi:mã xác minh đã được gửi lại thành công": {
     "en": "Verification code has been resent successfully"
   },
-  "en:show more items": {
-    "vi": "Xem thêm"
+  "en:16/06/2025": {
+    "vi": "16 tháng 06, 2025"
   },
-  "en:the imagesfile field is required. at least one image file is required.": {
-    "vi": "Trường Tệp Hình ảnh là bắt buộc. Ít nhất một tệp hình ảnh là bắt buộc."
+  "vi:16 tháng 06, 2025": {
+    "en": "16/06/2025"
   },
-  "vi:trường tệp hình ảnh là bắt buộc. ít nhất một tệp hình ảnh là bắt buộc.": {
-    "en": "The ImagesFile field is required. At least one image file is required."
+  "en:03/06/25, 12:24": {
+    "vi": "03/06/25, 12:24"
   },
-  "en:tinh  hau giang": {
-    "vi": "Tỉnh Hậu Giang"
+  "vi:03/06/25, 12:24": {
+    "en": "03/06/25, 12:24"
   },
-  "en:17 days ago": {
-    "vi": "17 ngày trước"
+  "en:app rat huu ich, toi rat thich": {
+    "vi": "Ứng dụng rất hữu ích, tôi rất thích"
   },
-  "vi:17 ngày trước": {
-    "en": "17 days ago"
+  "vi:ứng dụng rất hữu ích, tôi rất thích": {
+    "en": "App rat huu ich, toi rat thich"
+  },
+  "en:toi yeu thich ung dung nay!": {
+    "vi": "Tôi yêu thích ứng dụng này!"
+  },
+  "vi:tôi yêu thích ứng dụng này!": {
+    "en": "Toi yeu thich ung dung nay!"
+  },
+  "en:app con nhieu van de loi, mong som fix xong de tang trai nghiem nguoi dung!": {
+    "vi": "Ứng dụng còn nhiều vấn đề lỗi, mong sớm sửa xong để tăng trải nghiệm người dùng!"
+  },
+  "vi:ứng dụng còn nhiều vấn đề lỗi, mong sớm sửa xong để tăng trải nghiệm người dùng!": {
+    "en": "App con nhieu van de loi, mong som fix xong de tang trai nghiem nguoi dung!"
+  },
+  "en:app nay huu ich!": {
+    "vi": "Ứng dụng này hữu ích!"
+  },
+  "vi:ứng dụng này hữu ích!": {
+    "en": "App nay huu ich!"
+  },
+  "en:showing 1 to 6 of 6 entries": {
+    "vi": "Đang hiển thị 1 đến 6 trên tổng số 6 mục"
+  },
+  "vi:đang hiển thị 1 đến 6 trên tổng số 6 mục": {
+    "en": "Showing 1 to 6 of 6 entries"
+  },
+  "en:app nay rat huu ich, tuy lag nhung ma van coi duoc, rat mong phat trien them de chay muot hon": {
+    "vi": "Ứng dụng này rất hữu ích, tuy lag nhưng vẫn xem được, rất mong phát triển thêm để chạy mượt hơn"
+  },
+  "vi:ứng dụng này rất hữu ích, tuy lag nhưng vẫn xem được, rất mong phát triển thêm để chạy mượt hơn": {
+    "en": "App nay rat huu ich, tuy lag nhung ma van coi duoc, rat mong phat trien them de chay muot hon"
+  },
+  "en:app nay rat tuyet danh cho nguoi di du lich o tra vinh": {
+    "vi": "App này rất tuyệt dành cho người đi du lịch ở Trà Vinh"
+  },
+  "vi:app này rất tuyệt dành cho người đi du lịch ở trà vinh": {
+    "en": "App nay rat tuyet danh cho nguoi di du lich o tra vinh"
+  },
+  "en:showing 1 to 7 of 7 entries": {
+    "vi": "Hiển thị 1 đến 7 trong tổng số 7 mục"
+  },
+  "vi:hiển thị 1 đến 7 trong tổng số 7 mục": {
+    "en": "Showing 1 to 7 of 7 entries"
+  },
+  "en:aapp bi loi": {
+    "vi": "App bị lỗi"
+  },
+  "vi:app bị lỗi": {
+    "en": "aapp bi loi"
+  },
+  "en:showing 1 to 9 of 9 entries": {
+    "vi": "Hiển thị 1 đến 9 trên tổng số 9 mục"
+  },
+  "vi:hiển thị 1 đến 9 trên tổng số 9 mục": {
+    "en": "Showing 1 to 9 of 9 entries"
+  },
+  "en:14 days ago": {
+    "vi": "14 ngày trước"
+  },
+  "vi:14 ngày trước": {
+    "en": "14 days ago"
+  },
+  "en:local specialties": {
+    "vi": "Đặc sản địa phương"
+  },
+  "en:all(200)": {
+    "vi": "Tất cả (200)"
+  },
+  "vi:tất cả (200)": {
+    "en": "All(200)"
+  },
+  "en:highly recommend this destination.": {
+    "vi": "Rất khuyến khích điểm đến này."
+  },
+  "vi:rất khuyến khích điểm đến này.": {
+    "en": "Highly recommend this destination."
+  },
+  "en:friendly locals and clean environment.": {
+    "vi": "Người dân thân thiện và môi trường sạch sẽ."
+  },
+  "vi:người dân thân thiện và môi trường sạch sẽ.": {
+    "en": "Friendly locals and clean environment."
+  },
+  "en:lovely architecture and nature.": {
+    "vi": "Kiến trúc và thiên nhiên tuyệt đẹp."
+  },
+  "vi:kiến trúc và thiên nhiên tuyệt đẹp.": {
+    "en": "Lovely architecture and nature."
+  },
+  "en:great for family trips!": {
+    "vi": "Tuyệt vời cho các chuyến đi gia đình!"
+  },
+  "vi:tuyệt vời cho các chuyến đi gia đình!": {
+    "en": "Great for family trips!"
+  },
+  "en:enjoyed every moment here.": {
+    "vi": "Đã tận hưởng từng khoảnh khắc ở đây."
+  },
+  "vi:đã tận hưởng từng khoảnh khắc ở đây.": {
+    "en": "Enjoyed every moment here."
+  },
+  "en:amazing place to visit!": {
+    "vi": "Nơi tuyệt vời để ghé thăm!"
+  },
+  "vi:nơi tuyệt vời để ghé thăm!": {
+    "en": "Amazing place to visit!"
+  },
+  "en:a must-see attraction.": {
+    "vi": "Một điểm tham quan không thể bỏ qua."
+  },
+  "vi:một điểm tham quan không thể bỏ qua.": {
+    "en": "A must-see attraction."
+  },
+  "en:showing 1 to 10 of 200 entries": {
+    "vi": "Hiển thị 1 đến 10 trong tổng số 200 mục"
+  },
+  "vi:hiển thị 1 đến 10 trong tổng số 200 mục": {
+    "en": "Showing 1 to 10 of 200 entries"
+  },
+  "en:would love to come back again.": {
+    "vi": "Rất muốn quay lại lần nữa."
+  },
+  "vi:rất muốn quay lại lần nữa.": {
+    "en": "Would love to come back again."
+  },
+  "en:very peaceful and beautiful.": {
+    "vi": "Rất yên bình và đẹp."
+  },
+  "vi:rất yên bình và đẹp.": {
+    "en": "Very peaceful and beautiful."
+  },
+  "en:a hidden gem in tra vinh.": {
+    "vi": "Một viên ngọc quý ẩn mình ở Trà Vinh."
+  },
+  "vi:một viên ngọc quý ẩn mình ở trà vinh.": {
+    "en": "A hidden gem in Tra Vinh."
+  },
+  "en:showing 1 to 10 of 103 entries (filtered from 107 total entries)": {
+    "vi": "Đang hiển thị 1 đến 10 trên 103 mục (đã lọc từ tổng số 107 mục)"
+  },
+  "vi:đang hiển thị 1 đến 10 trên 103 mục (đã lọc từ tổng số 107 mục)": {
+    "en": "Showing 1 to 10 of 103 entries (filtered from 107 total entries)"
+  },
+  "en:20/07/25, 00:00 to                                                  26/07/25, 00:00": {
+    "vi": "20/07/25, 00:00 đến 26/07/25, 00:00"
+  },
+  "vi:20/07/25, 00:00 đến 26/07/25, 00:00": {
+    "en": "20/07/25, 00:00 to                                                  26/07/25, 00:00"
+  },
+  "en:showing 1 to 10 of 11 entries (filtered from 14 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong số 11 mục (đã lọc từ 14 mục tổng cộng)"
+  },
+  "vi:hiển thị 1 đến 10 trong số 11 mục (đã lọc từ 14 mục tổng cộng)": {
+    "en": "Showing 1 to 10 of 11 entries (filtered from 14 total entries)"
+  },
+  "en:status: activate to sort column descending": {
+    "vi": "Trạng thái: kích hoạt để sắp xếp cột giảm dần"
+  },
+  "vi:trạng thái: kích hoạt để sắp xếp cột giảm dần": {
+    "en": "Status: activate to sort column descending"
+  },
+  "en:showing 1 to 10 of 20 entries (filtered from 21 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong số 20 mục (được lọc từ tổng số 21 mục)"
+  },
+  "vi:hiển thị 1 đến 10 trong số 20 mục (được lọc từ tổng số 21 mục)": {
+    "en": "Showing 1 to 10 of 20 entries (filtered from 21 total entries)"
+  },
+  "en:please wait 2.5 seconds before translating again.": {
+    "vi": "Xin vui lòng đợi 2,5 giây trước khi dịch lại."
+  },
+  "vi:xin vui lòng đợi 2,5 giây trước khi dịch lại.": {
+    "en": "Please wait 2.5 seconds before translating again."
+  },
+  "en:showing 1 to 1 of 1 entries (filtered from 107 total entries)": {
+    "vi": "Hiển thị 1 đến 1 trong số 1 mục (đã lọc từ tổng cộng 107 mục)"
+  },
+  "vi:hiển thị 1 đến 1 trong số 1 mục (đã lọc từ tổng cộng 107 mục)": {
+    "en": "Showing 1 to 1 of 1 entries (filtered from 107 total entries)"
+  },
+  "en:phamthitutrinh": {
+    "vi": "Phạm Thị Tú Trinh"
+  },
+  "vi:phạm thị tú trinh": {
+    "en": "PhamThiTuTrinh"
+  },
+  "en:nguyendiemkhue": {
+    "vi": "Nguyễn Diễm Khuê"
+  },
+  "vi:nguyễn diễm khuê": {
+    "en": "NguyenDiemKhue"
+  },
+  "en:dovandinh": {
+    "vi": "Đỗ Văn Định"
+  },
+  "vi:đỗ văn định": {
+    "en": "DoVanDinh"
+  },
+  "en:tranthiphiphi": {
+    "vi": "Trần Thị Phi Phi"
+  },
+  "vi:trần thị phi phi": {
+    "en": "TranThiPhiPhi"
+  },
+  "en:duonguyenthi": {
+    "vi": "Dương Uyên Thi"
+  },
+  "vi:dương uyên thi": {
+    "en": "DuongUyenThi"
+  },
+  "en:huynhthingoclam": {
+    "vi": "Huỳnh Thị Ngọc Lâm"
+  },
+  "vi:huỳnh thị ngọc lâm": {
+    "en": "HuynhThiNgocLam"
+  },
+  "en:showing 1 to 10 of 41 entries": {
+    "vi": "Hiển thị 1 đến 10 trong tổng số 41 mục"
+  },
+  "vi:hiển thị 1 đến 10 trong tổng số 41 mục": {
+    "en": "Showing 1 to 10 of 41 entries"
+  },
+  "en:showing 1 to 10 of 38 entries": {
+    "vi": "Hiển thị 1 đến 10 trong tổng số 38 mục"
+  },
+  "vi:hiển thị 1 đến 10 trong tổng số 38 mục": {
+    "en": "Showing 1 to 10 of 38 entries"
+  },
+  "en:nguyenminhvu": {
+    "vi": "Nguyễn Minh Vũ"
+  },
+  "vi:nguyễn minh vũ": {
+    "en": "NguyenMinhVu"
+  },
+  "en:ngothivietkhue": {
+    "vi": "Ngô Thị Việt Khuê"
+  },
+  "vi:ngô thị việt khuê": {
+    "en": "NgoThiVietKhue"
+  },
+  "en:ocop product and sell locations created successfully!": {
+    "vi": "Sản phẩm OCOP và địa điểm bán hàng đã được tạo thành công!"
+  },
+  "vi:sản phẩm ocop và địa điểm bán hàng đã được tạo thành công!": {
+    "en": "Ocop product and sell locations created successfully!"
+  },
+  "en:showing 1 to 10 of 21 entries (filtered from 22 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong 21 mục (đã lọc từ tổng số 22 mục)"
+  },
+  "vi:hiển thị 1 đến 10 trong 21 mục (đã lọc từ tổng số 22 mục)": {
+    "en": "Showing 1 to 10 of 21 entries (filtered from 22 total entries)"
+  },
+  "en:trà vinh cửa hàng sokfarm trà vinh": {
+    "vi": "Cửa hàng Sokfarm Trà Vinh"
+  },
+  "vi:cửa hàng sokfarm trà vinh": {
+    "en": "Trà Vinh Cửa hàng Sokfarm Trà Vinh"
+  },
+  "en:showing 1 to 10 of 22 entries (filtered from 23 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong tổng số 22 mục (được lọc từ 23 mục tổng cộng)"
+  },
+  "vi:hiển thị 1 đến 10 trong tổng số 22 mục (được lọc từ 23 mục tổng cộng)": {
+    "en": "Showing 1 to 10 of 22 entries (filtered from 23 total entries)"
+  },
+  "en:image of ocop product added successfully!": {
+    "vi": "Đã thêm ảnh sản phẩm OCOP thành công!"
+  },
+  "vi:đã thêm ảnh sản phẩm ocop thành công!": {
+    "en": "Image of ocop product added successfully!"
+  },
+  "en:106.344106 ,\u00A0 9.887612": {
+    "vi": "106.344106 , 9.887612"
+  },
+  "vi:106.344106 , 9.887612": {
+    "en": "106.344106 ,\u00A0 9.887612"
+  },
+  "en:no description available.": {
+    "vi": "Không có mô tả."
+  },
+  "vi:không có mô tả.": {
+    "en": "No description available."
+  },
+  "en:<p>để đến được ao bà om, các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội ok om bok nhé.</p>": {
+    "vi": "Để đến được Ao Bà Om, các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. Nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội Ok Om Bok nhé."
+  },
+  "vi:để đến được ao bà om, các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội ok om bok nhé.": {
+    "en": "<p>Để đến được <strong>Ao Bà Om</strong>, các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. Nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội Ok Om Bok nhé.</p>"
+  },
+  "en:để đến được , các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội ok om bok nhé.": {
+    "vi": "Để đến được, bạn có thể di chuyển bằng xe du lịch, hoặc đi xe máy trên một con đường dài thẳng tắp được làm mát bởi cây xanh xung quanh. Nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội Ok Om Bok."
+  },
+  "vi:để đến được, bạn có thể di chuyển bằng xe du lịch, hoặc đi xe máy trên một con đường dài thẳng tắp được làm mát bởi cây xanh xung quanh. nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội ok om bok.": {
+    "en": "Để đến được , các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. Nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội Ok Om Bok nhé."
+  },
+  "en:nguyễn thái học, phường 1, trà vinh, 87000, vietnam": {
+    "vi": "Nguyễn Thái Học, Phường 1, Trà Vinh, 87000, Việt Nam"
+  },
+  "vi:nguyễn thái học, phường 1, trà vinh, 87000, việt nam": {
+    "en": "Nguyễn Thái Học, Phường 1, Trà Vinh, 87000, Vietnam"
+  },
+  "en:điểm dừng chân sáu dư ( ocop trà vinh)": {
+    "vi": "ĐIỂM DỪNG CHÂN SÁU DƯ (OCOP TRÀ VINH)"
+  },
+  "vi:điểm dừng chân sáu dư (ocop trà vinh)": {
+    "en": "ĐIỂM DỪNG CHÂN SÁU DƯ ( OCOP TRÀ VINH)"
+  },
+  "en:6 hrs ago": {
+    "vi": "6 giờ trước"
+  },
+  "vi:6 giờ trước": {
+    "en": "6 hrs ago"
+  },
+  "en:15 days ago": {
+    "vi": "15 ngày trước"
+  },
+  "vi:15 ngày trước": {
+    "en": "15 days ago"
+  },
+  "en:showing 1 to 10 of 107 entries (filtered from 108 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong số 107 mục (đã lọc từ tổng số 108 mục)"
+  },
+  "vi:hiển thị 1 đến 10 trong số 107 mục (đã lọc từ tổng số 108 mục)": {
+    "en": "Showing 1 to 10 of 107 entries (filtered from 108 total entries)"
+  },
+  "en:9 hrs ago": {
+    "vi": "9 giờ trước"
+  },
+  "vi:9 giờ trước": {
+    "en": "9 hrs ago"
+  },
+  "en:1 days ago": {
+    "vi": "1 ngày trước"
+  },
+  "vi:1 ngày trước": {
+    "en": "1 days ago"
+  },
+  "en:16 days ago": {
+    "vi": "16 ngày trước"
+  },
+  "vi:16 ngày trước": {
+    "en": "16 days ago"
+  },
+  "en:500 m": {
+    "vi": "500 mét"
+  },
+  "vi:500 mét": {
+    "en": "500 m"
+  },
+  "en:106.329789 ,\u00A0 9.927547": {
+    "vi": "106.329789 , 9.927547"
+  },
+  "vi:106.329789 , 9.927547": {
+    "en": "106.329789 ,\u00A0 9.927547"
+  },
+  "en:2 days ago": {
+    "vi": "2 ngày trước"
+  },
+  "vi:2 ngày trước": {
+    "en": "2 days ago"
+  },
+  "en:cài đặt": {
+    "vi": "Tùy chỉnh"
+  },
+  "vi:tùy chỉnh": {
+    "en": "Cài đặt"
   },
   "en:tourist destination name:": {
-    "vi": "Tên Địa điểm Du lịch:"
+    "vi": "Tên điểm du lịch:"
   },
-  "vi:tên địa điểm du lịch:": {
+  "vi:tên điểm du lịch:": {
     "en": "Tourist Destination Name:"
   },
   "en:rating:": {
-    "vi": "Xếp hạng:"
+    "vi": "Đánh giá:"
   },
-  "vi:xếp hạng:": {
+  "vi:đánh giá:": {
     "en": "Rating:"
   },
   "en:comment:": {
@@ -6878,29 +7385,125 @@
   "vi:bình luận:": {
     "en": "Comment:"
   },
-  "en:images:": {
-    "vi": "Hình ảnh:"
+  "en:feedback details": {
+    "vi": "Chi tiết phản hồi"
   },
-  "vi:hình ảnh:": {
-    "en": "Images:"
+  "vi:chi tiết phản hồi": {
+    "en": "Feedback Details"
   },
-  "en:review image": {
-    "vi": "ảnh đánh giá"
+  "en:17 days ago": {
+    "vi": "17 ngày trước"
   },
-  "vi:ảnh đánh giá": {
-    "en": "review image"
+  "vi:17 ngày trước": {
+    "en": "17 days ago"
   },
-  "en:replies:": {
-    "vi": "Trả lời:"
+  "en:showing 1 to 10 of 36 entries": {
+    "vi": "Hiển thị 1 đến 10 trong tổng số 36 mục"
   },
-  "vi:trả lời:": {
-    "en": "Replies:"
+  "vi:hiển thị 1 đến 10 trong tổng số 36 mục": {
+    "en": "Showing 1 to 10 of 36 entries"
   },
-  "en:userid:": {
-    "vi": "ID người dùng:"
+  "en:review details": {
+    "vi": "Chi tiết đánh giá"
   },
-  "vi:id người dùng:": {
-    "en": "UserId:"
+  "vi:chi tiết đánh giá": {
+    "en": "Review Details"
+  },
+  "en:showing 1 to 10 of 21 entries": {
+    "vi": "Hiển thị 1 đến 10 trên 21 mục"
+  },
+  "vi:hiển thị 1 đến 10 trên 21 mục": {
+    "en": "Showing 1 to 10 of 21 entries"
+  },
+  "en:showing 1 to 10 of 106 entries (filtered from 108 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong số 106 mục (đã lọc từ tổng số 108 mục)"
+  },
+  "vi:hiển thị 1 đến 10 trong số 106 mục (đã lọc từ tổng số 108 mục)": {
+    "en": "Showing 1 to 10 of 106 entries (filtered from 108 total entries)"
+  },
+  "en:please wait 4.2 seconds before translating again.": {
+    "vi": "Vui lòng đợi 4.2 giây trước khi dịch lại."
+  },
+  "vi:vui lòng đợi 4.2 giây trước khi dịch lại.": {
+    "en": "Please wait 4.2 seconds before translating again."
+  },
+  "en:please correct the errors before submitting.": {
+    "vi": "Vui lòng sửa lỗi trước khi gửi."
+  },
+  "vi:vui lòng sửa lỗi trước khi gửi.": {
+    "en": "Please correct the errors before submitting."
+  },
+  "en:action completed successfully!": {
+    "vi": "Hành động đã hoàn tất thành công!"
+  },
+  "vi:hành động đã hoàn tất thành công!": {
+    "en": "Action completed successfully!"
+  },
+  "en:failed to perform action. please try again.": {
+    "vi": "Thực hiện hành động thất bại. Vui lòng thử lại."
+  },
+  "vi:thực hiện hành động thất bại. vui lòng thử lại.": {
+    "en": "Failed to perform action. Please try again."
+  },
+  "en:are you sure you want to proceed?": {
+    "vi": "Bạn có chắc chắn muốn tiếp tục không?"
+  },
+  "vi:bạn có chắc chắn muốn tiếp tục không?": {
+    "en": "Are you sure you want to proceed?"
+  },
+  "en:operation cancelled.": {
+    "vi": "Thao tác đã bị hủy."
+  },
+  "vi:thao tác đã bị hủy.": {
+    "en": "Operation cancelled."
+  },
+  "en:3 days ago": {
+    "vi": "3 ngày trước"
+  },
+  "vi:3 ngày trước": {
+    "en": "3 days ago"
+  },
+  "en:(function () {\n            const success = null;\n            const error = null;\n            if (success) showtimedalert(\"success!\", success, \"success\", 1000);\n            if (error) showtimedalert(\"error!\", error, \"error\", 1000);\n        })();": {
+    "vi": "(function () {            const success = null;            const error = null;            if (success) showTimedAlert(\"Success!\", success, \"success\", 1000);            if (error) showTimedAlert(\"Error!\", error, \"error\", 1000);        })();"
+  },
+  "vi:(function () {            const success = null;            const error = null;            if (success) showtimedalert(\"success!\", success, \"success\", 1000);            if (error) showtimedalert(\"error!\", error, \"error\", 1000);        })();": {
+    "en": "(function () {\n            const success = null;\n            const error = null;\n            if (success) showTimedAlert(\"Success!\", success, \"success\", 1000);\n            if (error) showTimedAlert(\"Error!\", error, \"error\", 1000);\n        })();"
+  },
+  "en:user restored successfully": {
+    "vi": "Người dùng đã được khôi phục thành công"
+  },
+  "vi:người dùng đã được khôi phục thành công": {
+    "en": "User restored successfully"
+  },
+  "en:are you sure?": {
+    "vi": "Bạn có chắc không?"
+  },
+  "vi:bạn có chắc không?": {
+    "en": "Are you sure?"
+  },
+  "en:đánh giá trung bình: kích hoạt để sắp xếp cột tăng dần": {
+    "vi": "Đánh giá trung bình: nhấp để sắp xếp cột tăng dần"
+  },
+  "vi:đánh giá trung bình: nhấp để sắp xếp cột tăng dần": {
+    "en": "Đánh giá trung bình: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "en:yêu thích: kích hoạt để sắp xếp cột tăng dần": {
+    "vi": "Yêu thích: nhấp để sắp xếp cột tăng dần"
+  },
+  "vi:yêu thích: nhấp để sắp xếp cột tăng dần": {
+    "en": "Yêu thích: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "en:ngày tạo: nhấn để sắp xếp cột tăng dần": {
+    "vi": "Ngày tạo: nhấp để sắp xếp cột tăng dần"
+  },
+  "vi:ngày tạo: nhấp để sắp xếp cột tăng dần": {
+    "en": "Ngày tạo: nhấn để sắp xếp cột tăng dần"
+  },
+  "en:please wait 0.8 seconds before translating again.": {
+    "vi": "Vui lòng đợi 0.8 giây trước khi dịch lại."
+  },
+  "vi:vui lòng đợi 0.8 giây trước khi dịch lại.": {
+    "en": "Please wait 0.8 seconds before translating again."
   },
   "en:18 days ago": {
     "vi": "18 ngày trước"
@@ -6908,38 +7511,92 @@
   "vi:18 ngày trước": {
     "en": "18 days ago"
   },
+  "en:choose language": {
+    "vi": "Chọn ngôn ngữ"
+  },
+  "vi:chọn ngôn ngữ": {
+    "en": "Select Language"
+  },
+  "en:select language": {
+    "vi": "Chọn ngôn ngữ"
+  },
   "en:avt": {
     "vi": "Ảnh đại diện"
+  },
+  "en:please wait 1.9 seconds before translating again.": {
+    "vi": "Xin vui lòng đợi 1.9 giây trước khi dịch lại."
+  },
+  "vi:xin vui lòng đợi 1.9 giây trước khi dịch lại.": {
+    "en": "Please wait 1.9 seconds before translating again."
+  },
+  "en:showing 1 to 3 of 3 entries (filtered from 18 total entries)": {
+    "vi": "Hiển thị 1 đến 3 trong tổng số 3 mục (đã lọc từ 18 mục tổng cộng)"
+  },
+  "vi:hiển thị 1 đến 3 trong tổng số 3 mục (đã lọc từ 18 mục tổng cộng)": {
+    "en": "Showing 1 to 3 of 3 entries (filtered from 18 total entries)"
+  },
+  "en:4 days ago": {
+    "vi": "4 ngày trước"
+  },
+  "vi:4 ngày trước": {
+    "en": "4 days ago"
+  },
+  "en:19 days ago": {
+    "vi": "19 ngày trước"
+  },
+  "vi:19 ngày trước": {
+    "en": "19 days ago"
+  },
+  "en:welcome alex": {
+    "vi": "Chào mừng Alex"
+  },
+  "vi:chào mừng alex": {
+    "en": "Welcome Alex"
+  },
+  "en:here’s what’s                             happening with                             your store today.": {
+    "vi": "Đây là những gì đang diễn ra với cửa hàng của bạn hôm nay."
+  },
+  "vi:đây là những gì đang diễn ra với cửa hàng của bạn hôm nay.": {
+    "en": "Here’s what’s                             happening with                             your store today."
+  },
+  "en:5 days ago": {
+    "vi": "5 ngày trước"
+  },
+  "vi:5 ngày trước": {
+    "en": "5 days ago"
+  },
+  "en:create administrator": {
+    "vi": "Tạo Quản trị viên"
+  },
+  "vi:tạo quản trị viên": {
+    "en": "Create Administrator"
+  },
+  "en:20 days ago": {
+    "vi": "20 ngày trước"
+  },
+  "vi:20 ngày trước": {
+    "en": "20 days ago"
+  },
+  "en:all()": {
+    "vi": "Tất cả"
+  },
+  "en:bảo tàng văn hóa dân tộc của người khmer": {
+    "vi": "Bảo tàng văn hóa dân tộc Khmer"
+  },
+  "vi:bảo tàng văn hóa dân tộc khmer": {
+    "en": "Bảo tàng văn hóa dân tộc của người Khmer"
+  },
+  "en:6 days ago": {
+    "vi": "6 ngày trước"
+  },
+  "vi:6 ngày trước": {
+    "en": "6 days ago"
   },
   "en:user banned successfully": {
     "vi": "Chặn người dùng thành công"
   },
   "vi:chặn người dùng thành công": {
     "en": "User banned successfully"
-  },
-  "en:super-admin": {
-    "vi": "siêu quản trị viên"
-  },
-  "vi:siêu quản trị viên": {
-    "en": "super-admin"
-  },
-  "en:showing 1 to 10 of 105 entries (filtered from 106 total entries)": {
-    "vi": "Hiển thị 1 đến 10 trong số 105 mục (đã lọc từ tổng số 106 mục)"
-  },
-  "vi:hiển thị 1 đến 10 trong số 105 mục (đã lọc từ tổng số 106 mục)": {
-    "en": "Showing 1 to 10 of 105 entries (filtered from 106 total entries)"
-  },
-  "en:showing 1 to 6 of 6 entries": {
-    "vi": "Hiển thị 1 đến 6 trên 6 mục"
-  },
-  "vi:hiển thị 1 đến 6 trên 6 mục": {
-    "en": "Showing 1 to 6 of 6 entries"
-  },
-  "en:showing 1 to 2 of 2 entries (filtered from 6 total entries)": {
-    "vi": "Hiển thị 1 đến 2 trong 2 mục (đã lọc từ tổng số 6 mục)"
-  },
-  "vi:hiển thị 1 đến 2 trong 2 mục (đã lọc từ tổng số 6 mục)": {
-    "en": "Showing 1 to 2 of 2 entries (filtered from 6 total entries)"
   },
   "en:admin banned successfully": {
     "vi": "Admin đã cấm thành công"
@@ -6948,160 +7605,58 @@
     "en": "Admin banned successfully"
   },
   "en:admin restored successfully": {
-    "vi": "Admin đã được khôi phục thành công"
+    "vi": "Quản trị viên đã khôi phục thành công"
   },
-  "vi:admin đã được khôi phục thành công": {
+  "vi:quản trị viên đã khôi phục thành công": {
     "en": "Admin restored successfully"
   },
-  "en:showing 1 to 3 of 3 entries (filtered from 6 total entries)": {
-    "vi": "Đang hiển thị 1 đến 3 trong số 3 mục (đã lọc từ 6 mục tổng cộng)"
+  "en:7 days ago": {
+    "vi": "7 ngày trước"
   },
-  "vi:đang hiển thị 1 đến 3 trong số 3 mục (đã lọc từ 6 mục tổng cộng)": {
-    "en": "Showing 1 to 3 of 3 entries (filtered from 6 total entries)"
+  "vi:7 ngày trước": {
+    "en": "7 days ago"
   },
-  "en:03/06/25, 15:16": {
-    "vi": "Ngày 03 tháng 06 năm 2025, 15 giờ 16 phút"
+  "en:21 days ago": {
+    "vi": "21 ngày trước"
   },
-  "vi:ngày 03 tháng 06 năm 2025, 15 giờ 16 phút": {
-    "en": "03/06/25, 15:16"
+  "vi:21 ngày trước": {
+    "en": "21 days ago"
   },
-  "en:13/07/25, 12:17": {
-    "vi": "Ngày 13 tháng 07 năm 2025, 12 giờ 17 phút"
+  "en:a delicious specialty from tra vinh": {
+    "vi": "Một đặc sản ngon từ Trà Vinh"
   },
-  "vi:ngày 13 tháng 07 năm 2025, 12 giờ 17 phút": {
-    "en": "13/07/25, 12:17"
+  "vi:một đặc sản ngon từ trà vinh": {
+    "en": "A delicious specialty from Tra Vinh"
   },
-  "en:15/07/25, 22:24": {
-    "vi": "Ngày 15 tháng 07 năm 2025, 22 giờ 24 phút"
+  "en:updated at:": {
+    "vi": "Cập nhật lúc:"
   },
-  "vi:ngày 15 tháng 07 năm 2025, 22 giờ 24 phút": {
-    "en": "15/07/25, 22:24"
+  "vi:cập nhật lúc:": {
+    "en": "Updated At:"
   },
-  "en:14/07/25, 21:44": {
-    "vi": "14/07/2025, 21:44"
+  "en:locations where you can find bánh bao vĩnh kim": {
+    "vi": "Các địa điểm bạn có thể tìm thấy Bánh Bao Vĩnh Kim"
   },
-  "vi:14/07/2025, 21:44": {
-    "en": "14/07/25, 21:44"
+  "vi:các địa điểm bạn có thể tìm thấy bánh bao vĩnh kim": {
+    "en": "Locations where you can find Bánh Bao Vĩnh Kim"
   },
-  "en:25/07/25, 17:48": {
-    "vi": "25/07/2025, 17:48"
+  "en:locations": {
+    "vi": "Địa điểm"
   },
-  "vi:25/07/2025, 17:48": {
-    "en": "25/07/25, 17:48"
+  "vi:địa điểm": {
+    "en": "Locations"
   },
-  "en:please wait 3.5 seconds before translating again.": {
-    "vi": "Vui lòng chờ 3.5 giây trước khi dịch lại."
+  "en:create tips": {
+    "vi": "Tạo Mẹo"
   },
-  "vi:vui lòng chờ 3.5 giây trước khi dịch lại.": {
-    "en": "Please wait 3.5 seconds before translating again."
+  "en:create local specialties": {
+    "vi": "Tạo Đặc sản địa phương"
   },
-  "en:showing 1 to 4 of 4 entries (filtered from 6 total entries)": {
-    "vi": "Hiển thị 1 đến 4 trong số 4 mục (đã lọc từ tổng cộng 6 mục)"
+  "en:showing 1 to 10 of 108 entries": {
+    "vi": "Hiển thị 1 đến 10 trong số 108 mục"
   },
-  "vi:hiển thị 1 đến 4 trong số 4 mục (đã lọc từ tổng cộng 6 mục)": {
-    "en": "Showing 1 to 4 of 4 entries (filtered from 6 total entries)"
-  },
-  "en:20/07/25, 04:16": {
-    "vi": "Ngày 20 tháng 07 năm 2025, 04 giờ 16 phút"
-  },
-  "vi:ngày 20 tháng 07 năm 2025, 04 giờ 16 phút": {
-    "en": "20/07/25, 04:16"
-  },
-  "en:user restored successfully": {
-    "vi": "Người dùng đã khôi phục thành công"
-  },
-  "vi:người dùng đã khôi phục thành công": {
-    "en": "User restored successfully"
-  },
-  "en:here’s what’s                             happening with                             your store today.": {
-    "vi": "Đây là những gì đang diễn ra với cửa hàng của bạn hôm nay."
-  },
-  "vi:đây là những gì đang diễn ra với cửa hàng của bạn hôm nay.": {
-    "en": "Here’s what’s                             happening with                             your store today."
-  },
-  "en:25 days ago": {
-    "vi": "25 ngày trước"
-  },
-  "vi:25 ngày trước": {
-    "en": "25 days ago"
-  },
-  "en:5 days ago": {
-    "vi": "5 ngày trước"
-  },
-  "vi:5 ngày trước": {
-    "en": "5 days ago"
-  },
-  "en:6 days ago": {
-    "vi": "6 ngày trước"
-  },
-  "vi:6 ngày trước": {
-    "en": "6 days ago"
-  },
-  "en:do an ngon": {
-    "vi": "đồ ăn ngon"
-  },
-  "vi:đồ ăn ngon": {
-    "en": "do an ngon"
-  },
-  "en:your otp is sent to verify": {
-    "vi": "Mã OTP của bạn đã được gửi để xác minh"
-  },
-  "vi:mã otp của bạn đã được gửi để xác minh": {
-    "en": "Your OTP is sent to verify"
-  },
-  "en:verify to change password": {
-    "vi": "Xác minh để thay đổi mật khẩu"
-  },
-  "vi:xác minh để thay đổi mật khẩu": {
-    "en": "Verify to change password"
-  },
-  "en:verify current email": {
-    "vi": "Xác minh Email hiện tại"
-  },
-  "vi:xác minh email hiện tại": {
-    "en": "Verify Current Email"
-  },
-  "en:verify new phone number your otp is sent to now": {
-    "vi": "Xác minh Số điện thoại mới Mã OTP của bạn đã được gửi ngay bâya giờ"
-  },
-  "vi:xác minh số điện thoại mới mã otp của bạn đã được gửi ngay bâya giờ": {
-    "en": "Verify New Phone Number Your OTP is sent to now"
-  },
-  "en:your otp is sent to now": {
-    "vi": "Mã OTP của bạn đã được gửi ngay bâya giờ"
-  },
-  "vi:mã otp của bạn đã được gửi ngay bâya giờ": {
-    "en": "Your OTP is sent to now"
-  },
-  "en:đồ uôngs": {
-    "vi": "Đồ Uống"
-  },
-  "en:showing 1 to 10 of 22 entries (filtered from 23 total entries)": {
-    "vi": "Hiển thị 1 đến 10 trong số 22 mục (được lọc từ tổng số 23 mục)"
-  },
-  "vi:hiển thị 1 đến 10 trong số 22 mục (được lọc từ tổng số 23 mục)": {
-    "en": "Showing 1 to 10 of 22 entries (filtered from 23 total entries)"
-  },
-  "en:hiển thị 1 đến 10 trong số 22 mục (được lọc từ tổng số 23 mục)": {
-    "vi": "Displaying 1 to 10 of 22 items (filtered from a total of 23 items)"
-  },
-  "vi:displaying 1 to 10 of 22 items (filtered from a total of 23 items)": {
-    "en": "Hiển thị 1 đến 10 trong số 22 mục (được lọc từ tổng số 23 mục)"
-  },
-  "en:create administrator": {
-    "vi": "Tạo Quản trị viên"
-  },
-  "vi:tạo quản trị viên": {
-    "en": "Create Administrator"
-  },
-  "en:showing 1 to 3 of 3 entries (filtered from 4 total entries)": {
-    "vi": "Hiển thị 1 đến 3 trong tổng số 3 mục (đã lọc từ tổng số 4 mục)"
-  },
-  "vi:hiển thị 1 đến 3 trong tổng số 3 mục (đã lọc từ tổng số 4 mục)": {
-    "en": "Showing 1 to 3 of 3 entries (filtered from 4 total entries)"
-  },
-  "en:see more": {
-    "vi": "Xem thêm"
+  "vi:hiển thị 1 đến 10 trong số 108 mục": {
+    "en": "Showing 1 to 10 of 108 entries"
   },
   "en:average rating": {
     "vi": "Đánh giá trung bình"
@@ -7119,27 +7674,27 @@
     "en": "Now"
   },
   "en:am": {
-    "vi": "SA"
+    "vi": "Sáng"
   },
-  "vi:sa": {
+  "vi:sáng": {
     "en": "AM"
   },
   "en:pm": {
-    "vi": "CH"
+    "vi": "Chiều"
   },
-  "vi:ch": {
+  "vi:chiều": {
     "en": "PM"
   },
-  "en:open now": {
-    "vi": "Đang mở cửa"
+  "en:currently closed": {
+    "vi": "Hiện đang đóng cửa"
   },
-  "vi:đang mở cửa": {
-    "en": "Open now"
+  "vi:hiện đang đóng cửa": {
+    "en": "Currently closed"
   },
   "en:total duration": {
-    "vi": "Tổng thời lượng"
+    "vi": "Tổng thời gian"
   },
-  "vi:tổng thời lượng": {
+  "vi:tổng thời gian": {
     "en": "Total Duration"
   },
   "en:12 hours/day": {
@@ -7154,21 +7709,6 @@
   "vi:bản đồ": {
     "en": "Map"
   },
-  "en:showing 1 to 10 of 108 entries (filtered from 111 total entries)": {
-    "vi": "Hiển thị 1 đến 10 trong số 108 mục (đã lọc từ tổng cộng 111 mục)"
-  },
-  "vi:hiển thị 1 đến 10 trong số 108 mục (đã lọc từ tổng cộng 111 mục)": {
-    "en": "Showing 1 to 10 of 108 entries (filtered from 111 total entries)"
-  },
-  "en:chùa bà thiên hậu cầu quan 天后古廟": {
-    "vi": "Chùa Bà Thiên Hậu Cầu Quan"
-  },
-  "vi:chùa bà thiên hậu cầu quan": {
-    "en": "Chùa Bà Thiên Hậu Cầu Quan 天后古廟"
-  },
-  "en:ocop product details": {
-    "vi": "Chi tiết sản phẩm OCOP"
-  },
   "en:high-quality ocop product from the mekong delta": {
     "vi": "Sản phẩm OCOP chất lượng cao từ Đồng bằng sông Cửu Long"
   },
@@ -7176,34 +7716,28 @@
     "en": "High-quality OCOP product from the Mekong Delta"
   },
   "en:ocop rating:": {
-    "vi": "Xếp hạng OCOP:"
+    "vi": "Đánh giá OCOP:"
   },
-  "vi:xếp hạng ocop:": {
+  "vi:đánh giá ocop:": {
     "en": "OCOP Rating:"
   },
-  "en:year released:": {
-    "vi": "Năm phát hành:"
+  "en:year of recognition:": {
+    "vi": "Năm công nhận:"
   },
-  "vi:năm phát hành:": {
-    "en": "Year Released:"
+  "vi:năm công nhận:": {
+    "en": "Year of Recognition:"
   },
   "en:status:": {
-    "vi": "Trạng thái:"
+    "vi": "Tình trạng:"
   },
-  "vi:trạng thái:": {
+  "vi:tình trạng:": {
     "en": "Status:"
   },
   "en:● active": {
-    "vi": "● Đang hoạt động"
+    "vi": "● Hoạt động"
   },
-  "vi:● đang hoạt động": {
+  "vi:● hoạt động": {
     "en": "● Active"
-  },
-  "en:updated at:": {
-    "vi": "Cập nhật lúc:"
-  },
-  "vi:cập nhật lúc:": {
-    "en": "Updated At:"
   },
   "en:selling points of the product": {
     "vi": "Điểm nổi bật của sản phẩm"
@@ -7217,16 +7751,10 @@
   "vi:điểm nổi bật": {
     "en": "Selling Points"
   },
-  "en:add selling point": {
-    "vi": "Thêm điểm nổi bật"
-  },
-  "vi:thêm điểm nổi bật": {
-    "en": "Add Selling Point"
-  },
   "en:store of selling link": {
-    "vi": "Cửa hàng liên kết bán hàng"
+    "vi": "Liên kết bán hàng"
   },
-  "vi:cửa hàng liên kết bán hàng": {
+  "vi:liên kết bán hàng": {
     "en": "Store of selling link"
   },
   "en:add new link": {
@@ -7235,29 +7763,8 @@
   "vi:thêm liên kết mới": {
     "en": "Add New Link"
   },
-  "en:total links": {
-    "vi": "Tổng số liên kết"
-  },
-  "vi:tổng số liên kết": {
-    "en": "Total Links"
-  },
-  "en:platforms": {
-    "vi": "Nền tảng"
-  },
-  "vi:nền tảng": {
-    "en": "Platforms"
-  },
-  "en:social media platform": {
-    "vi": "Nền tảng mạng xã hội"
-  },
-  "vi:nền tảng mạng xã hội": {
-    "en": "Social Media Platform"
-  },
-  "en:selling link url": {
-    "vi": "URL LIÊN KẾT BÁN HÀNG"
-  },
-  "vi:url liên kết bán hàng": {
-    "en": "SELLING LINK URL"
+  "en:no selling links available.": {
+    "vi": "Không có liên kết bán hàng."
   },
   "en:add new selling link": {
     "vi": "Thêm liên kết bán hàng mới"
@@ -7271,22 +7778,820 @@
   "vi:lưu liên kết": {
     "en": "Save Link"
   },
-  "en:go to link": {
-    "vi": "Truy cập liên kết"
+  "en:professional manufacturing and trading company": {
+    "vi": "Công ty sản xuất và kinh doanh chuyên nghiệp"
   },
-  "vi:truy cập liên kết": {
-    "en": "Go to link"
+  "vi:công ty sản xuất và kinh doanh chuyên nghiệp": {
+    "en": "Professional manufacturing and trading company"
   },
-  "en:delete selling link": {
-    "vi": "Xóa liên kết bán hàng"
+  "en:update soon": {
+    "vi": "Sẽ cập nhật sớm"
   },
-  "vi:xóa liên kết bán hàng": {
-    "en": "Delete Selling Link"
+  "vi:sẽ cập nhật sớm": {
+    "en": "Update soon"
   },
-  "en:để đến được , các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội ok om bok nhé.": {
-    "vi": "Để đến được nơi này, bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bởi cây xanh xung quanh. Nếu có cơ hội, bạn nên đến vào tháng 10 âm lịch để cùng tham gia lễ hội Ok Om Bok nhé."
+  "en:company location": {
+    "vi": "Địa điểm công ty"
   },
-  "vi:để đến được nơi này, bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bởi cây xanh xung quanh. nếu có cơ hội, bạn nên đến vào tháng 10 âm lịch để cùng tham gia lễ hội ok om bok nhé.": {
-    "en": "Để đến được , các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. Nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội Ok Om Bok nhé."
+  "en:company update form": {
+    "vi": "Mẫu cập nhật công ty"
+  },
+  "vi:mẫu cập nhật công ty": {
+    "en": "Company Update form"
+  },
+  "en:basic information": {
+    "vi": "Thông tin cơ bản"
+  },
+  "vi:thông tin cơ bản": {
+    "en": "Basic Information"
+  },
+  "en:address & location": {
+    "vi": "Địa chỉ & Vị trí"
+  },
+  "vi:địa chỉ & vị trí": {
+    "en": "Address & Location"
+  },
+  "en:start typing an address...": {
+    "vi": "Bắt đầu nhập địa chỉ..."
+  },
+  "vi:bắt đầu nhập địa chỉ...": {
+    "en": "Start typing an address..."
+  },
+  "en:no.: activate to sort column ascending": {
+    "vi": "Số: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "vi:số: kích hoạt để sắp xếp cột tăng dần": {
+    "en": "No.: activate to sort column ascending"
+  },
+  "en:user name: activate to sort column descending": {
+    "vi": "Tên người dùng: kích hoạt để sắp xếp cột giảm dần"
+  },
+  "vi:tên người dùng: kích hoạt để sắp xếp cột giảm dần": {
+    "en": "User Name: activate to sort column descending"
+  },
+  "en:created at: activate to sort column descending": {
+    "vi": "Thời gian tạo: nhấn để sắp xếp cột giảm dần"
+  },
+  "vi:thời gian tạo: nhấn để sắp xếp cột giảm dần": {
+    "en": "Created At: activate to sort column descending"
+  },
+  "en:destination: activate to sort column descending": {
+    "vi": "Điểm đến: kích hoạt để sắp xếp cột giảm dần"
+  },
+  "vi:điểm đến: kích hoạt để sắp xếp cột giảm dần": {
+    "en": "Destination: activate to sort column descending"
+  },
+  "en:sql in 30 days": {
+    "vi": "SQL trong 30 ngày"
+  },
+  "vi:sql trong 30 ngày": {
+    "en": "SQL in 30 days"
+  },
+  "en:343.3333333333 ,\u00A0 343.3333333333": {
+    "vi": "343.3333333333 , 343.3333333333"
+  },
+  "vi:343.3333333333 , 343.3333333333": {
+    "en": "343.3333333333 ,\u00A0 343.3333333333"
+  },
+  "en:duongtandat1810@gmail.com": {
+    "vi": "duongtandat1810@ gmail. com"
+  },
+  "vi:duongtandat1810@ gmail. com": {
+    "en": "duongtandat1810@gmail.com"
+  },
+  "en:22:38": {
+    "vi": "22: 38"
+  },
+  "vi:22: 38": {
+    "en": "22:38"
+  },
+  "en:7:00": {
+    "vi": "7: 00"
+  },
+  "vi:7: 00": {
+    "en": "7:00"
+  },
+  "en:aobaom@gmail.com": {
+    "vi": "aobaom@ gmail. com"
+  },
+  "vi:aobaom@ gmail. com": {
+    "en": "aobaom@gmail.com"
+  },
+  "en:https://vi.wikipedia.org": {
+    "vi": "https:// vi. wikipedia. org"
+  },
+  "vi:https:// vi. wikipedia. org": {
+    "en": "https://vi.wikipedia.org"
+  },
+  "en:© 1987–2025 here": {
+    "vi": "© 1987– 2025 HERE"
+  },
+  "vi:© 1987– 2025 here": {
+    "en": "© 1987–2025 HERE"
+  },
+  "en:ao bà om (ao vuông)": {
+    "vi": "Ao Bà Om ( ao Vuông)"
+  },
+  "vi:ao bà om ( ao vuông)": {
+    "en": "Ao Bà Om (ao Vuông)"
+  },
+  "en:69.000₫": {
+    "vi": "69. 000₫"
+  },
+  "vi:69. 000₫": {
+    "en": "69.000₫"
+  },
+  "en:cacao mass hay còn gọi là nhân cacao là sản phẩm được tạo ra từ quá trình nghiền mịn hạt cacao đã được rang. đây là nguyên liệu thô quan trọng để sản xuất ra nhiều sản phẩm từ cacao khác như bột cacao, bơ cacao, sô cô la...": {
+    "vi": "Cacao Mass hay còn gọi là nhân cacao là sản phẩm được tạo ra từ quá trình nghiền mịn hạt cacao đã được rang. Đây là nguyên liệu thô quan trọng để sản xuất ra nhiều sản phẩm từ cacao khác như bột cacao, bơ cacao, sô cô la.. ."
+  },
+  "vi:cacao mass hay còn gọi là nhân cacao là sản phẩm được tạo ra từ quá trình nghiền mịn hạt cacao đã được rang. đây là nguyên liệu thô quan trọng để sản xuất ra nhiều sản phẩm từ cacao khác như bột cacao, bơ cacao, sô cô la.. .": {
+    "en": "Cacao Mass hay còn gọi là nhân cacao là sản phẩm được tạo ra từ quá trình nghiền mịn hạt cacao đã được rang. Đây là nguyên liệu thô quan trọng để sản xuất ra nhiều sản phẩm từ cacao khác như bột cacao, bơ cacao, sô cô la..."
+  },
+  "en:no updates yet": {
+    "vi": "Chưa có cập nhật nào"
+  },
+  "vi:chưa có cập nhật nào": {
+    "en": "No updates yet"
+  },
+  "en:edit ocop product": {
+    "vi": "Chỉnh sửa sản phẩm OCOP"
+  },
+  "vi:chỉnh sửa sản phẩm ocop": {
+    "en": "Edit OCOP Product"
+  },
+  "en:add selling point": {
+    "vi": "Thêm điểm bán hàng"
+  },
+  "vi:thêm điểm bán hàng": {
+    "en": "Add Selling Point"
+  },
+  "en:search": {
+    "vi": "Tìm kiếm"
+  },
+  "vi:tìm kiếm": {
+    "en": "Search"
+  },
+  "en:66.000₫": {
+    "vi": "66.000₫"
+  },
+  "vi:66.000₫₫": {
+    "en": "66.000₫"
+  },
+  "en:kẹo dừa sáp vicosap nguyên chất với công thức đặc biệt được phát triển để mang đến hương vị tự nhiên, thơm ngon và tươi mới. sản phẩm được làm từ dừa sáp nguyên chất, kết hợp với quy trình sản xuất tinh tế, giữ trọn vẹn độ béo ngậy tự nhiên của dừa.": {
+    "vi": "Kẹo Dừa Sáp Vicosap Nguyên Chất với công thức đặc biệt được phát triển để mang đến hương vị tự nhiên, thơm ngon và tươi mới. Sản phẩm được làm từ dừa sáp nguyên chất, kết hợp với quy trình sản xuất tinh tế, giữ trọn vẹn độ béo ngậy tự nhiên của dừa.."
+  },
+  "vi:kẹo dừa sáp vicosap nguyên chất với công thức đặc biệt được phát triển để mang đến hương vị tự nhiên, thơm ngon và tươi mới. sản phẩm được làm từ dừa sáp nguyên chất, kết hợp với quy trình sản xuất tinh tế, giữ trọn vẹn độ béo ngậy tự nhiên của dừa..": {
+    "en": "Kẹo Dừa Sáp Vicosap Nguyên Chất với công thức đặc biệt được phát triển để mang đến hương vị tự nhiên, thơm ngon và tươi mới. Sản phẩm được làm từ dừa sáp nguyên chất, kết hợp với quy trình sản xuất tinh tế, giữ trọn vẹn độ béo ngậy tự nhiên của dừa."
+  },
+  "en:366 đ. phan văn trị, phường 5, gò vấp, thành phố hồ chí minh.": {
+    "vi": "366 Đ. Phan Văn Trị, Phường 5, Gò Vấp, Thành phố Hồ Chí Minh.."
+  },
+  "vi:366 đ. phan văn trị, phường 5, gò vấp, thành phố hồ chí minh..": {
+    "en": "366 Đ. Phan Văn Trị, Phường 5, Gò Vấp, Thành phố Hồ Chí Minh."
+  },
+  "en:chùa bà thiên hậu càu quan, q469+cv5, tt. cầu quan, tiểu cần, trà vinh, việt nam": {
+    "vi": "Chùa Bà Thiên Hậu Cầu Quan, Q469+CV5, TT. Cầu Quan, Tiểu Cần, Trà Vinh, Việt Nam"
+  },
+  "vi:chùa bà thiên hậu cầu quan, q469+cv5, tt. cầu quan, tiểu cần, trà vinh, việt nam": {
+    "en": "Chùa Bà Thiên Hậu Càu Quan, Q469+CV5, TT. Cầu Quan, Tiểu Cần, Trà Vinh, Việt Nam"
+  },
+  "en:13 hours/day": {
+    "vi": "13 giờ/ngày"
+  },
+  "vi:13 giờ/ngày": {
+    "en": "13 hours/day"
+  },
+  "en:(thiên hậu cung) tọa lạc tại thị trấn tiểu cần, huyện tiểu cần, trà vinh, được xây dựng hơn 180 năm trước. đây là công trình kiến trúc nghệ thuật đặc sắc của người hoa, mang đậm nét văn hóa phương đông.": {
+    "vi": "((Thiên Hậu Cung) tọa lạc tại thị trấn Tiểu Cần, huyện Tiểu Cần, Trà Vinh, được xây dựng hơn 180 năm trước. Đây là công trình kiến trúc nghệ thuật đặc sắc của người Hoa, mang đậm nét văn hóa phương Đông.."
+  },
+  "vi:((thiên hậu cung) tọa lạc tại thị trấn tiểu cần, huyện tiểu cần, trà vinh, được xây dựng hơn 180 năm trước. đây là công trình kiến trúc nghệ thuật đặc sắc của người hoa, mang đậm nét văn hóa phương đông..": {
+    "en": "(Thiên Hậu Cung) tọa lạc tại thị trấn Tiểu Cần, huyện Tiểu Cần, Trà Vinh, được xây dựng hơn 180 năm trước. Đây là công trình kiến trúc nghệ thuật đặc sắc của người Hoa, mang đậm nét văn hóa phương Đông."
+  },
+  "en:chùa có ba khu chính: tiền điện, trung điện, chính điện, thiết kế theo kiểu “nội công ngoại quốc”. mái chùa trang trí tượng rồng, nhật thần, nguyệt thần, biểu trưng cho sự thịnh vượng. bên trong có nhiều phù điêu, tranh vẽ về các điển tích trung hoa.": {
+    "vi": "Chùa có ba khu chính: tiền điện, trung điện, chính điện, thiết kế theo kiểu “nội công ngoại quốc”. Mái chùa trang trí tượng rồng, nhật thần, nguyệt thần, biểu trưng cho sự thịnh vượng. Bên trong có nhiều phù điêu, tranh vẽ về các điển tích Trung Hoa.."
+  },
+  "vi:chùa có ba khu chính: tiền điện, trung điện, chính điện, thiết kế theo kiểu “nội công ngoại quốc”. mái chùa trang trí tượng rồng, nhật thần, nguyệt thần, biểu trưng cho sự thịnh vượng. bên trong có nhiều phù điêu, tranh vẽ về các điển tích trung hoa..": {
+    "en": "Chùa có ba khu chính: tiền điện, trung điện, chính điện, thiết kế theo kiểu “nội công ngoại quốc”. Mái chùa trang trí tượng rồng, nhật thần, nguyệt thần, biểu trưng cho sự thịnh vượng. Bên trong có nhiều phù điêu, tranh vẽ về các điển tích Trung Hoa."
+  },
+  "en:kiến trúc:": {
+    "vi": "Kiến trúc::"
+  },
+  "vi:kiến trúc::": {
+    "en": "Kiến trúc:"
+  },
+  "en:ngày 22/10/2020, chùa được công nhận là di tích kiến trúc nghệ thuật cấp tỉnh.": {
+    "vi": "Ngày 22/10/2020, chùa được công nhận là di tích kiến trúc nghệ thuật cấp tỉnh.."
+  },
+  "vi:ngày 22/10/2020, chùa được công nhận là di tích kiến trúc nghệ thuật cấp tỉnh..": {
+    "en": "Ngày 22/10/2020, chùa được công nhận là di tích kiến trúc nghệ thuật cấp tỉnh."
+  },
+  "en:25.000₫": {
+    "vi": "25.000₫₫"
+  },
+  "vi:25.000₫₫": {
+    "en": "25.000₫"
+  },
+  "en:96.000₫": {
+    "vi": "96.000₫₫"
+  },
+  "vi:96.000₫₫": {
+    "en": "96.000₫"
+  },
+  "en:75.000₫": {
+    "vi": "75.000₫₫"
+  },
+  "vi:75.000₫₫": {
+    "en": "75.000₫"
+  },
+  "en:300.000₫": {
+    "vi": "300.000₫₫"
+  },
+  "vi:300.000₫₫": {
+    "en": "300.000₫"
+  },
+  "en:80.000₫": {
+    "vi": "80.000₫₫"
+  },
+  "vi:80.000₫₫": {
+    "en": "80.000₫"
+  },
+  "en:dầu dừa nguyên chất phương huỳnh …": {
+    "vi": "Dầu dừa nguyên chất Phương Huỳnh … …"
+  },
+  "vi:dầu dừa nguyên chất phương huỳnh … …": {
+    "en": "Dầu dừa nguyên chất Phương Huỳnh …"
+  },
+  "en:90.000₫": {
+    "vi": "90.000₫₫"
+  },
+  "vi:90.000₫₫": {
+    "en": "90.000₫"
+  },
+  "en:182.000₫": {
+    "vi": "182.000₫₫"
+  },
+  "vi:182.000₫₫": {
+    "en": "182.000₫"
+  },
+  "en:82.000₫": {
+    "vi": "82.000₫₫"
+  },
+  "vi:82.000₫₫": {
+    "en": "82.000₫"
+  },
+  "en:tôi đã có khoảng thời gian tuyệt vời ở đây.": {
+    "vi": "Tôi đã có khoảng thời gian tuyệt vời ở đây.."
+  },
+  "vi:tôi đã có khoảng thời gian tuyệt vời ở đây..": {
+    "en": "Tôi đã có khoảng thời gian tuyệt vời ở đây."
+  },
+  "en:người dân thân thiện, môi trường sạch sẽ.": {
+    "vi": "Người dân thân thiện, môi trường sạch sẽ.."
+  },
+  "vi:người dân thân thiện, môi trường sạch sẽ..": {
+    "en": "Người dân thân thiện, môi trường sạch sẽ."
+  },
+  "en:rất yên bình và đẹp.": {
+    "vi": "Rất yên bình và đẹp.."
+  },
+  "vi:rất yên bình và đẹp..": {
+    "en": "Rất yên bình và đẹp."
+  },
+  "en:thích hợp cho chuyến đi gia đình!": {
+    "vi": "Thích hợp cho chuyến đi gia đình!!"
+  },
+  "vi:thích hợp cho chuyến đi gia đình!!": {
+    "en": "Thích hợp cho chuyến đi gia đình!"
+  },
+  "en:22 days ago": {
+    "vi": "22 ngày trước"
+  },
+  "vi:22 ngày trước": {
+    "en": "22 days ago"
+  },
+  "en:find": {
+    "vi": "Tìm"
+  },
+  "vi:tìm": {
+    "en": "Find"
+  },
+  "en:muốn quay lại lần nữa.": {
+    "vi": "Muốn quay lại lần nữa.."
+  },
+  "vi:muốn quay lại lần nữa..": {
+    "en": "Muốn quay lại lần nữa."
+  },
+  "en:kiến trúc và thiên nhiên đều tuyệt vời.": {
+    "vi": "Kiến trúc và thiên nhiên đều tuyệt vời.."
+  },
+  "vi:kiến trúc và thiên nhiên đều tuyệt vời..": {
+    "en": "Kiến trúc và thiên nhiên đều tuyệt vời."
+  },
+  "en:nơi đây thật tuyệt vời!": {
+    "vi": "Nơi đây thật tuyệt vời!!"
+  },
+  "vi:nơi đây thật tuyệt vời!!": {
+    "en": "Nơi đây thật tuyệt vời!"
+  },
+  "en:rất đáng để ghé thăm.": {
+    "vi": "Rất đáng để ghé thăm.."
+  },
+  "vi:rất đáng để ghé thăm..": {
+    "en": "Rất đáng để ghé thăm."
+  },
+  "en:open now": {
+    "vi": "Đang mở cửa"
+  },
+  "vi:đang mở cửa": {
+    "en": "Open now"
+  },
+  "en:- hạt : hạt mịn, hạt trung và hạt to.   - màu : trắng tinh khiết của dừa   - hàm lượng dầu : tối thiểu 63%   - độ ẩm : tối đa 3%   - hàm lượng ffa : tối đa 0,5%   - vi sinh : không nhiễm salmonella, e.coli và aflatoxin.": {
+    "vi": "- - Hạt: Hạt mịn, hạt trung và hạt lớn. - Màu: Trắng tinh khiết của dừa - Hàm lượng dầu: Tối thiểu 63% - Độ ẩm: Tối đa 3% - Hàm lượng FFA: Tối đa 0,5% - Vi sinh: Không nhiễm salmonella, E.coli và Aflatoxin.."
+  },
+  "vi:- - hạt: hạt mịn, hạt trung và hạt lớn. - màu: trắng tinh khiết của dừa - hàm lượng dầu: tối thiểu 63% - độ ẩm: tối đa 3% - hàm lượng ffa: tối đa 0,5% - vi sinh: không nhiễm salmonella, e.coli và aflatoxin..": {
+    "en": "- Hạt : Hạt mịn, hạt trung và hạt to.   - Màu : Trắng tinh khiết của dừa   - Hàm lượng dầu : Tối thiểu 63%   - Độ ẩm : Tối đa 3%   - Hàm lượng FFA : Tối đa 0,5%   - Vi sinh : Không nhiễm salmonella, E.coli và Aflatoxin."
+  },
+  "en:-cửa hàng sản phẩm ocop hợp tác xã tỉnh trà vinh": {
+    "vi": "--Cửa hàng sản phẩm OCOP Hợp tác xã tỉnh Trà Vinh"
+  },
+  "vi:--cửa hàng sản phẩm ocop hợp tác xã tỉnh trà vinh": {
+    "en": "-Cửa hàng sản phẩm OCOP hợp tác xã tỉnh Trà Vinh"
+  },
+  "en:các hệ thống vinmart ở khắp trà vinh": {
+    "vi": "Các hệ thống VinMart khắp Trà Vinh"
+  },
+  "vi:các hệ thống vinmart khắp trà vinh": {
+    "en": "Các hệ thống vinmart ở khắp Trà vinh"
+  },
+  "en:locations where you can find bún nước lèo": {
+    "vi": "Các địa điểm có Bún Nước Lèo"
+  },
+  "vi:các địa điểm có bún nước lèo": {
+    "en": "Locations where you can find Bún Nước Lèo"
+  },
+  "en:locations where you can find bún suông": {
+    "vi": "Địa điểm tìm thấy Bún Suông"
+  },
+  "vi:địa điểm tìm thấy bún suông": {
+    "en": "Locations where you can find Bún Suông"
+  },
+  "en:56/2 đường hùng vương, phường 3, trà vinh, 084000, vietnam": {
+    "vi": "56/2 Đường Hùng Vương, Phường 3, Trà Vinh, 084000, Việt Nam"
+  },
+  "vi:56/2 đường hùng vương, phường 3, trà vinh, 084000, việt nam": {
+    "en": "56/2 Đường Hùng Vương, Phường 3, Trà Vinh, 084000, Vietnam"
+  },
+  "en:mỗi khi tháng 10 âm lịch về, người dân trà vinh lại háo hức chờ đón mùa cốm dẹp. đây là thời gian lễ hội của cộng đồng khmer và cốm dẹp trở thành món đặc sản không thể thiếu, làm say lòng mọi người tham gia lễ hội.": {
+    "vi": "Mỗi khi tháng 10 âm lịch về, người dân Trà Vinh lại háo hức chờ đón mùa cốm dẹp. Đây là thời gian lễ hội của cộng đồng Khmer và cốm dẹp trở thành món đặc sản không thể thiếu, làm say lòng mọi người tham gia lễ hội.."
+  },
+  "vi:mỗi khi tháng 10 âm lịch về, người dân trà vinh lại háo hức chờ đón mùa cốm dẹp. đây là thời gian lễ hội của cộng đồng khmer và cốm dẹp trở thành món đặc sản không thể thiếu, làm say lòng mọi người tham gia lễ hội..": {
+    "en": "Mỗi khi tháng 10 âm lịch về, người dân Trà Vinh lại háo hức chờ đón mùa cốm dẹp. Đây là thời gian lễ hội của cộng đồng Khmer và cốm dẹp trở thành món đặc sản không thể thiếu, làm say lòng mọi người tham gia lễ hội."
+  },
+  "en:khi mùa lúa nếp đã chín, bạn sẽ được chứng kiến khung cảnh người khmer bắt tay vào việc làm cốm dẹp để bảo đảm rằng hạt nếp giữ trọn vẹn hương vị tinh túy nhất. cốm dẹp vừa được làm xong có độ giòn, dẻo vừa phải, mang đến một trải nghiệm ẩm thực đầy thú vị. hương thơm từ cám nếp thoang thoảng trong không khí, khiến ai nấy cũng đều dễ dàng cảm nhận sự đặc biệt của món ngon này.": {
+    "vi": "Khi mùa lúa nếp đã chín, bạn sẽ được chứng kiến khung cảnh người Khmer bắt tay vào việc làm cốm dẹp để bảo đảm rằng hạt nếp giữ trọn vẹn hương vị tinh túy nhất. Cốm dẹp vừa được làm xong có độ giòn, dẻo vừa phải, mang đến một trải nghiệm ẩm thực đầy thú vị. Hương thơm từ cám nếp thoang thoảng trong không khí, khiến ai nấy cũng đều dễ dàng cảm nhận sự đặc biệt của món ngon này.."
+  },
+  "vi:khi mùa lúa nếp đã chín, bạn sẽ được chứng kiến khung cảnh người khmer bắt tay vào việc làm cốm dẹp để bảo đảm rằng hạt nếp giữ trọn vẹn hương vị tinh túy nhất. cốm dẹp vừa được làm xong có độ giòn, dẻo vừa phải, mang đến một trải nghiệm ẩm thực đầy thú vị. hương thơm từ cám nếp thoang thoảng trong không khí, khiến ai nấy cũng đều dễ dàng cảm nhận sự đặc biệt của món ngon này..": {
+    "en": "Khi mùa lúa nếp đã chín, bạn sẽ được chứng kiến khung cảnh người Khmer bắt tay vào việc làm cốm dẹp để bảo đảm rằng hạt nếp giữ trọn vẹn hương vị tinh túy nhất. Cốm dẹp vừa được làm xong có độ giòn, dẻo vừa phải, mang đến một trải nghiệm ẩm thực đầy thú vị. Hương thơm từ cám nếp thoang thoảng trong không khí, khiến ai nấy cũng đều dễ dàng cảm nhận sự đặc biệt của món ngon này."
+  },
+  "en:cốm dẹp, được chế biến từ những hạt nếp non, là sản phẩm của một quá trình tỉ mỉ từ việc thu hoạch nếp sớm, ngâm, rang đến giã để tạo nên món đặc sản này. khi kết hợp với đường và dừa, cốm dẹp mang lại hương vị đậm đà, ngọt ngào khó quên. chính vì thế, nhiều du khách đến trà vinh không quên mua những hộp cốm dẹp làm quà tặng người thân và bạn bè.": {
+    "vi": "Cốm dẹp, được chế biến từ những hạt nếp non, là sản phẩm của một quá trình tỉ mỉ từ việc thu hoạch nếp sớm, ngâm, rang đến giã để tạo nên món đặc sản này. Khi kết hợp với đường và dừa, cốm dẹp mang lại hương vị đậm đà, ngọt ngào khó quên. Chính vì thế, nhiều du khách đến Trà Vinh không quên mua những hộp cốm dẹp làm quà tặng người thân và bạn bè.."
+  },
+  "vi:cốm dẹp, được chế biến từ những hạt nếp non, là sản phẩm của một quá trình tỉ mỉ từ việc thu hoạch nếp sớm, ngâm, rang đến giã để tạo nên món đặc sản này. khi kết hợp với đường và dừa, cốm dẹp mang lại hương vị đậm đà, ngọt ngào khó quên. chính vì thế, nhiều du khách đến trà vinh không quên mua những hộp cốm dẹp làm quà tặng người thân và bạn bè..": {
+    "en": "Cốm dẹp, được chế biến từ những hạt nếp non, là sản phẩm của một quá trình tỉ mỉ từ việc thu hoạch nếp sớm, ngâm, rang đến giã để tạo nên món đặc sản này. Khi kết hợp với đường và dừa, cốm dẹp mang lại hương vị đậm đà, ngọt ngào khó quên. Chính vì thế, nhiều du khách đến Trà Vinh không quên mua những hộp cốm dẹp làm quà tặng người thân và bạn bè."
+  },
+  "en:locations where you can find cốm dẹp": {
+    "vi": "Địa điểm có thể tìm thấy Cốm Dẹp"
+  },
+  "vi:địa điểm có thể tìm thấy cốm dẹp": {
+    "en": "Locations where you can find Cốm Dẹp"
+  },
+  "en:19 hours/day": {
+    "vi": "19 giờ/ngày"
+  },
+  "vi:19 giờ/ngày": {
+    "en": "19 hours/day"
+  },
+  "en:công ty tnhh chế biến dừa sáp cầu kè (vicosap)": {
+    "vi": "Công ty TNHH Chế biến Dừa sáp Cầu Kè (VICOSAP))"
+  },
+  "vi:công ty tnhh chế biến dừa sáp cầu kè (vicosap))": {
+    "en": "Công ty TNHH Chế biến Dừa sáp Cầu Kè (VICOSAP)"
+  },
+  "en:công ty tnhh trà vinh farm (sokfarm)": {
+    "vi": "Công ty TNHH Trà Vinh Farm (Sokfarm))"
+  },
+  "vi:công ty tnhh trà vinh farm (sokfarm))": {
+    "en": "Công ty TNHH Trà Vinh Farm (Sokfarm)"
+  },
+  "en:1 star": {
+    "vi": "1 sao"
+  },
+  "vi:1 sao": {
+    "en": "1 star"
+  },
+  "en:2 star": {
+    "vi": "2 sao"
+  },
+  "vi:2 sao": {
+    "en": "2 star"
+  },
+  "en:3 star": {
+    "vi": "3 sao"
+  },
+  "vi:3 sao": {
+    "en": "3 star"
+  },
+  "en:4 star": {
+    "vi": "4 sao"
+  },
+  "vi:4 sao": {
+    "en": "4 star"
+  },
+  "en:5 star": {
+    "vi": "5 sao"
+  },
+  "vi:5 sao": {
+    "en": "5 star"
+  },
+  "en:ocop certification year": {
+    "vi": "Năm chứng nhận OCOP"
+  },
+  "vi:năm chứng nhận ocop": {
+    "en": "OCOP Certification Year"
+  },
+  "en:lạp  xưởng vạn thành": {
+    "vi": "Lạp Xưởng Vạn Thành"
+  },
+  "vi:lạp xưởng vạn thành": {
+    "en": "Lạp  Xưởng Vạn Thành"
+  },
+  "en:1.000₫": {
+    "vi": "1.000₫₫"
+  },
+  "vi:1.000₫₫": {
+    "en": "1.000₫"
+  },
+  "en:100.000₫": {
+    "vi": "100.000₫₫"
+  },
+  "vi:100.000₫₫": {
+    "en": "100.000₫"
+  },
+  "en:bánh dinh dưỡng vicosap - dừa …": {
+    "vi": "Bánh dinh dưỡng Vicosap - Dừa … …"
+  },
+  "vi:bánh dinh dưỡng vicosap - dừa … …": {
+    "en": "Bánh dinh dưỡng Vicosap - Dừa …"
+  },
+  "en:49.000₫": {
+    "vi": "49.000₫₫"
+  },
+  "vi:49.000₫₫": {
+    "en": "49.000₫"
+  },
+  "en:mứt chuối tá quạ ( táo …": {
+    "vi": "Mứt chuối tá quạ ( táo … …"
+  },
+  "vi:mứt chuối tá quạ ( táo … …": {
+    "en": "Mứt chuối tá quạ ( táo …"
+  },
+  "en:20.000₫": {
+    "vi": "20.000₫₫"
+  },
+  "vi:20.000₫₫": {
+    "en": "20.000₫"
+  },
+  "en:0₫": {
+    "vi": "0₫₫"
+  },
+  "vi:0₫₫": {
+    "en": "0₫"
+  },
+  "en:★: nhấn để sắp xếp cột tăng dần": {
+    "vi": "★: ★: nhấn để sắp xếp cột tăng dần"
+  },
+  "vi:★: ★: nhấn để sắp xếp cột tăng dần": {
+    "en": "★: nhấn để sắp xếp cột tăng dần"
+  },
+  "en:82.000 ₫": {
+    "vi": "82.000 ₫ ₫"
+  },
+  "vi:82.000 ₫ ₫": {
+    "en": "82.000 ₫"
+  },
+  "en:quán óc bà 7": {
+    "vi": "QUÁN ỐC BÀ 7"
+  },
+  "vi:quán ốc bà 7": {
+    "en": "QUÁN ÓC BÀ 7"
+  },
+  "en:price": {
+    "vi": "Giá"
+  },
+  "vi:giá": {
+    "en": "Price"
+  },
+  "en:<p>để đến được <strong>ao bà om</strong>, các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội ok om bok nhé.</p>": {
+    "vi": "Để đến được Ao Bà Om, các bạn có thể di chuyển bằng xe du lịch, hoặc vi vu xe máy trên một con đường dài thẳng tắp được làm mát bằng cây xanh xung quanh. Nếu có cơ hội, bạn nên đi vào tháng 10 âm lịch để cùng tham gia lễ hội Ok Om Bok nhé."
+  },
+  "en:history image": {
+    "vi": "Hình ảnh lịch sử"
+  },
+  "vi:hình ảnh lịch sử": {
+    "en": "History Image"
+  },
+  "en:14/07/25, 17:58": {
+    "vi": "25/07/14, 17:58"
+  },
+  "vi:25/07/14, 17:58": {
+    "en": "14/07/25, 17:58"
+  },
+  "en:<p>đền thờ chủ tịch hồ chí minh, hay còn gọi là đền thờ bác hồ, nằm tại ấp vĩnh hội, xã long đức, thành phố trà vinh. công trình mang ý nghĩa thiêng liêng, là biểu tượng tấm lòng của nhân dân trà vinh với bác hồ. được bộ văn hóa xếp hạng di tích lịch sử – văn hóa cấp quốc gia năm 1989.</p>": {
+    "vi": "Đền thờ Chủ tịch Hồ Chí Minh, hay còn gọi là Đền thờ Bác Hồ, nằm tại ấp Vĩnh Hội, xã Long Đức, thành phố Trà Vinh. Công trình mang ý nghĩa thiêng liêng, là biểu tượng tấm lòng của nhân dân Trà Vinh với Bác Hồ. Được Bộ Văn hóa xếp hạng di tích lịch sử – văn hóa cấp quốc gia năm 1989."
+  },
+  "vi:đền thờ chủ tịch hồ chí minh, hay còn gọi là đền thờ bác hồ, nằm tại ấp vĩnh hội, xã long đức, thành phố trà vinh. công trình mang ý nghĩa thiêng liêng, là biểu tượng tấm lòng của nhân dân trà vinh với bác hồ. được bộ văn hóa xếp hạng di tích lịch sử – văn hóa cấp quốc gia năm 1989.": {
+    "en": "<p>Đền thờ Chủ tịch Hồ Chí Minh, hay còn gọi là Đền thờ Bác Hồ, nằm tại ấp Vĩnh Hội, xã Long Đức, thành phố Trà Vinh. Công trình mang ý nghĩa thiêng liêng, là biểu tượng tấm lòng của nhân dân Trà Vinh với Bác Hồ. Được Bộ Văn hóa xếp hạng di tích lịch sử – văn hóa cấp quốc gia năm 1989.</p>"
+  },
+  "en:17 hours/day": {
+    "vi": "17 giờ/ngày"
+  },
+  "vi:17 giờ/ngày": {
+    "en": "17 hours/day"
+  },
+  "en:chả hoa năm thụy là một đặc sản nổi tiếng của đất trà vinh, như tên gọi chả hoa khi cắt ra sẽ có hình giống như bông hoa ở giữa là trứng muối, xung quanh là nấm mèo, chả, ngoài cùng là lớp trứng gà đánh tan chiên thành tấm cuộn bên ngoài, vừa thơm ngon vừa đẹp mắt. ngoài ra còn có chả thủ, ba tê cuộn trứng, chả hoa hình con cá cùng thương hiệu": {
+    "vi": "Chả Hoa Năm Thụy là một đặc sản nổi tiếng của Trà Vinh. Như tên gọi, khi cắt ra, chả hoa sẽ có hình giống như bông hoa: ở giữa là trứng muối, xung quanh là nấm mèo và chả, ngoài cùng là lớp trứng gà đánh tan chiên thành tấm cuộn bên ngoài, vừa thơm ngon vừa đẹp mắt. Ngoài ra, thương hiệu còn có chả thủ, pa-tê cuộn trứng và chả hoa hình con cá."
+  },
+  "vi:chả hoa năm thụy là một đặc sản nổi tiếng của trà vinh. như tên gọi, khi cắt ra, chả hoa sẽ có hình giống như bông hoa: ở giữa là trứng muối, xung quanh là nấm mèo và chả, ngoài cùng là lớp trứng gà đánh tan chiên thành tấm cuộn bên ngoài, vừa thơm ngon vừa đẹp mắt. ngoài ra, thương hiệu còn có chả thủ, pa-tê cuộn trứng và chả hoa hình con cá.": {
+    "en": "Chả Hoa Năm Thụy là một đặc sản nổi tiếng của đất Trà Vinh, như tên gọi chả hoa khi cắt ra sẽ có hình giống như bông hoa ở giữa là trứng muối, xung quanh là nấm mèo, chả, ngoài cùng là lớp trứng gà đánh tan chiên thành tấm cuộn bên ngoài, vừa thơm ngon vừa đẹp mắt. Ngoài ra còn có chả thủ, ba tê cuộn trứng, chả hoa hình con cá cùng thương hiệu"
+  },
+  "en:stt: activate to sort column descending": {
+    "vi": "STT: kích hoạt để sắp xếp cột giảm dần"
+  },
+  "vi:stt: kích hoạt để sắp xếp cột giảm dần": {
+    "en": "STT: activate to sort column descending"
+  },
+  "en:tên sản phẩm: activate to sort column ascending": {
+    "vi": "Tên sản phẩm: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "vi:tên sản phẩm: kích hoạt để sắp xếp cột tăng dần": {
+    "en": "Tên sản phẩm: activate to sort column ascending"
+  },
+  "en:giá tham khảo: activate to sort column ascending": {
+    "vi": "Giá tham khảo: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "vi:giá tham khảo: kích hoạt để sắp xếp cột tăng dần": {
+    "en": "Giá tham khảo: activate to sort column ascending"
+  },
+  "en:năm phát hành: activate to sort column ascending": {
+    "vi": "Năm phát hành: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "vi:năm phát hành: kích hoạt để sắp xếp cột tăng dần": {
+    "en": "Năm phát hành: activate to sort column ascending"
+  },
+  "en:ngày tạo: activate to sort column ascending": {
+    "vi": "Ngày tạo: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "vi:ngày tạo: kích hoạt để sắp xếp cột tăng dần": {
+    "en": "Ngày tạo: activate to sort column ascending"
+  },
+  "en:bột cacao nguyên chất mekong": {
+    "vi": "Bột ca cao nguyên chất Mekong"
+  },
+  "vi:bột ca cao nguyên chất mekong": {
+    "en": "Bột Cacao nguyên chất Mekong"
+  },
+  "en:itinerary plan title": {
+    "vi": "Tiêu đề lịch trình"
+  },
+  "vi:tiêu đề lịch trình": {
+    "en": "Itinerary Plan title"
+  },
+  "en:3 days 2 night": {
+    "vi": "3 ngày 2 đêm"
+  },
+  "vi:3 ngày 2 đêm": {
+    "en": "3 days 2 night"
+  },
+  "en:5 days 4 night": {
+    "vi": "5 ngày 4 đêm"
+  },
+  "vi:5 ngày 4 đêm": {
+    "en": "5 days 4 night"
+  },
+  "en:4 million": {
+    "vi": "4 triệu"
+  },
+  "vi:4 triệu": {
+    "en": "4 million"
+  },
+  "en:5 million": {
+    "vi": "5 triệu"
+  },
+  "vi:5 triệu": {
+    "en": "5 million"
+  },
+  "en:choosing destination for itinerary plan": {
+    "vi": "Chọn điểm đến cho lịch trình"
+  },
+  "vi:chọn điểm đến cho lịch trình": {
+    "en": "Choosing destination for itinerary plan"
+  },
+  "en:please select at least 2 locations": {
+    "vi": "Vui lòng chọn ít nhất 2 địa điểm"
+  },
+  "vi:vui lòng chọn ít nhất 2 địa điểm": {
+    "en": "Please select at least 2 locations"
+  },
+  "en:write or choose destination": {
+    "vi": "Viết hoặc chọn điểm đến"
+  },
+  "vi:viết hoặc chọn điểm đến": {
+    "en": "write or choose destination"
+  },
+  "en:8 days ago": {
+    "vi": "8 ngày trước"
+  },
+  "vi:8 ngày trước": {
+    "en": "8 days ago"
+  },
+  "en:23 days ago": {
+    "vi": "23 ngày trước"
+  },
+  "vi:23 ngày trước": {
+    "en": "23 days ago"
+  },
+  "en:5:00": {
+    "vi": "5 giờ"
+  },
+  "vi:5 giờ": {
+    "en": "5:00"
+  },
+  "en:are you want to update your email?": {
+    "vi": "Bạn có muốn cập nhật email không?"
+  },
+  "vi:bạn có muốn cập nhật email không?": {
+    "en": "Are you want to update your email?"
+  },
+  "en:are you want to update your phone number?": {
+    "vi": "Bạn có muốn cập nhật số điện thoại không?"
+  },
+  "vi:bạn có muốn cập nhật số điện thoại không?": {
+    "en": "Are you want to update your phone number?"
+  },
+  "en:are you want to update your password?": {
+    "vi": "Bạn có muốn cập nhật mật khẩu của mình không?"
+  },
+  "vi:bạn có muốn cập nhật mật khẩu của mình không?": {
+    "en": "Are you want to update your password?"
+  },
+  "en:showing 11 to 20 of 106 entries (filtered from 108 total entries)": {
+    "vi": "Đang hiển thị từ 11 đến 20 trong số 106 mục (đã lọc từ 108 mục tổng cộng)"
+  },
+  "vi:đang hiển thị từ 11 đến 20 trong số 106 mục (đã lọc từ 108 mục tổng cộng)": {
+    "en": "Showing 11 to 20 of 106 entries (filtered from 108 total entries)"
+  },
+  "en:họ và tên: activate to sort column ascending": {
+    "vi": "Họ và Tên: nhấn để sắp xếp cột tăng dần"
+  },
+  "vi:họ và tên: nhấn để sắp xếp cột tăng dần": {
+    "en": "Họ và Tên: activate to sort column ascending"
+  },
+  "en:thư điện tử: activate to sort column ascending": {
+    "vi": "Thư điện tử: nhấn để sắp xếp cột tăng dần"
+  },
+  "vi:thư điện tử: nhấn để sắp xếp cột tăng dần": {
+    "en": "Thư điện tử: activate to sort column ascending"
+  },
+  "en:điện thoại: activate to sort column ascending": {
+    "vi": "Điện thoại: nhấn để sắp xếp cột tăng dần"
+  },
+  "vi:điện thoại: nhấn để sắp xếp cột tăng dần": {
+    "en": "Điện thoại: activate to sort column ascending"
+  },
+  "en:showing 1 to 3 of 3 entries (filtered from 4 total entries)": {
+    "vi": "Hiển thị 1 đến 3 trong tổng số 3 mục (được lọc từ 4 mục tổng cộng)"
+  },
+  "vi:hiển thị 1 đến 3 trong tổng số 3 mục (được lọc từ 4 mục tổng cộng)": {
+    "en": "Showing 1 to 3 of 3 entries (filtered from 4 total entries)"
+  },
+  "en:your otp is sent to verify": {
+    "vi": "Mã OTP của bạn đã được gửi để xác minh"
+  },
+  "vi:mã otp của bạn đã được gửi để xác minh": {
+    "en": "Your OTP is sent to verify"
+  },
+  "en:verify to change password": {
+    "vi": "Xác minh để đổi mật khẩu"
+  },
+  "vi:xác minh để đổi mật khẩu": {
+    "en": "Verify to change password"
+  },
+  "en:verify new phone number your otp is sent to now": {
+    "vi": "Xác minh Số Điện Thoại Mới Mã OTP của bạn đã được gửi ngay bây giờ"
+  },
+  "vi:xác minh số điện thoại mới mã otp của bạn đã được gửi ngay bây giờ": {
+    "en": "Verify New Phone Number Your OTP is sent to now"
+  },
+  "en:your otp is sent to now": {
+    "vi": "Mã OTP của bạn đã được gửi ngay bây giờ"
+  },
+  "vi:mã otp của bạn đã được gửi ngay bây giờ": {
+    "en": "Your OTP is sent to now"
+  },
+  "en:delete destination successfully": {
+    "vi": "Xóa điểm đến thành công"
+  },
+  "vi:xóa điểm đến thành công": {
+    "en": "Delete destination successfully"
+  },
+  "en:destination restore successfully": {
+    "vi": "Điểm đến đã khôi phục thành công."
+  },
+  "vi:điểm đến đã khôi phục thành công.": {
+    "en": "Destination restore successfully"
+  },
+  "en:18/05/25, 10:19": {
+    "vi": "Ngày 18 tháng 5 năm 2025, 10 giờ 19 phút"
+  },
+  "vi:ngày 18 tháng 5 năm 2025, 10 giờ 19 phút": {
+    "en": "18/05/25, 10:19"
+  },
+  "en:delete ocop product successfully": {
+    "vi": "Xóa sản phẩm OCOP thành công"
+  },
+  "vi:xóa sản phẩm ocop thành công": {
+    "en": "Delete OCOP product successfully"
+  },
+  "en:showing 1 to 10 of 21 entries (filtered from 23 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong tổng số 21 mục (đã lọc từ 23 mục tổng cộng)"
+  },
+  "vi:hiển thị 1 đến 10 trong tổng số 21 mục (đã lọc từ 23 mục tổng cộng)": {
+    "en": "Showing 1 to 10 of 21 entries (filtered from 23 total entries)"
+  },
+  "en:showing 1 to 10 of 105 entries (filtered from 108 total entries)": {
+    "vi": "Hiển thị 1 đến 10 trong số 105 mục (đã lọc từ 108 mục tổng cộng)"
+  },
+  "vi:hiển thị 1 đến 10 trong số 105 mục (đã lọc từ 108 mục tổng cộng)": {
+    "en": "Showing 1 to 10 of 105 entries (filtered from 108 total entries)"
+  },
+  "en:showing 1 to 3 of 3 entries (filtered from 108 total entries)": {
+    "vi": "Hiển thị 1 đến 3 trong tổng số 3 mục (đã lọc từ 108 mục)"
+  },
+  "vi:hiển thị 1 đến 3 trong tổng số 3 mục (đã lọc từ 108 mục)": {
+    "en": "Showing 1 to 3 of 3 entries (filtered from 108 total entries)"
+  },
+  "en:25 days ago": {
+    "vi": "25 ngày trước"
+  },
+  "vi:25 ngày trước": {
+    "en": "25 days ago"
+  },
+  "en:tên điểm đến: activate to sort column ascending": {
+    "vi": "Tên điểm đến: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "vi:tên điểm đến: kích hoạt để sắp xếp cột tăng dần": {
+    "en": "Tên điểm đến: activate to sort column ascending"
+  },
+  "en:đánh giá trung bình: activate to sort column ascending": {
+    "vi": "Đánh giá trung bình: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "en:yêu thích: activate to sort column ascending": {
+    "vi": "Yêu thích: kích hoạt để sắp xếp cột tăng dần"
+  },
+  "en:showing 1 to 10 of 20 entries (filtered from 23 total entries)": {
+    "vi": "Hiển thị 1 đến 10 của 20 mục (được lọc từ 23 mục tổng cộng)"
+  },
+  "vi:hiển thị 1 đến 10 của 20 mục (được lọc từ 23 mục tổng cộng)": {
+    "en": "Showing 1 to 10 of 20 entries (filtered from 23 total entries)"
+  },
+  "en:26 days ago": {
+    "vi": "26 ngày trước"
+  },
+  "vi:26 ngày trước": {
+    "en": "26 days ago"
+  },
+  "en:august,": {
+    "vi": "Tháng Tám,"
+  },
+  "vi:tháng tám,": {
+    "en": "August",
+    "en:1 hrs ago": {
+      "vi": "1 giờ trước"
+    },
+    "vi:1 giờ trước": {
+      "en": "1 hrs ago"
+    },
+    "en:change": {
+      "vi": "Thay đổi"
+    },
+    "vi:thay đổi": {
+      "en": "Change"
+    },
+    "en:not forbidden": {
+      "vi": "Không cấm"
+    },
+    "vi:không cấm": {
+      "en": "Not Forbidden"
+    }
   }
 }

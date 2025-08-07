@@ -24,5 +24,14 @@ public class FeedbackMappingProfile : Profile
             .ForMember(dest => dest.UserId, opt => opt.Ignore()) // Ignore UserId, will be set manually in service
             .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content))
             .ForMember(dest => dest.Images, opt => opt.Ignore()); // Ignore Images, will be handled in ImageFeedbackService
+
+        // Mapping from Domain.Entities.Feedback to FeedbackResponse
+        CreateMap<Domain.Entities.Feedback, FeedbackResponse>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
+            .ForMember(dest => dest.Username, opt => opt.MapFrom(src => "Unknown"))
+            .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content))
+            .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images))
+            .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt));
     }
 }

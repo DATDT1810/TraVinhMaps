@@ -4,24 +4,29 @@
 using Microsoft.AspNetCore.Mvc;
 using TraVinhMaps.Api.Extensions;
 using TraVinhMaps.Application.Common.Exceptions;
+using TraVinhMaps.Application.External;
 using TraVinhMaps.Application.Features.EventAndFestivalFeature;
 using TraVinhMaps.Application.Features.EventAndFestivalFeature.Interface;
 using TraVinhMaps.Application.Features.EventAndFestivalFeature.Mappers;
 using TraVinhMaps.Application.Features.EventAndFestivalFeature.Models;
 using TraVinhMaps.Domain.Entities;
+using TraVinhMaps.Domain.Specs;
 
 namespace TraVinhMaps.Api.Controllers;
+
 [Route("api/[controller]")]
 [ApiController]
 public class EventAndFestivalController : ControllerBase
 {
     private readonly IEventAndFestivalService _eventAndFestivalService;
     private readonly ImageManagementEventAndFestivalServices _imageManagementEventAndFestivalServices;
+    private readonly ICacheService _cacheService;
 
-    public EventAndFestivalController(IEventAndFestivalService eventAndFestivalService, ImageManagementEventAndFestivalServices imageManagementEventAndFestivalServices)
+    public EventAndFestivalController(IEventAndFestivalService eventAndFestivalService, ImageManagementEventAndFestivalServices imageManagementEventAndFestivalServices, ICacheService cacheService)
     {
         _eventAndFestivalService = eventAndFestivalService;
         _imageManagementEventAndFestivalServices = imageManagementEventAndFestivalServices;
+        _cacheService = cacheService;
     }
 
     [HttpGet]
@@ -216,4 +221,23 @@ public class EventAndFestivalController : ControllerBase
         return this.ApiOk(events);
     }
 
+    [HttpGet]
+    [Route("GetEventAndFestivalPaging")]
+    public async Task<IActionResult> GetEventAndFestivalPaging([FromQuery] EventAndFestivalSpecParams specParams)
+    {
+        var cacheKey = BuildCacheHelper.BuildCacheKeyForEventAndFestival(specParams);
+        var cachedData = await _cacheService.GetData<Pagination<EventAndFestival>>(cacheKey);
+        if (cachedData != null)
+        {
+            return this.ApiOk(cachedData);
+        }
+        var pagedResult = await _eventAndFestivalService.GetEventAndFestivalPaging(specParams);
+        if (pagedResult == null)
+        {
+            return this.ApiError("No event and festival found for the given parameters.");
+        }
+        var cacheTtl = BuildCacheHelper.GetCacheTtl(specParams.PageIndex);
+        await _cacheService.SetData(cacheKey, pagedResult, cacheTtl);
+        return this.ApiOk(pagedResult);
+    }
 }

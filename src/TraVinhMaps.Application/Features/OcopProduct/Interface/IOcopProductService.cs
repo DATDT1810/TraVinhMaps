@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using Microsoft.VisualBasic;
 using TraVinhMaps.Application.Features.OcopProduct.Models;
 using TraVinhMaps.Domain.Entities;
+using TraVinhMaps.Domain.Specs;
 
 namespace TraVinhMaps.Application.Features.OcopProduct.Interface;
 public interface IOcopProductService
@@ -39,5 +40,5 @@ public interface IOcopProductService
     Task<IEnumerable<OcopProductAnalytics>> CompareProductsAsync(IEnumerable<string> productIds, string timeRange = "month", DateTime? startDate = null, DateTime? endDate = null, CancellationToken cancellationToken = default);
     Task<IEnumerable<Domain.Entities.OcopProduct>> GetOcopProductsByIds(List<string> idList, CancellationToken cancellationToken = default);
     Task<IEnumerable<Domain.Entities.OcopProduct>> GetCurrentOcopProduct(CancellationToken cancellationToken = default);
-
+    Task<Pagination<Domain.Entities.OcopProduct>> GetOcopProductPaging(OcopProductSpecParams specParams, CancellationToken cancellationToken = default);
 }

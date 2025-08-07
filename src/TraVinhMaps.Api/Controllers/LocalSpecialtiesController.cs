@@ -4,9 +4,11 @@
 using Microsoft.AspNetCore.Mvc;
 using TraVinhMaps.Api.Extensions;
 using TraVinhMaps.Application.Common.Exceptions;
+using TraVinhMaps.Application.External;
 using TraVinhMaps.Application.Features.LocalSpecialties;
 using TraVinhMaps.Application.Features.LocalSpecialties.Interface;
 using TraVinhMaps.Application.Features.LocalSpecialties.Models;
+using TraVinhMaps.Domain.Specs;
 
 namespace TraVinhMaps.Api.Controllers;
 // Controller responsible for managing local specialties in Tra Vinh
@@ -16,14 +18,16 @@ public class LocalSpecialtiesController : ControllerBase
 {
     private readonly ILocalSpecialtiesService _localSpecialtiesService;
     private readonly ImageLocalSpecialtiesService _imageLocalSpecialtiesService;
+    private readonly ICacheService _cacheService;
 
     // Constructor injection of services:
     // - _localSpecialtiesService handles core business logic for specialties
     // - _imageLocalSpecialtiesService handles image upload and deletion
-    public LocalSpecialtiesController(ILocalSpecialtiesService localSpecialtiesService, ImageLocalSpecialtiesService imageLocalSpecialtiesService)
+    public LocalSpecialtiesController(ILocalSpecialtiesService localSpecialtiesService, ImageLocalSpecialtiesService imageLocalSpecialtiesService, ICacheService cacheService)
     {
         _localSpecialtiesService = localSpecialtiesService;
         _imageLocalSpecialtiesService = imageLocalSpecialtiesService;
+        _cacheService = cacheService;
     }
 
     // GET: api/LocalSpecialties/all
@@ -264,5 +268,25 @@ public class LocalSpecialtiesController : ControllerBase
     public async Task<IActionResult> GetLocalSpecialtiByIds([FromBody] List<string> listId)
     {
         return this.ApiOk(await _localSpecialtiesService.GetDestinationsByIds(listId));
+    }
+
+    [HttpGet("LocalSpecialities-Paging")]
+    public async Task<IActionResult> GetLocalSpeialitiesPaging([FromQuery] LocalSpecialtiesSpecParams specParams)
+    {
+        var cacheKey = BuildCacheHelper.BuildCacheKeyForLocalSpecialties(specParams);
+        var cacheResult = await _cacheService.GetData<Pagination<Domain.Entities.LocalSpecialties>>(cacheKey);
+        if (cacheResult != null)
+        {
+            return this.ApiOk(cacheResult);
+        }
+        var result = await _localSpecialtiesService.GetLocalSpecialtiesPaging(specParams);
+        if (result == null)
+        {
+            return this.ApiError("No local specialties found.");
+        }
+        // Cache the result for 5 minutes
+        var cacheTTL = BuildCacheHelper.GetCacheTtl(specParams.PageIndex);
+        await _cacheService.SetData(cacheKey, result, cacheTTL);
+        return this.ApiOk(result);
     }
 }

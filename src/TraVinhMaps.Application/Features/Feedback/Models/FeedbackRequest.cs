@@ -16,5 +16,5 @@ public class FeedbackRequest
     [StringLength(1000, MinimumLength = 10, ErrorMessage = "Content must be between 10 and 1000 characters.")]
     public string Content { get; set; } = default!;
     public List<IFormFile>? Images { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    //public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

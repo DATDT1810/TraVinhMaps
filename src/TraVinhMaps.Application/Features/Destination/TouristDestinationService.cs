@@ -3,6 +3,7 @@
 
 using System.Linq.Expressions;
 using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
 using TraVinhMaps.Application.Common.Exceptions;
 using TraVinhMaps.Application.Features.Destination.Interface;
 using TraVinhMaps.Application.Features.Destination.Models;
@@ -53,7 +54,7 @@ public class TouristDestinationService : ITouristDestinationService
             if (startDate > DateTime.UtcNow)
                 throw new ArgumentException("Start date cannot be in the future.");
         }
-        return await _repository.CompareDestinationsAsync(productIds, timeRange, startDate, endDate, cancellationToken);  
+        return await _repository.CompareDestinationsAsync(productIds, timeRange, startDate, endDate, cancellationToken);
     }
 
     public async Task<long> CountAsync(Expression<Func<TouristDestination, bool>> predicate = null, CancellationToken cancellationToken = default)
@@ -92,7 +93,7 @@ public class TouristDestinationService : ITouristDestinationService
         if (!string.IsNullOrEmpty(timeRange) && !new[] { "day", "week", "month", "year" }.Contains(timeRange.ToLower()))
             throw new ArgumentException("Invalid time range. Use: day, week, month, year");
 
-        if(startDate.HasValue && endDate.HasValue)
+        if (startDate.HasValue && endDate.HasValue)
         {
             if (startDate > endDate)
                 throw new ArgumentException("Start date must be before end date");
@@ -114,7 +115,7 @@ public class TouristDestinationService : ITouristDestinationService
         if (!string.IsNullOrEmpty(timeRange) && !new[] { "day", "week", "month", "year" }.Contains(timeRange.ToLower()))
             throw new ArgumentException("Invalid time range. Use: day, week, month, day");
 
-        if(startDate.HasValue && endDate.HasValue)
+        if (startDate.HasValue && endDate.HasValue)
         {
             if (startDate > endDate)
                 throw new ArgumentException("Start date must be before end date");
@@ -139,7 +140,7 @@ public class TouristDestinationService : ITouristDestinationService
             if (startDate > DateTime.UtcNow)
                 throw new ArgumentException("Start date cannot be in the future");
         }
-        return await _repository.GetTopDestinationsByViewsAsync(topCount,timeRange, startDate, endDate, cancellationToken);
+        return await _repository.GetTopDestinationsByViewsAsync(topCount, timeRange, startDate, endDate, cancellationToken);
     }
 
     public async Task<Pagination<TouristDestination>> GetTouristDestination(TouristDestinationSpecParams touristDestinationSpecParams, CancellationToken cancellationToken = default)
@@ -228,4 +229,79 @@ public class TouristDestinationService : ITouristDestinationService
     {
         await _repository.UpdateAverageRatingAsync(destinationId, newAverageRating, cancellationToken);
     }
+    public int AdjustLimitByZoomLevel(double? zoomLevel)
+    {
+        return zoomLevel switch
+        {
+            < 8 => 30,
+            < 12 => 80,
+            < 15 => 150,
+            _ => 250
+        };
+    }
+
+    public async Task<List<TouristDestination>> GetDestinationsInBoundingBoxAsync(double north, double south, double east, double west, string? destinationTypeId, int adjustedLimit)
+    {
+        var ressult = new List<TouristDestination>();
+        var query = await _repository.ListAllAsync();
+        foreach (var destination in query)
+        {
+            if (destination.Location.Latitude >= south && destination.Location.Latitude <= north &&
+                       destination.Location.Longitude >= west && destination.Location.Longitude <= east)
+            {
+                ressult.Add(destination);
+            }
+        }
+        if (destinationTypeId != null)
+        {
+            ressult = ressult.Where(x => x.DestinationTypeId == destinationTypeId).ToList();
+        }
+        return ressult.Take(adjustedLimit).ToList();
+    }
+    public async Task<List<TouristDestination>> GetNearbyDestinationsAsync(
+      double latitude, double longitude, double radiusKm, int limit, string? destinationTypeId)
+    {
+        var filterBuilder = Builders<TouristDestination>.Filter;
+        var filters = new List<FilterDefinition<TouristDestination>>
+        {
+            filterBuilder.Eq(d => d.status, true)
+        };
+
+        if (!string.IsNullOrEmpty(destinationTypeId))
+        {
+            filters.Add(filterBuilder.Eq(d => d.DestinationTypeId, destinationTypeId));
+        }
+        var geoFilter = filterBuilder.GeoWithinCenterSphere(
+         "location", longitude, latitude, radiusKm / 6371.0);
+
+        filters.Add(geoFilter);
+        var combinedFilter = filterBuilder.And(filters);
+
+        var sort = Builders<TouristDestination>.Sort
+            .Descending(d => d.AvarageRating)
+            .Descending(d => d.FavoriteCount);
+
+        var results = await _repository.ListAsync(
+            combinedFilter,
+            sort,
+            limit,
+            cancellationToken: default);
+        return results.ToList();
+    }
+
+    public async Task<List<TouristDestination>> GetTopDestinationsAsync(int limit)
+    {
+        var filter = Builders<TouristDestination>.Filter.Eq(d => d.status, true);
+        var sort = Builders<TouristDestination>.Sort
+            .Descending(d => d.AvarageRating)
+            .Descending(d => d.FavoriteCount);
+        var results = await _repository.ListAsync(
+            filter,
+            sort,
+            limit,
+            cancellationToken: default);
+        return results.ToList();
+
+    }
 }
+

@@ -1,17 +1,15 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MongoDB.Bson;
 using MongoDB.Driver;
-using TraVinhMaps.Application.UnitOfWorks;
+using TraVinhMaps.Application.Repositories;
 using TraVinhMaps.Domain.Entities;
+using TraVinhMaps.Domain.Specs;
+using TraVinhMaps.Infrastructure.CustomRepositories;
 using TraVinhMaps.Infrastructure.Db;
 
-namespace TraVinhMaps.Infrastructure.CustomRepositories;
+namespace TraVinhMaps.Infrastructure.Repositories;
 public class EventAndFestivalRepository : BaseRepository<EventAndFestival>, IEventAndFestivalRepository
 {
     public EventAndFestivalRepository(IDbContext context) : base(context)
@@ -47,5 +45,81 @@ public class EventAndFestivalRepository : BaseRepository<EventAndFestival>, IEve
         var pullImageUpdate = Builders<EventAndFestival>.Update.Pull(p => p.Images, imageUrl);
         var updateResult = await _collection.UpdateOneAsync(filter, pullImageUpdate, cancellationToken: cancellationToken);
         return "Image deleted successfully";
+    }
+
+    public async Task<Pagination<EventAndFestival>> GetEventAndFestivalPaging(EventAndFestivalSpecParams specParams, CancellationToken cancellationToken = default)
+    {
+        var builder = Builders<EventAndFestival>.Filter;
+        var filter = builder.Eq(x => x.Status, true) & builder.Gte(x => x.EndDate, DateTime.Now);
+        if (!string.IsNullOrEmpty(specParams.Search))
+        {
+            var searchFilter = builder.Regex(x => x.NameEvent, new BsonRegularExpression(specParams.Search, "i"));
+            filter &= searchFilter;
+        }
+
+        if (!string.IsNullOrEmpty(specParams.Sort))
+        {
+            return new Pagination<EventAndFestival>
+            {
+                PageSize = specParams.PageSize,
+                PageIndex = specParams.PageIndex,
+                Data = await DataFilter(specParams, filter, cancellationToken),
+                Count = await _collection.CountDocumentsAsync(filter, cancellationToken: cancellationToken)
+            };
+        }
+        return new Pagination<EventAndFestival>
+        {
+            PageSize = specParams.PageSize,
+            PageIndex = specParams.PageIndex,
+            Data = await _collection
+                    .Find(filter)
+                    .Sort(Builders<EventAndFestival>.Sort.Descending("CreatedAt"))
+                    .Skip(specParams.PageSize * (specParams.PageIndex - 1))
+                    .Limit(specParams.PageSize)
+                    .ToListAsync(cancellationToken),
+            Count = await _collection.CountDocumentsAsync(filter, cancellationToken: cancellationToken)
+        };
+    }
+
+    private async Task<IReadOnlyList<EventAndFestival>> DataFilter(EventAndFestivalSpecParams specParams, FilterDefinition<EventAndFestival> filter, CancellationToken cancellationToken = default)
+    {
+        switch (specParams.Sort)
+        {
+            case "nameAsc":
+                return await _collection
+                    .Find(filter)
+                    .Sort(Builders<EventAndFestival>.Sort.Ascending("NameEvent"))
+                    .Skip(specParams.PageSize * (specParams.PageIndex - 1))
+                    .Limit(specParams.PageSize)
+                    .ToListAsync(cancellationToken);
+            case "nameDesc":
+                return await _collection
+                    .Find(filter)
+                    .Sort(Builders<EventAndFestival>.Sort.Descending("NameEvent"))
+                    .Skip(specParams.PageSize * (specParams.PageIndex - 1))
+                    .Limit(specParams.PageSize)
+                    .ToListAsync(cancellationToken);
+            case "dateAsc":
+                return await _collection
+                    .Find(filter)
+                    .Sort(Builders<EventAndFestival>.Sort.Ascending("CreatedAt"))
+                    .Skip(specParams.PageSize * (specParams.PageIndex - 1))
+                    .Limit(specParams.PageSize)
+                    .ToListAsync(cancellationToken);
+            case "dateDesc":
+                return await _collection
+                    .Find(filter)
+                    .Sort(Builders<EventAndFestival>.Sort.Descending("CreatedAt"))
+                    .Skip(specParams.PageSize * (specParams.PageIndex - 1))
+                    .Limit(specParams.PageSize)
+                    .ToListAsync(cancellationToken);
+            default:
+                return await _collection
+                    .Find(filter)
+                    .Sort(Builders<EventAndFestival>.Sort.Descending("CreatedAt"))
+                    .Skip(specParams.PageSize * (specParams.PageIndex - 1))
+                    .Limit(specParams.PageSize)
+                    .ToListAsync(cancellationToken);
+        }
     }
 }

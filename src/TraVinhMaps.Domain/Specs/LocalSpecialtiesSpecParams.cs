@@ -3,10 +3,11 @@
 
 namespace TraVinhMaps.Domain.Specs;
 
-public class UserSpecParams
+public class LocalSpecialtiesSpecParams
 {
-    private const int MaxPageSize = 70;
+    private const int MaxPageSize = 50;
     public int PageIndex { get; set; } = 1;
+
     private int _pageSize = 10;
     public int PageSize
     {
@@ -14,6 +15,11 @@ public class UserSpecParams
         set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
     }
 
-    public string Search { get; set; }
-    public string Sort { get; set; }
+    public string? Sort { get; set; }
+    private string? _search;
+    public string? Search
+    {
+        get => _search;
+        set => _search = value?.ToLower();
+    }
 }

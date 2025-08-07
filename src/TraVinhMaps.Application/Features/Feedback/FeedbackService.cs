@@ -3,6 +3,7 @@
 
 using System.Linq.Expressions;
 using System.Security.Claims;
+using CloudinaryDotNet;
 using Microsoft.AspNetCore.Http;
 using TraVinhMaps.Application.Common.Exceptions;
 using TraVinhMaps.Application.Features.Feedback.Interface;
@@ -40,6 +41,8 @@ public class FeedbackService : IFeedbackService
         // Map FeedbackRequest to Feedback and set UserId
         var feedback = FeedbackMapper.Mapper.Map<FeedbackRequest, Domain.Entities.Feedback>(entity);
         feedback.UserId = userId;
+        feedback.CreatedAt = DateTime.UtcNow;
+        feedback.CreatedAt = DateTime.SpecifyKind(feedback.CreatedAt, DateTimeKind.Utc);
 
         if (entity.Images != null && entity.Images.Any())
         {
@@ -49,9 +52,6 @@ public class FeedbackService : IFeedbackService
         {
             feedback.Images = new List<string>();
         }
-
-        entity.CreatedAt = DateTime.UtcNow; 
-
         return await _feedbackRepository.AddAsync(feedback, cancellationToken);
     }
 
@@ -77,13 +77,16 @@ public class FeedbackService : IFeedbackService
             UserId = feedback.UserId,
             Username = user?.Username ?? "Unknown",
             Content = feedback.Content,
-            Images = feedback.Images
+            Images = feedback.Images,
+            CreatedAt = feedback.CreatedAt,
         };
     }
 
     public async Task<IEnumerable<FeedbackResponse>> ListAllAsync(CancellationToken cancellationToken = default)
     {
         var feedbacks = await _feedbackRepository.ListAllAsync(cancellationToken);
+
+        var feedbackResponses = FeedbackMapper.Mapper.Map<IEnumerable<FeedbackResponse>>(feedbacks);
 
         // Get unique UserIds from feedbacks
         var userIds = feedbacks.Select(f => f.UserId).Distinct();
@@ -97,14 +100,11 @@ public class FeedbackService : IFeedbackService
         }
 
         // Map feedbacks to FeedbackResponse with Username
-        return feedbacks.Select(f => new FeedbackResponse
+        return feedbackResponses.Select(fr =>
         {
-            Id = f.Id,
-            UserId = f.UserId,
-            Username = userDict.GetValueOrDefault(f.UserId, "Unknown"),
-            Content = f.Content,
-            Images = f.Images
-        });
+            fr.Username = userDict.GetValueOrDefault(fr.UserId, "Unknown");
+            return fr;
+        }).ToList();
     }
 
     public async Task<IEnumerable<Domain.Entities.Feedback>> ListAsync(Expression<Func<Domain.Entities.Feedback, bool>> predicate, CancellationToken cancellationToken = default)

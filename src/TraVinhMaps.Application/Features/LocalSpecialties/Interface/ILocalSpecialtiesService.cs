@@ -4,10 +4,12 @@
 using System.Linq.Expressions;
 using TraVinhMaps.Application.Features.LocalSpecialties.Models;
 using TraVinhMaps.Domain.Entities;
+using TraVinhMaps.Domain.Specs;
 
 namespace TraVinhMaps.Application.Features.LocalSpecialties.Interface;
 public interface ILocalSpecialtiesService
 {
+    Task<Pagination<Domain.Entities.LocalSpecialties>> GetLocalSpecialtiesPaging(LocalSpecialtiesSpecParams specParams);
     Task<Domain.Entities.LocalSpecialties> GetByIdAsync(string id, CancellationToken cancellationToken = default);
     Task<IEnumerable<Domain.Entities.LocalSpecialties>> ListAllAsync(CancellationToken cancellationToken = default);
 
@@ -23,7 +25,6 @@ public interface ILocalSpecialtiesService
     Task<bool> RestoreLocalSpecialtiesAsync(string id, CancellationToken cancellationToken = default);
     Task<bool> DeleteLocalSpecialtiesAsync(string id, CancellationToken cancellationToken = default);
     Task<IEnumerable<Domain.Entities.LocalSpecialties>> GetDestinationsByIds(List<string> idList, CancellationToken cancellationToken = default);
-
 
     // (Sell Location)
     Task<LocalSpecialtyLocation> AddSellLocationAsync(string id, LocalSpecialtyLocation request, CancellationToken cancellationToken = default);

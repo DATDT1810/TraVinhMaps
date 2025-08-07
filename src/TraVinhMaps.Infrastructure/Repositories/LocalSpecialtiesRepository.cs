@@ -1,17 +1,13 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MongoDB.Driver;
-using TraVinhMaps.Application.UnitOfWorks;
+using TraVinhMaps.Application.Repositories;
 using TraVinhMaps.Domain.Entities;
+using TraVinhMaps.Domain.Specs;
+using TraVinhMaps.Infrastructure.CustomRepositories;
 using TraVinhMaps.Infrastructure.Db;
-
-namespace TraVinhMaps.Infrastructure.CustomRepositories;
+namespace TraVinhMaps.Infrastructure.Repositories;
 public class LocalSpecialtiesRepository : BaseRepository<LocalSpecialties>, ILocalSpecialtiesRepository
 {
     public LocalSpecialtiesRepository(IDbContext context) : base(context)
@@ -88,6 +84,44 @@ public class LocalSpecialtiesRepository : BaseRepository<LocalSpecialties>, ILoc
         var filter = Builders<LocalSpecialties>.Filter.In(d => d.Id, idList);
         var localSpecialties = await _collection.Find(filter).ToListAsync(cancellationToken);
         return localSpecialties;
+    }
+
+    public async Task<Pagination<LocalSpecialties>> GetLocalSpecialtiesPaging(LocalSpecialtiesSpecParams specParams)
+    {
+        var filterBuilder = Builders<LocalSpecialties>.Filter;
+        var filter = filterBuilder.Empty;
+
+        if (!string.IsNullOrEmpty(specParams.Search))
+        {
+            filter &= filterBuilder.Regex(x => x.FoodName, new MongoDB.Bson.BsonRegularExpression(specParams.Search, "i"));
+        }
+
+        var query = _collection.Find(filter);
+
+        if (!string.IsNullOrEmpty(specParams.Sort))
+        {
+            var sortBuilder = Builders<LocalSpecialties>.Sort;
+            switch (specParams.Sort)
+            {
+                case "nameAsc":
+                    query = query.Sort(sortBuilder.Ascending(p => p.CreatedAt));
+                    break;
+                case "nameDesc":
+                    query = query.Sort(sortBuilder.Descending(p => p.CreatedAt));
+                    break;
+                default:
+                    query = query.Sort(sortBuilder.Ascending(n => n.CreatedAt));
+                    break;
+            }
+        }
+
+        var count = await query.CountDocumentsAsync();
+        var localSpecialties = await query
+            .Skip(specParams.PageSize * (specParams.PageIndex - 1))
+            .Limit(specParams.PageSize)
+            .ToListAsync();
+
+        return new Pagination<LocalSpecialties>(specParams.PageIndex, specParams.PageSize, (int)count, localSpecialties);
     }
 
     public async Task<bool> RemoveSellLocationAsync(string id, string locationId, CancellationToken cancellationToken = default)

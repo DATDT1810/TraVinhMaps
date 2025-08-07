@@ -1,12 +1,6 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace TraVinhMaps.Domain.Specs;
 public class TouristDestinationSpecParams
 {
@@ -18,7 +12,6 @@ public class TouristDestinationSpecParams
         get => _pageSize;
         set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
     }
-    //public string? TagId { get; set; }
     public string? Sort { get; set; }
     public string? Search { get; set; }
 }

@@ -4,11 +4,13 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using TraVinhMaps.Application.Features.OcopProduct.Models;
-using TraVinhMaps.Application.UnitOfWorks;
+using TraVinhMaps.Application.Repositories;
 using TraVinhMaps.Domain.Entities;
+using TraVinhMaps.Domain.Specs;
+using TraVinhMaps.Infrastructure.CustomRepositories;
 using TraVinhMaps.Infrastructure.Db;
 
-namespace TraVinhMaps.Infrastructure.CustomRepositories;
+namespace TraVinhMaps.Infrastructure.Repositories;
 public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRepository
 {
     private readonly IMongoCollection<Interaction> _interactionCollection;
@@ -126,7 +128,7 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
         DateTime filterStartDate, filterEndDate;
         if (startDate.HasValue && endDate.HasValue)
         {
-            filterStartDate = startDate.Value.Date; 
+            filterStartDate = startDate.Value.Date;
             filterEndDate = endDate.Value.Date.AddDays(1).AddTicks(-1);
         }
         else
@@ -653,5 +655,88 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
             return null;
         var sellLocation = ocopProduct.Sellocations.FirstOrDefault(s => s.LocationName != null && s.LocationName.Equals(name, StringComparison.OrdinalIgnoreCase));
         return sellLocation;
+    }
+
+    public async Task<Pagination<OcopProduct>> GetOcopProductPaging(OcopProductSpecParams specParams, CancellationToken cancellationToken = default)
+    {
+        var builder = Builders<OcopProduct>.Filter;
+        var filter = builder.Eq(x => x.Status, true);
+
+        if (!string.IsNullOrEmpty(specParams.Search))
+        {
+            var searchFilter = builder.Regex(x => x.ProductName, new BsonRegularExpression(specParams.Search, "i"));
+            filter &= searchFilter;
+        }
+
+        if (!string.IsNullOrEmpty(specParams.TypeId))
+        {
+            var typeFilter = builder.Eq(x => x.OcopTypeId, specParams.TypeId);
+            filter &= typeFilter;
+        }
+
+        if (!string.IsNullOrEmpty(specParams.Sort))
+        {
+            return new Pagination<OcopProduct>
+            {
+                PageSize = specParams.PageSize,
+                PageIndex = specParams.PageIndex,
+                Data = await DataFilter(specParams, filter, cancellationToken),
+                Count = await _collection.CountDocumentsAsync(filter, cancellationToken: cancellationToken)
+            };
+        }
+
+        return new Pagination<OcopProduct>
+        {
+            PageSize = specParams.PageSize,
+            PageIndex = specParams.PageIndex,
+            Data = await _collection
+                .Find(filter)
+                .Sort(Builders<OcopProduct>.Sort.Ascending("ProductName"))
+                .Skip(specParams.PageSize * (specParams.PageIndex - 1))
+                .Limit(specParams.PageSize)
+                .ToListAsync(cancellationToken),
+            Count = await _collection.CountDocumentsAsync(filter, cancellationToken: cancellationToken)
+        };
+    }
+
+    private async Task<IReadOnlyList<OcopProduct>> DataFilter(OcopProductSpecParams specParams, FilterDefinition<OcopProduct> filter, CancellationToken cancellationToken = default)
+    {
+        switch (specParams.Sort)
+        {
+            case "priceAsc":
+                return await _collection
+                    .Find(filter)
+                    .Sort(Builders<OcopProduct>.Sort.Ascending("ProductPrice"))
+                    .Skip(specParams.PageSize * (specParams.PageIndex - 1))
+                    .Limit(specParams.PageSize)
+                    .ToListAsync(cancellationToken);
+            case "priceDesc":
+                return await _collection
+                    .Find(filter)
+                    .Sort(Builders<OcopProduct>.Sort.Descending("ProductPrice"))
+                    .Skip(specParams.PageSize * (specParams.PageIndex - 1))
+                    .Limit(specParams.PageSize)
+                    .ToListAsync(cancellationToken);
+            case "nameAsc":
+                return await _collection
+                    .Find(filter)
+                    .Sort(Builders<OcopProduct>.Sort.Ascending("ProductName"))
+                    .Skip(specParams.PageSize * (specParams.PageIndex - 1))
+                    .Limit(specParams.PageSize)
+                    .ToListAsync(cancellationToken);
+            case "nameDesc":
+                return await _collection
+                    .Find(filter)
+                    .Sort(Builders<OcopProduct>.Sort.Descending("ProductName"))
+                    .Skip(specParams.PageSize * (specParams.PageIndex - 1))
+                    .Limit(specParams.PageSize)
+                    .ToListAsync(cancellationToken);
+            default:
+                return await _collection
+                    .Find(filter)
+                    .Skip(specParams.PageSize * (specParams.PageIndex - 1))
+                    .Limit(specParams.PageSize)
+                    .ToListAsync(cancellationToken);
+        }
     }
 }

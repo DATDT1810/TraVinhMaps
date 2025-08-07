@@ -2,9 +2,11 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using TraVinhMaps.Application.Features.OcopProduct.Models;
+using TraVinhMaps.Application.UnitOfWorks;
 using TraVinhMaps.Domain.Entities;
+using TraVinhMaps.Domain.Specs;
 
-namespace TraVinhMaps.Application.UnitOfWorks;
+namespace TraVinhMaps.Application.Repositories;
 public interface IOcopProductRepository : IBaseRepository<OcopProduct>
 {
     Task<OcopProduct> GetOcopProductByName(string name, CancellationToken cancellationToken = default);
@@ -28,5 +30,5 @@ public interface IOcopProductRepository : IBaseRepository<OcopProduct>
     // OCOP Product Comparison
     Task<IEnumerable<OcopProductAnalytics>> CompareProductsAsync(IEnumerable<string> productIds, string timeRange = "month", DateTime? startDate = null, DateTime? endDate = null, CancellationToken cancellationToken = default);
     Task<IEnumerable<OcopProduct>> GetOcopProductsByIds(List<string> idList, CancellationToken cancellationToken = default);
-
+    Task<Pagination<OcopProduct>> GetOcopProductPaging(OcopProductSpecParams specParams, CancellationToken cancellationToken = default);
 }

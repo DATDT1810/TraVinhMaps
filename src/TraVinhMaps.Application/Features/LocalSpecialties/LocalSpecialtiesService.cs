@@ -8,6 +8,7 @@ using TraVinhMaps.Application.Features.LocalSpecialties.Models;
 using TraVinhMaps.Application.Repositories;
 using TraVinhMaps.Application.UnitOfWorks;
 using TraVinhMaps.Domain.Entities;
+using TraVinhMaps.Domain.Specs;
 
 namespace TraVinhMaps.Application.Features.LocalSpecialties;
 public class LocalSpecialtiesService : ILocalSpecialtiesService
@@ -65,7 +66,7 @@ public class LocalSpecialtiesService : ILocalSpecialtiesService
     public async Task DeleteAsync(Domain.Entities.LocalSpecialties entity, CancellationToken cancellationToken = default)
     {
         entity.Status = false;
-         await _localSpecialtiesRepository.DeleteAsync(entity, cancellationToken);
+        await _localSpecialtiesRepository.DeleteAsync(entity, cancellationToken);
     }
 
     public async Task<bool> DeleteLocalSpecialtiesAsync(string id, CancellationToken cancellationToken = default)
@@ -147,5 +148,13 @@ public class LocalSpecialtiesService : ILocalSpecialtiesService
 
         request.MarkerId = sellLocationMarker.Id;
         return await _localSpecialtiesRepository.UpdateSellLocationAsync(id, request, cancellationToken);
+    }
+
+
+
+    public async Task<Pagination<Domain.Entities.LocalSpecialties>> GetLocalSpecialtiesPaging(LocalSpecialtiesSpecParams specParams)
+    {
+        var result = await _localSpecialtiesRepository.GetLocalSpecialtiesPaging(specParams);
+        return new Pagination<Domain.Entities.LocalSpecialties>(specParams.PageIndex, specParams.PageSize, (int)result.Count, result.Data);
     }
 }

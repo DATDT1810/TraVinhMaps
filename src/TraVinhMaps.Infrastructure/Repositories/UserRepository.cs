@@ -283,195 +283,218 @@ public class UserRepository : BaseRepository<User>, IUserRepository
 
     public async Task<Dictionary<string, object>> GetUserStatisticsAsync(string groupBy, string timeRange, CancellationToken cancellationToken = default)
     {
+        var result = new Dictionary<string, object>();
+
         try
         {
+            _logger.LogInformation("▶️ Start GetUserStatisticsAsync - groupBy={GroupBy}, timeRange={TimeRange}", groupBy, timeRange);
+
+            var validGroupBy = new[] { "all", "age", "hometown", "gender", "status", "time" };
+            if (!validGroupBy.Contains(groupBy?.ToLower()))
+            {
+                _logger.LogWarning("Invalid groupBy: {GroupBy}", groupBy);
+                return result;
+            }
+
             var now = DateTime.UtcNow;
-            var nowInVietnam = now.AddHours(7);
-            var result = new Dictionary<string, object>();
-
-            var ageGroups = new[] { 0, 18, 30, 50, 120 };
-            var ageLabels = new[] { "0-18", "18-30", "30-50", "50+" };
-
             DateTime startDate, endDate;
-            switch (timeRange.ToLower())
+
+            switch (timeRange?.ToLowerInvariant())
             {
                 case "day":
-                    startDate = nowInVietnam.Date;
+                    startDate = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, DateTimeKind.Utc);
                     endDate = startDate.AddDays(1);
                     break;
                 case "week":
-                    int diff = (7 + (int)nowInVietnam.DayOfWeek - 1) % 7;
-                    startDate = nowInVietnam.Date.AddDays(-diff);
+                    int diff = (7 + (int)now.DayOfWeek - (int)DayOfWeek.Monday) % 7;
+                    startDate = now.Date.AddDays(-diff);
                     endDate = startDate.AddDays(7);
                     break;
                 case "month":
-                    startDate = new DateTime(nowInVietnam.Year, nowInVietnam.Month, 1);
+                    startDate = new DateTime(now.Year, now.Month, 1, 0, 0, 0, DateTimeKind.Utc);
                     endDate = startDate.AddMonths(1);
                     break;
                 case "year":
-                    startDate = new DateTime(nowInVietnam.Year, 1, 1);
+                    startDate = new DateTime(now.Year, 1, 1, 0, 0, 0, DateTimeKind.Utc);
                     endDate = startDate.AddYears(1);
                     break;
                 default:
-                    throw new ArgumentException($"Invalid timeRange: {timeRange}");
+                    _logger.LogWarning("❌ Invalid timeRange: {TimeRange}", timeRange);
+                    return result;
             }
 
-            var startDateUtc = startDate.AddHours(-7);
-            var endDateUtc = endDate.AddHours(-7);
+            _logger.LogInformation("Time range (UTC): {Start} - {End}", startDate, endDate);
 
-            _logger.LogInformation("Time range {TimeRange}: startDate={StartDate} (+07), endDate={EndDate} (+07), startDateUtc={StartDateUtc}, endDateUtc={EndDateUtc}",
-                timeRange, startDate, endDate, startDateUtc, endDateUtc);
-
-            var createdAtFilter = new BsonDocument("createdAt", new BsonDocument
+            var userRoleId = "68357026034a7216407e93d1";
+            var baseMatch = new BsonDocument
         {
-            { "$gte", new BsonDateTime(startDateUtc) },
-            { "$lt", new BsonDateTime(endDateUtc) }
-        });
+            { "roleId", new ObjectId(userRoleId) },
+            { "username", new BsonDocument("$ne", BsonNull.Value) },
+            { "createdAt", new BsonDocument
+                {
+                    { "$gte", new BsonDateTime(startDate) },
+                    { "$lt", new BsonDateTime(endDate) }
+                }
+            }
+        };
 
-            // ==== 1. AGE ====
-            if (groupBy.ToLower() is "all" or "age")
+            var matchedCount = await _collection.CountDocumentsAsync(baseMatch, cancellationToken: cancellationToken);
+            if (matchedCount == 0)
             {
+                _logger.LogWarning("No users matched the filter.");
+                return result;
+            }
+
+            if (groupBy == "all")
+                result["total"] = matchedCount;
+
+            if (groupBy == "all" || groupBy == "age")
+            {
+                var nowVN = now.AddHours(7);
+                var ageGroups = new[] { 0, 18, 30, 50, 120 };
+                var ageLabels = new[] { "0-18", "18-30", "30-50", "50+" };
                 var ageStats = new Dictionary<string, int>();
 
                 for (int i = 0; i < ageLabels.Length; i++)
                 {
                     var minAge = ageGroups[i];
                     var maxAge = ageGroups[i + 1];
-                    var startDob = nowInVietnam.AddYears(-maxAge).Date;
-                    var endDob = nowInVietnam.AddYears(-minAge).Date.AddDays(1).AddTicks(-1);
+                    var latestDob = nowVN.AddYears(-minAge);
+                    var earliestDob = nowVN.AddYears(-maxAge);
 
                     var pipeline = new List<BsonDocument>
                 {
-                    new BsonDocument("$match", new BsonDocument("profile.dateOfBirth", new BsonDocument("$exists", true))),
-                    new BsonDocument("$addFields", new BsonDocument
-                    {
-                        { "parsedDob", new BsonDocument("$cond", new BsonArray
-                            {
-                                new BsonDocument("$eq", new BsonArray
-                                {
-                                    new BsonDocument("$type", "$profile.dateOfBirth"),
-                                    "string"
-                                }),
-                                new BsonDocument("$dateFromString", new BsonDocument
-                                {
-                                    { "dateString", "$profile.dateOfBirth" },
-                                    { "format", "%Y-%m-%d" },
-                                    { "onError", BsonNull.Value },
-                                    { "onNull", BsonNull.Value }
-                                }),
-                                "$profile.dateOfBirth"
-                            })
-                        }
-                    }),
+                    new BsonDocument("$match", baseMatch),
+                    new BsonDocument("$addFields", new BsonDocument("parsedDob",
+                        new BsonDocument("$convert", new BsonDocument
+                        {
+                            { "input", "$profile.dateOfBirth" },
+                            { "to", "date" },
+                            { "onError", BsonNull.Value },
+                            { "onNull", BsonNull.Value }
+                        })
+                    )),
                     new BsonDocument("$match", new BsonDocument("parsedDob", new BsonDocument
                     {
                         { "$ne", BsonNull.Value },
-                        { "$gte", new BsonDateTime(startDob) },
-                        { "$lte", new BsonDateTime(endDob) }
+                        { "$gte", new BsonDateTime(earliestDob) },
+                        { "$lt", new BsonDateTime(latestDob) }
                     })),
-                    new BsonDocument("$match", createdAtFilter),
                     new BsonDocument("$count", "count")
                 };
 
-                    try
-                    {
-                        var docs = await _collection.Aggregate<BsonDocument>(pipeline).ToListAsync(cancellationToken);
-                        var count = docs.FirstOrDefault()?["count"]?.ToInt32() ?? 0;
-                        ageStats[ageLabels[i]] = count;
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Error processing age range {AgeRange}", ageLabels[i]);
-                        ageStats[ageLabels[i]] = 0;
-                    }
+                    var docs = await _collection.Aggregate<BsonDocument>(pipeline).ToListAsync(cancellationToken);
+                    ageStats[ageLabels[i]] = docs.FirstOrDefault()?["count"]?.AsInt32 ?? 0;
                 }
+
+                var unknownDobFilter = baseMatch.DeepClone().AsBsonDocument;
+                unknownDobFilter.Add("$or", new BsonArray
+            {
+                new BsonDocument("profile.dateOfBirth", new BsonDocument("$exists", false)),
+                new BsonDocument("profile.dateOfBirth", BsonNull.Value)
+            });
+                ageStats["Unknown"] = (int)await _collection.CountDocumentsAsync(unknownDobFilter, cancellationToken: cancellationToken);
 
                 result["age"] = ageStats;
             }
 
-            // ==== 2. HOMETOWN ====
-            if (groupBy.ToLower() is "all" or "hometown")
+            if (groupBy == "all" || groupBy == "gender")
             {
                 var pipeline = new List<BsonDocument>
             {
-                new BsonDocument("$match", new BsonDocument {
-                    { "profile.address", new BsonDocument("$exists", true) },
-                    { "createdAt", createdAtFilter["createdAt"] }
-                }),
-                new BsonDocument("$addFields", new BsonDocument
-                {
-                    { "province", new BsonDocument("$arrayElemAt", new BsonArray
-                        {
-                            new BsonDocument("$split", new BsonArray { "$profile.address", ", " }), -1
-                        })
-                    },
-                    { "district", new BsonDocument("$arrayElemAt", new BsonArray
-                        {
-                            new BsonDocument("$split", new BsonArray { "$profile.address", ", " }), -2
-                        })
-                    }
-                }),
+                new BsonDocument("$match", baseMatch),
                 new BsonDocument("$group", new BsonDocument
                 {
-                    { "_id", new BsonDocument { { "province", "$province" }, { "district", "$district" } } },
-                    { "count", new BsonDocument("$sum", 1) }
-                }),
-                new BsonDocument("$project", new BsonDocument
-                {
-                    { "_id", new BsonDocument("$concat", new BsonArray { "$_id.province", " - ", "$_id.district" }) },
-                    { "count", 1 }
-                })
-            };
-
-                var docs = await _collection.Aggregate<BsonDocument>(pipeline, cancellationToken: cancellationToken).ToListAsync(cancellationToken);
-                result["hometown"] = docs.ToDictionary(x => x["_id"].AsString, x => x["count"].AsInt32);
-            }
-
-            // ==== 3. GENDER ====
-            if (groupBy.ToLower() is "all" or "gender")
-            {
-                var pipeline = new List<BsonDocument>
-            {
-                new BsonDocument("$match", new BsonDocument {
-                    { "profile.gender", new BsonDocument("$exists", true) },
-                    { "createdAt", createdAtFilter["createdAt"] }
-                }),
-                new BsonDocument("$group", new BsonDocument
-                {
-                    { "_id", "$profile.gender" },
+                    { "_id", new BsonDocument("$ifNull", new BsonArray { "$profile.gender", "Unknown" }) },
                     { "count", new BsonDocument("$sum", 1) }
                 })
             };
 
-                var docs = await _collection.Aggregate<BsonDocument>(pipeline, cancellationToken: cancellationToken).ToListAsync(cancellationToken);
+                var docs = await _collection.Aggregate<BsonDocument>(pipeline).ToListAsync(cancellationToken);
                 result["gender"] = docs.ToDictionary(x => x["_id"].AsString, x => x["count"].AsInt32);
             }
 
-            // ==== 4. STATUS ====
-            if (groupBy.ToLower() is "all" or "status")
+            if (groupBy == "all" || groupBy == "status")
             {
-                var activeCount = await _collection.CountDocumentsAsync(
-                    Builders<User>.Filter.Where(u => u.Status && !u.IsForbidden && u.CreatedAt >= startDateUtc && u.CreatedAt < endDateUtc),
-                    cancellationToken: cancellationToken);
-                var inactiveCount = await _collection.CountDocumentsAsync(
-                    Builders<User>.Filter.Where(u => !u.Status && !u.IsForbidden && u.CreatedAt >= startDateUtc && u.CreatedAt < endDateUtc),
-                    cancellationToken: cancellationToken);
-                var forbiddenCount = await _collection.CountDocumentsAsync(
-                    Builders<User>.Filter.Where(u => u.IsForbidden && u.UpdatedAt >= startDateUtc && u.UpdatedAt < endDateUtc),
-                    cancellationToken: cancellationToken);
+                var active = baseMatch.DeepClone().AsBsonDocument;
+                active.Add("status", true);
+                active.Add("isForbidden", false);
 
-                result["status"] = new Dictionary<string, int>
+                var inactive = baseMatch.DeepClone().AsBsonDocument;
+                inactive.Add("status", false);
+                inactive.Add("isForbidden", false);
+
+                var forbidden = baseMatch.DeepClone().AsBsonDocument;
+                forbidden.Add("isForbidden", true);
+
+                result["status"] = new Dictionary<string, long>
             {
-                { "Active", (int)activeCount },
-                { "Inactive", (int)inactiveCount },
-                { "Forbidden", (int)forbiddenCount }
+                { "Active", await _collection.CountDocumentsAsync(active, cancellationToken:cancellationToken) },
+                { "Inactive", await _collection.CountDocumentsAsync(inactive, cancellationToken:cancellationToken) },
+                { "Forbidden", await _collection.CountDocumentsAsync(forbidden, cancellationToken:cancellationToken) }
             };
             }
 
-            // ==== 5. TIME ====
-            if (groupBy.ToLower() is "all" or "time")
+            if (groupBy == "all" || groupBy == "hometown")
             {
-                var dateFormat = timeRange.ToLower() switch
+                // Sửa lỗi bằng cách thay thế hàm Javascript bằng logic đơn giản và đáng tin cậy hơn.
+                var pipeline = new List<BsonDocument>
+                {
+                    new BsonDocument("$match", baseMatch),
+                    new BsonDocument("$addFields", new BsonDocument("normalizedAddress",
+                        new BsonDocument("$function", new BsonDocument
+                        {
+                            { "body", @"
+                                function(addr) {
+                                    // 1. Luôn kiểm tra đầu vào để đảm bảo an toàn
+                                    if (!addr || typeof addr !== 'string' || addr.trim() === '') {
+                                        return 'Unknown';
+                                    }
+                        
+                                    // 2. Tách địa chỉ bằng dấu phẩy, cắt bỏ khoảng trắng thừa và loại bỏ các phần tử rỗng
+                                    const parts = addr.split(',').map(p => p.trim()).filter(p => p);
+
+                                    // 3. Áp dụng quy tắc xử lý:
+                                    if (parts.length >= 2) {
+                                        // Nếu có 2 phần trở lên, lấy 2 phần cuối cùng.
+                                        // Đây là trường hợp phổ biến nhất (Quận/Huyện, Tỉnh/Thành phố).
+                                        // Ví dụ: 'Q. Ô Môn, TP. Cần Thơ'
+                                        return `${parts[parts.length - 2]}, ${parts[parts.length - 1]}`;
+                                    } 
+                        
+                                    if (parts.length === 1) {
+                                        // Nếu chỉ có 1 phần, trả về chính nó (thường là chỉ có Tỉnh/Thành phố).
+                                        // Ví dụ: 'Cần Thơ'
+                                        return parts[0];
+                                    } 
+                        
+                                    // Nếu địa chỉ rỗng hoặc chỉ chứa dấu phẩy, trả về 'Unknown'.
+                                    return 'Unknown';
+                                }
+                            " },
+                            { "args", new BsonArray { "$profile.address" } },
+                            { "lang", "js" }
+                        })
+                    )),
+                    new BsonDocument("$group", new BsonDocument
+                    {
+                        { "_id", "$normalizedAddress" },
+                        { "count", new BsonDocument("$sum", 1) }
+                    }),
+                    new BsonDocument("$sort", new BsonDocument("count", -1))
+                };
+
+                var docs = await _collection.Aggregate<BsonDocument>(pipeline).ToListAsync(cancellationToken);
+
+                // Chuyển đổi kết quả sang Dictionary, đồng thời xử lý các kết quả 'Unknown' từ pipeline
+                var hometownStats = docs.ToDictionary(x => x["_id"].AsString, x => x["count"].AsInt32);
+
+                result["hometown"] = hometownStats;
+            }
+
+            if (groupBy == "all" || groupBy == "time")
+            {
+                var dateFormat = timeRange switch
                 {
                     "day" => "%Y-%m-%d %H:00",
                     "week" or "month" => "%Y-%m-%d",
@@ -481,30 +504,31 @@ public class UserRepository : BaseRepository<User>, IUserRepository
 
                 var pipeline = new List<BsonDocument>
             {
-                new BsonDocument("$match", createdAtFilter),
+                new BsonDocument("$match", baseMatch),
                 new BsonDocument("$group", new BsonDocument
                 {
                     { "_id", new BsonDocument("$dateToString", new BsonDocument
                         {
                             { "format", dateFormat },
-                            { "date", "$createdAt" }
-                        })
-                    },
+                            { "date", "$createdAt" },
+                            { "timezone", "Asia/Ho_Chi_Minh" }
+                        }) },
                     { "count", new BsonDocument("$sum", 1) }
                 }),
                 new BsonDocument("$sort", new BsonDocument("_id", 1))
             };
 
-                var docs = await _collection.Aggregate<BsonDocument>(pipeline, cancellationToken: cancellationToken).ToListAsync(cancellationToken);
+                var docs = await _collection.Aggregate<BsonDocument>(pipeline).ToListAsync(cancellationToken);
                 result["time"] = docs.ToDictionary(x => x["_id"].AsString, x => x["count"].AsInt32);
             }
 
+            _logger.LogInformation("Done. Statistics keys: {Keys}", string.Join(", ", result.Keys));
             return result;
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error fetching user statistics with groupBy={GroupBy} and timeRange={TimeRange}", groupBy, timeRange);
-            throw;
+            _logger.LogError(ex, "Error in GetUserStatisticsAsync: groupBy={GroupBy}, timeRange={TimeRange}", groupBy, timeRange);
+            return result;
         }
     }
 

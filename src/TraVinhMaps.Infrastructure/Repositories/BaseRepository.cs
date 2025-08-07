@@ -102,4 +102,15 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
             : null;
     }
 
+    public async Task<IEnumerable<T>> ListAsync(FilterDefinition<T> filter, SortDefinition<T>? sort = null, int? limit = null, CancellationToken cancellationToken = default)
+    {
+        var query = _collection.Find(filter);
+        if (sort != null)
+            query = query.Sort(sort);
+
+        if (limit.HasValue)
+            query = query.Limit(limit.Value);
+
+        return await query.ToListAsync(cancellationToken);
+    }
 }

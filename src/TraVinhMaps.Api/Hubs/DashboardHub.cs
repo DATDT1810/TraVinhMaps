@@ -14,37 +14,24 @@ public class DashboardHub : Hub
         await Clients.Group("super-admin").SendAsync("ReceiveFeedback", feedbackId);
     }
 
-    // User stats realtime update
-    public async Task SendUserStatsUpdate()
+    // Charts stats realtime
+    public async Task SendChartAnalytics()
     {
-        await Clients.Group("admin").SendAsync("UpdateUserStats");
-        await Clients.Group("super-admin").SendAsync("UpdateUserStats");
-    }
-
-    // Revenue realtime update
-    public async Task SendRevenueUpdate()
-    {
-        await Clients.Group("admin").SendAsync("UpdateRevenueStats");
-        await Clients.Group("super-admin").SendAsync("UpdateRevenueStats");
-    }
-
-    // Notification for dashboard
-    public async Task SendGeneralNotification(string message)
-    {
-        await Clients.Group("admin").SendAsync("ReceiveGeneralNotification", message);
-        await Clients.Group("super-admin").SendAsync("ReceiveGeneralNotification", message);
+        await Clients.Group("admin").SendAsync("ChartAnalytics");
+        await Clients.Group("super-admin").SendAsync("ChartAnalytics");
     }
 
     // Group join logic
     public async Task JoinAdminGroup(string role)
     {
-        if (role == "admin")
-        {
-            await Groups.AddToGroupAsync(Context.ConnectionId, "admin");
-        }
-        else if (role == "super-admin")
+        if (role == "super-admin")
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, "super-admin");
+            await Groups.AddToGroupAsync(Context.ConnectionId, "admin");
+        }
+        else if (role == "admin")
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, "admin");
         }
     }
 }

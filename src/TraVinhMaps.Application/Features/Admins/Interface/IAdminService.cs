@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Linq.Expressions;
+using TraVinhMaps.Application.Common.Extensions;
 using TraVinhMaps.Application.Features.Admins.Models;
 using TraVinhMaps.Domain.Entities;
 
@@ -19,7 +20,7 @@ public interface IAdminService
     Task<bool> RestoreAdmin(string id, CancellationToken cancellationToken = default);
 
     // step 1  :  fill the otp for this request
-    Task<string> RequestOtpForUpdate(string identifier, string authen, CancellationToken cancellationToken = default);
+    Task<string> RequestOtpForUpdate(string identifier, string authen, RequestOtpUpdateType? requestOtpUpdate, CancellationToken cancellationToken = default);
     Task<bool> ConfirmOtpUpdate(string otp, string context, CancellationToken cancellationToken = default);
     Task<bool> UpdateSetting(UpdateAdminSettingRequest request, string authen, CancellationToken cancellationToken = default);
 

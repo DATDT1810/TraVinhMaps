@@ -4,8 +4,10 @@
 using System.Linq.Expressions;
 using TraVinhMaps.Application.Features.OcopProduct.Interface;
 using TraVinhMaps.Application.Features.OcopProduct.Models;
-using TraVinhMaps.Application.UnitOfWorks;
+using TraVinhMaps.Application.Repositories;
 using TraVinhMaps.Domain.Entities;
+using TraVinhMaps.Domain.Specs;
+using TraVinhMaps.Application.UnitOfWorks;
 
 namespace TraVinhMaps.Application.Features.OcopProduct;
 public class OcopProductService : IOcopProductService
@@ -208,5 +210,10 @@ public class OcopProductService : IOcopProductService
     {
         var ocops = await _ocopProductRepository.ListAllAsync(cancellationToken);
         return ocops.Where(p => p.Status == true);
+    }
+
+    public async Task<Pagination<Domain.Entities.OcopProduct>> GetOcopProductPaging(OcopProductSpecParams specParams, CancellationToken cancellationToken = default)
+    {
+        return await _ocopProductRepository.GetOcopProductPaging(specParams, cancellationToken);
     }
 }

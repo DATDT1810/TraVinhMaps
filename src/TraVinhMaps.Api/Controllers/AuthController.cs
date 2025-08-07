@@ -83,11 +83,8 @@ public class AuthController : ControllerBase
             return this.ApiError("Invalid OTP", HttpStatusCode.Unauthorized);
         }
         // Send SignalR for dashboard
-        if (result != null)
-        {
-            await _hubContext.Clients.Group("admin").SendAsync("UpdateUserStats");
-            await _hubContext.Clients.Group("super-admin").SendAsync("UpdateUserStats");
-        }
+        await _hubContext.Clients.Group("admin").SendAsync("ChartAnalytics");
+            
         return this.ApiOk(JsonConvert.SerializeObject(result), "OTP verified successfully");
     }
 

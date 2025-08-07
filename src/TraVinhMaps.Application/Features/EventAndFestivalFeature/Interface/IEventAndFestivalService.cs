@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TraVinhMaps.Domain.Entities;
+using TraVinhMaps.Domain.Specs;
 
 namespace TraVinhMaps.Application.Features.EventAndFestivalFeature.Interface;
 public interface IEventAndFestivalService
@@ -42,4 +43,5 @@ public interface IEventAndFestivalService
     Task<string> AddEventAndFestivalImage(string id, string imageUrl, CancellationToken cancellationToken = default);
     Task<string> DeleteEventAndFestivalImage(string id, string imageUrl, CancellationToken cancellationToken = default);
     Task<IEnumerable<EventAndFestival>> GetTopUpcomingEvents(CancellationToken cancellationToken = default);
+    Task<Pagination<EventAndFestival>> GetEventAndFestivalPaging(EventAndFestivalSpecParams specParams, CancellationToken cancellationToken = default);
 }

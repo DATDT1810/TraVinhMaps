@@ -1,9 +1,14 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using System.Net.WebSockets;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using TraVinhMaps.Api.Extensions;
+using TraVinhMaps.Api.Hubs;
+using TraVinhMaps.Application.Common.Dtos;
 using TraVinhMaps.Application.Common.Exceptions;
+using TraVinhMaps.Application.External;
 using TraVinhMaps.Application.Features.Destination;
 using TraVinhMaps.Application.Features.Destination.Interface;
 using TraVinhMaps.Application.Features.Destination.Mappers;
@@ -15,15 +20,22 @@ namespace TraVinhMaps.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+//[EnableRateLimiting("DefaultPolicy")]
 public class TouristDestinationController : ControllerBase
 {
     private readonly ITouristDestinationService _touristDestinationService;
     private readonly ImageManagementDestinationServices _imageManagementDestinationServices;
+    private readonly IHubContext<DashboardHub> _hubContext;
+    private readonly ICacheService _cacheService;
+    private ILogger<TouristDestinationController> _logger;
 
-    public TouristDestinationController(ITouristDestinationService touristDestinationService, ImageManagementDestinationServices imageManagementDestinationServices)
+    public TouristDestinationController(ITouristDestinationService touristDestinationService, ImageManagementDestinationServices imageManagementDestinationServices, IHubContext<DashboardHub> hubContext, ICacheService cacheService, ILogger<TouristDestinationController> logger)
     {
         _touristDestinationService = touristDestinationService;
         _imageManagementDestinationServices = imageManagementDestinationServices;
+        _hubContext = hubContext;
+        _cacheService = cacheService;
+        _logger = logger;
     }
 
     [HttpGet]
@@ -38,7 +50,30 @@ public class TouristDestinationController : ControllerBase
     [Route("GetTouristDestinationPaging")]
     public async Task<IActionResult> GetTouristDestinationPaging([FromQuery] TouristDestinationSpecParams touristDestinationSpecParams)
     {
-        var list = await this._touristDestinationService.GetTouristDestination(touristDestinationSpecParams);
+        var cacheKey = BuildCacheHelper.BuildCacheKey(touristDestinationSpecParams);
+        var cacheResult = await _cacheService.GetData<Pagination<TouristDestination>>(cacheKey);
+        if (cacheResult != null)
+        {
+            Response.Headers.Add("X-Cache", "HIT");
+            Response.Headers.Add("X-Cache-Key", cacheKey);
+            _logger.LogDebug("Cache hit for destinations: {CacheKey}", cacheKey);
+
+            return this.ApiOk(cacheResult);
+        }
+        Response.Headers.Add("X-Cache", "MISS");
+        _logger.LogDebug("Cache miss for destinations: {CacheKey}", cacheKey);
+
+        var list = await _touristDestinationService.GetTouristDestination(touristDestinationSpecParams);
+        if (list == null)
+        {
+            return this.ApiError("No tourist destinations found.");
+        }
+        // Cache the result for 5 minutes
+        var cacheTtl = BuildCacheHelper.GetCacheTtl(touristDestinationSpecParams.PageIndex);
+        await _cacheService.SetData(cacheKey, list, cacheTtl);
+
+        _logger.LogInformation("Destinations cached: {CacheKey}, TTL: {TTL}, Count: {Count}",
+        cacheKey, cacheTtl, list.Data.Count);
         return this.ApiOk(list);
     }
 
@@ -119,16 +154,9 @@ public class TouristDestinationController : ControllerBase
                 await this._touristDestinationService.AddDestinationHistoryStoryImage(newDestination.Id, historyItem);
             }
         }
+        await _hubContext.Clients.Group("admin").SendAsync("ChartAnalytics");
         return CreatedAtRoute("GetDestinationById", new { id = newDestination.Id }, this.ApiOk(newDestination));
     }
-
-    //[HttpPost]
-    //[Route("AddDestinationImage")]
-    //public async Task<IActionResult> AddDestinationImage([FromForm] AddImageRequest addImageRequest)
-    //{
-    //    var linkImage = await _imageManagementDestinationServices.AddImageDestination(addImageRequest.imageFile);
-    //    return Ok(linkImage);
-    //}
 
     [HttpPost]
     [Route("AddDestinationImage")]
@@ -141,6 +169,7 @@ public class TouristDestinationController : ControllerBase
         }
         return this.ApiOk(linkImage);
     }
+
     [HttpPost]
     [Route("AddDestinationHistoryStoryImage")]
     public async Task<IActionResult> AddDestinationHistoryStoryImage([FromForm] AddImageRequest addImageRequest)
@@ -221,6 +250,7 @@ public class TouristDestinationController : ControllerBase
         //destination.TicketCount = updateDestinationRequest.TicketCount;
         destination.UpdateAt = DateTime.Now.ToLocalTime();
         await this._touristDestinationService.UpdateAsync(destination);
+        await _hubContext.Clients.Group("admin").SendAsync("ChartAnalytics");
         return CreatedAtRoute("GetDestinationById", new { id = updateDestinationRequest.Id }, this.ApiOk(updateDestinationRequest));
     }
 
@@ -234,7 +264,10 @@ public class TouristDestinationController : ControllerBase
         var result = await _touristDestinationService.PlusFavorite(id);
 
         if (result)
+        {
+            await _hubContext.Clients.Group("admin").SendAsync("ChartAnalytics");
             return this.ApiOk("Favorite count increased successfully");
+        }
         throw new NotFoundException("Destination not found or update failed");
     }
 
@@ -258,7 +291,7 @@ public class TouristDestinationController : ControllerBase
         destination.status = false;
         destination.UpdateAt = DateTime.Now.ToLocalTime();
         await this._touristDestinationService.UpdateAsync(destination);
-        //return NoContent();
+        await _hubContext.Clients.Group("admin").SendAsync("ChartAnalytics");
         return this.ApiOk("Destination deleted successfully");
     }
 
@@ -286,6 +319,7 @@ public class TouristDestinationController : ControllerBase
         destination.UpdateAt = DateTime.Now.ToLocalTime();
 
         await _touristDestinationService.UpdateAsync(destination);
+        await _hubContext.Clients.Group("admin").SendAsync("ChartAnalytics");
         return this.ApiOk("Destination restored successfully");
     }
 
@@ -322,11 +356,27 @@ public class TouristDestinationController : ControllerBase
     [HttpGet("stats-getTopFavoritesDestinations")]
     public async Task<IActionResult> GetTopDestinationsByFavorites(int top = 5, string timeRange = "month", DateTime? startDate = null, DateTime? endDate = null)
     {
+        var cacheKey = CacheKey.Destination_Top_Favorite;
+
+        var cacheResult = await _cacheService.GetData<IEnumerable<DestinationAnalytics>>(cacheKey);
+        if (cacheResult != null)
+        {
+            Response.Headers.Add("X-Cache", "HIT");
+            Response.Headers.Add("X-Cache-Key", cacheKey);
+            _logger.LogDebug("Cache hit for top favorite destinations: {CacheKey}", cacheKey);
+            return this.ApiOk(cacheResult);
+        }
+        _logger.LogDebug("Cache miss for top favorite destinations: {CacheKey}", cacheKey);
         try
         {
             var getTop = await _touristDestinationService.GetTopDestinationsByFavoritesAsync(5, timeRange, startDate, endDate);
             if (getTop == null)
+            {
                 throw new NotFoundException("No analytics data available.");
+            }
+            // Cache the result for 5 minutes
+            var cacheTtl = BuildCacheHelper.GetCacheTtl(5);
+            await _cacheService.SetData(cacheKey, getTop, cacheTtl);
             return this.ApiOk(getTop);
         }
         catch (Exception ex)
@@ -429,15 +479,97 @@ public class TouristDestinationController : ControllerBase
         return this.ApiOk(await _touristDestinationService.GetDestinationsByIds(listId));
     }
 
+    ///
+    /// Caching optimization endpoint with redis cache
+    ///
+
     [HttpGet("top-favorite-destination")]
-    public async Task<IActionResult> GetTop10FavoriteDestination()
+    public async Task<IActionResult> GetTopFavoriteDestination([FromQuery] int limit = 10)
     {
-        var result = await _touristDestinationService.GetTop10FavoriteDestination();
+        var cacheKey = CacheKey.Destination_Top_Favorite;
+        var cacheResult = await _cacheService.GetData<List<TopFavoriteRequest>>(cacheKey);
+        if (cacheResult != null)
+        {
+            Response.Headers.Add("X-Cache", "HIT");
+            Response.Headers.Add("X-Cache-Key", cacheKey);
+            _logger.LogDebug("Cache hit for top favorite destinations: {CacheKey}", cacheKey);
+            return this.ApiOk(cacheResult);
+        }
+        var result = await _touristDestinationService.GetTopDestinationsAsync(limit);
         if (result == null || !result.Any())
         {
             this.ApiError("No favorite destinations found.");
         }
+        // Cache the result for 5 minutes
+        var cacheTtl = BuildCacheHelper.GetCacheTtl(5); // Cache for 5 minutes
+        await _cacheService.SetData(cacheKey, result, cacheTtl);
         return this.ApiOk(result);
     }
 
+
+    [HttpGet("GetDestinationsInViewport")]
+    public async Task<IActionResult> GetDestinationsInViewport(
+           [FromQuery] double north,
+           [FromQuery] double south,
+           [FromQuery] double east,
+           [FromQuery] double west,
+           [FromQuery] double? zoomLevel = null,
+           [FromQuery] string? locationTypeId = null,
+           [FromQuery] string? tagId = null,
+           [FromQuery] int limit = 200)
+    {
+        if (north <= south || east <= west)
+        {
+            return BadRequest(new { success = false, message = "Invalid bounding box coordinates" });
+        }
+        var cacheKey = BuildCacheHelper.BuildCacheKeyForViewport(north, south, east, west, zoomLevel, locationTypeId, tagId, limit);
+        var cacheResult = await _cacheService.GetData<IEnumerable<TouristDestination>>(cacheKey);
+
+        if (cacheResult != null)
+        {
+            return this.ApiOk(cacheResult);
+        }
+
+        var adjustedLimit = _touristDestinationService.AdjustLimitByZoomLevel(zoomLevel);
+
+        var destinations = await _touristDestinationService
+      .GetDestinationsInBoundingBoxAsync(north, south, east, west, locationTypeId, adjustedLimit);
+        if (destinations == null || !destinations.Any())
+        {
+            return this.ApiError("No destinations found in the specified area.");
+        }
+        // Cache the result for 5 minutes
+        var cacheTtl = BuildCacheHelper.GetCacheTtl(5); // Cache for 5 minutes
+        await _cacheService.SetData(cacheKey, destinations, cacheTtl);
+        return this.ApiOk(destinations);
+    }
+
+    [HttpGet("GetDestinationsNearBy")]
+    public async Task<IActionResult> GetDestinationsNearBy(
+        [FromQuery] double latitude,
+        [FromQuery] double longitude,
+        [FromQuery] double radiusKm = 50, // Default radius in meters
+        [FromQuery] string? locationTypeId = null,
+        [FromQuery] string? tagId = null,
+        [FromQuery] int limit = 50)
+    {
+        var cacheKey = $"Destinations_Nearby_{latitude}_{longitude}_{radiusKm}_{locationTypeId}_{tagId}_{limit}";
+        var cacheResult = await _cacheService.GetData<IEnumerable<TouristDestination>>(cacheKey);
+
+        if (cacheResult != null)
+        {
+            return this.ApiOk(cacheResult);
+        }
+
+        var destinations = await _touristDestinationService.GetNearbyDestinationsAsync(
+            latitude, longitude, radiusKm, limit, locationTypeId);
+        if (destinations == null || !destinations.Any())
+        {
+            return this.ApiError("No destinations found near the specified location.");
+        }
+        // Cache the result for 5 minutes
+        var cacheTtl = BuildCacheHelper.GetCacheTtl(5); // Cache for 5 minutes
+        await _cacheService.SetData(cacheKey, destinations, cacheTtl);
+        return this.ApiOk(destinations);
+    }
 }

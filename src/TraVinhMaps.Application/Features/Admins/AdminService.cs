@@ -56,10 +56,9 @@ public class AdminService : IAdminService
         await _emailSender.SendEmailPasswordAsync(
         admin.Email,
         "Welcome to TraVinhMaps - Admin Account Created",
-        $"{admin.Username}|{admin.Email}|admin123@"
-    );
-            return admin;
-        }
+        $"{admin.Username}|{admin.Email}|admin123@");
+        return admin;
+    }
 
     public async Task<IEnumerable<User>> AddRangeAsync(IEnumerable<User> entities, CancellationToken cancellationToken = default)
     {
@@ -78,8 +77,30 @@ public class AdminService : IAdminService
 
     public async Task<bool> DeleteAdmin(string id, CancellationToken cancellationToken = default)
     {
-        return await _adminRepository.DeleteAdmin(id, cancellationToken);
+        // Get info
+        var admin = await _adminRepository.GetByIdAsync(id, cancellationToken);
+        if (admin == null)
+            return false;
+
+        // Delete
+        var result = await _adminRepository.DeleteAdmin(id, cancellationToken);
+        if (!result)
+            return false;
+
+        // Send email 
+        var subject = "Your Admin Account Has Been Banned";
+        var reason = "Violation of admin policies";
+
+        await _emailSender.SendEmailBanedAdminAsync(
+            admin.Email,
+            subject,
+            $"{admin.Username}|{reason}",
+            cancellationToken
+        );
+
+        return true;
     }
+
 
     public async Task<User> GetByIdAsync(string id, CancellationToken cancellationToken = default)
     {
@@ -107,16 +128,65 @@ public class AdminService : IAdminService
 
     public async Task<bool> RestoreAdmin(string id, CancellationToken cancellationToken = default)
     {
-        return await _adminRepository.RestoreAdmin(id, cancellationToken);
+        // Get info 
+        var admin = await _adminRepository.GetByIdAsync(id, cancellationToken);
+        if (admin == null)
+            return false;
+
+        // Restore
+        var result = await _adminRepository.RestoreAdmin(id, cancellationToken);
+        if (!result)
+            return false;
+
+        // Send email
+        var subject = "Your Admin Account Has Been Reactivated";
+
+        await _emailSender.SendEmailUnbanAdminAsync(
+            admin.Email,
+            subject,
+            admin.Username,
+            cancellationToken
+        );
+
+        return true;
     }
 
-    public async Task<string> RequestOtpForUpdate(string identifier, string authen, CancellationToken cancellationToken = default)
+    public async Task<string> RequestOtpForUpdate(string identifier, string authen, RequestOtpUpdateType? typeUpdate, CancellationToken cancellationToken = default)
     {
         var user = await _adminRepository.GetByIdAsync(authen, cancellationToken);
         if (user == null)
         {
             throw new NotFoundException("User not found.");
         }
+
+        // Validate the identifier (email or phone number)
+        var userExits = await _adminRepository.GetAsyns(u => u.Email == identifier || u.PhoneNumber == identifier, cancellationToken);
+        switch (typeUpdate)
+        {
+            case RequestOtpUpdateType.ChangeCurrentIdentifier:
+                if (userExits == null)
+                {
+                    throw new BadRequestException("Identifier does not belong to the current user.");
+                }
+                if (userExits.Id != user.Id)
+                {
+                    throw new BadRequestException("Identifier already exists for another user.");
+                }
+                break;
+            case RequestOtpUpdateType.UpdateToNewIdentifier:
+                if (userExits == null)
+                {
+                    break;
+                }
+                if (userExits.Id == user.Id)
+                {
+                    throw new BadRequestException("Identifier already exists for the current user.");
+                }
+                throw new BadRequestException("Identifier already exists for another user.");
+            default:
+                throw new ArgumentException("Invalid request type. Only ChangeCurrentIdentifier or UpdateToNewIdentifier is allowed.");
+        }
+
         bool isEmail = System.Text.RegularExpressions.Regex.IsMatch(identifier, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
         var otp = GenarateOtpExtension.GenerateOtp();
         if (isEmail)
@@ -212,7 +282,7 @@ public class AdminService : IAdminService
                 }
                 user.Email = request.UpdateValue;
                 break;
-            case "phonenumber":
+            case "phone":
                 if (!System.Text.RegularExpressions.Regex.IsMatch(request.UpdateValue, @"^(\+\d{1,3}[- ]?)?\d{10,15}$")) // chech the
                 {
                     throw new ArgumentException("Invalid phone number format.");

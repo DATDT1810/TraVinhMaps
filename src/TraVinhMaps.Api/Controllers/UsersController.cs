@@ -5,7 +5,9 @@ using System.Net;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using TraVinhMaps.Api.Extensions;
+using TraVinhMaps.Api.Hubs;
 using TraVinhMaps.Application.Common.Exceptions;
 using TraVinhMaps.Application.Features.Roles.Interface;
 using TraVinhMaps.Application.Features.Users;
@@ -13,6 +15,7 @@ using TraVinhMaps.Application.Features.Users.Interface;
 using TraVinhMaps.Application.Features.Users.Mappers;
 using TraVinhMaps.Application.Features.Users.Models;
 using TraVinhMaps.Domain.Entities;
+
 
 namespace TraVinhMaps.Api.Controllers;
 
@@ -23,12 +26,15 @@ public class UsersController : ControllerBase
     private readonly IUserService _userService;
     private readonly UploadImageUser _uploadImageUser;
     private readonly IRoleService _roleService;
+    private readonly IHubContext<DashboardHub> _hubContext;
 
-    public UsersController(IUserService userService, UploadImageUser uploadImageUser, IRoleService roleService)
+
+    public UsersController(IUserService userService, UploadImageUser uploadImageUser, IRoleService roleService, IHubContext<DashboardHub> hubContext)
     {
         _userService = userService;
         _uploadImageUser = uploadImageUser;
         _roleService = roleService;
+        _hubContext = hubContext;
     }
 
     [HttpGet("all")]
@@ -135,6 +141,8 @@ public class UsersController : ControllerBase
         var user = await _userService.DeleteUser(id);
         if (user != false)
         {
+            // SignalR notification to update charts
+            await _hubContext.Clients.Group("admin").SendAsync("ChartAnalytics");
             return Ok(user);
         }
         throw new BadRequestException("Failed to lock account");
@@ -144,6 +152,8 @@ public class UsersController : ControllerBase
     public async Task<IActionResult> RestoreUser(string id)
     {
         var user = await _userService.RestoreUser(id);
+        // SignalR notification to update charts
+        await _hubContext.Clients.Group("admin").SendAsync("ChartAnalytics");
         return Ok(user);
     }
 

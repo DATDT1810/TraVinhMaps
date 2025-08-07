@@ -74,9 +74,9 @@ public class FeedbackController : ControllerBase
         try
         {
             var feedback = await _feedbackService.AddAsync(request);
+
             // Get the SignalR hub context to notify admins
-            await _hubContext.Clients.Group("admin").SendAsync("ReceiveFeedback", feedback.Id);
-            await _hubContext.Clients.Group("super-admin").SendAsync("ReceiveFeedback", feedback.Id);
+            await _hubContext.Clients.Group("admin").SendAsync("ReceiveFeedback", feedback);
 
             return this.ApiOk(feedback);
         }

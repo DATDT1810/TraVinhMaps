@@ -2,8 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using TraVinhMaps.Application.Features.Destination.Models;
 using TraVinhMaps.Domain.Entities;
 using TraVinhMaps.Domain.Specs;
@@ -143,5 +141,11 @@ public interface ITouristDestinationService
     /// <returns></returns>
     Task<List<TopFavoriteRequest>> GetTop10FavoriteDestination(CancellationToken cancellationToken = default);
     Task<IEnumerable<TouristDestination>> GetDestinationsByIds(List<string> idList, CancellationToken cancellationToken = default);
+    int AdjustLimitByZoomLevel(double? zoomLevel);
+    Task<List<TouristDestination>> GetDestinationsInBoundingBoxAsync(double north, double south, double east, double west, string? destinationTypeId, int adjustedLimit);
+
+    Task<List<TouristDestination>> GetNearbyDestinationsAsync(
+      double latitude, double longitude, double radiusKm, int limit, string? destinationTypeId);
+    Task<List<TouristDestination>> GetTopDestinationsAsync(int limit);
 
 }

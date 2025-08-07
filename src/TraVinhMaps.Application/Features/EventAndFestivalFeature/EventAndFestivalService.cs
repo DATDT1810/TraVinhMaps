@@ -8,8 +8,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TraVinhMaps.Application.Features.EventAndFestivalFeature.Interface;
-using TraVinhMaps.Application.UnitOfWorks;
+using TraVinhMaps.Application.Repositories;
 using TraVinhMaps.Domain.Entities;
+using TraVinhMaps.Domain.Specs;
 
 namespace TraVinhMaps.Application.Features.EventAndFestivalFeature;
 public class EventAndFestivalService : IEventAndFestivalService
@@ -82,5 +83,10 @@ public class EventAndFestivalService : IEventAndFestivalService
     public Task UpdateAsync(EventAndFestival entity, CancellationToken cancellationToken = default)
     {
         return  _repository.UpdateAsync(entity, cancellationToken);
+    }
+
+    public async Task<Pagination<EventAndFestival>> GetEventAndFestivalPaging(EventAndFestivalSpecParams specParams, CancellationToken cancellationToken = default)
+    {
+        return await _repository.GetEventAndFestivalPaging(specParams, cancellationToken);
     }
 }
