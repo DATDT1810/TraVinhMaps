@@ -29,4 +29,24 @@ public class ImageManagementOcopProductServices
         }
         return images;
     }
+
+    public async Task<bool> DeleteImageOCOP(string imageUrl)
+    {
+        if (string.IsNullOrEmpty(imageUrl))
+            return false;
+
+        try
+        {
+            var uri = new Uri(imageUrl);
+            var fileName = uri.Segments.Last();
+            var publicId = System.IO.Path.GetFileNameWithoutExtension(fileName);
+
+            var result = await _cloudinaryService.DeleteImageAsync(publicId);
+            return result.Result == "ok";
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
 }

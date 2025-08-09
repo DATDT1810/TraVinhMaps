@@ -9,6 +9,7 @@ using TraVinhMaps.Api.Hubs;
 using TraVinhMaps.Application.Common.Exceptions;
 using TraVinhMaps.Application.External;
 using TraVinhMaps.Application.Features.Company.Interface;
+using TraVinhMaps.Application.Features.Destination.Models;
 using TraVinhMaps.Application.Features.Markers.Interface;
 using TraVinhMaps.Application.Features.OcopProduct;
 using TraVinhMaps.Application.Features.OcopProduct.Interface;
@@ -177,7 +178,7 @@ public class OcopProductController : ControllerBase
     }
     [HttpPost]
     [Route("AddImageOcopProduct")]
-    public async Task<IActionResult> AddImageOcopProduct([FromForm] AddImageRequest addImageRequest)
+    public async Task<IActionResult> AddImageOcopProduct([FromForm] TraVinhMaps.Application.Features.Destination.Models.AddImageRequest addImageRequest)
     {
         if (addImageRequest.imageFile == null && !addImageRequest.imageFile.Any())
         {
@@ -206,6 +207,11 @@ public class OcopProductController : ControllerBase
     public async Task<IActionResult> DeleteImageOcopProduct(string id, string imageUrl)
     {
         var decodedImageUrl = Uri.UnescapeDataString(imageUrl);
+        var isDeleteUrl = await this._imageManagementOcopProductServices.DeleteImageOCOP(decodedImageUrl);
+        if (!isDeleteUrl)
+        {
+            return this.ApiError("No valid images url were removed.");
+        }
         var ocopProduct = await _service.GetByIdAsync(id);
         if (ocopProduct == null)
         {

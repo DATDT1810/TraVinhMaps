@@ -18,7 +18,7 @@ public class Notification : BaseEntity
     /// The title.
     /// </value>
     [BsonElement("title")]
-    public string? Title { get; set; }
+    public string Title { get; set; }
     /// <summary>
     /// Gets or sets the content.
     /// </summary>
@@ -26,6 +26,6 @@ public class Notification : BaseEntity
     /// The content.
     /// </value>
     [BsonElement("content")]
-    public string? Content { get; set; }
+    public string Content { get; set; }
 }
 

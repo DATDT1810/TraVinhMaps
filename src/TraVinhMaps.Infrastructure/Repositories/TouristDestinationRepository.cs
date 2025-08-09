@@ -546,141 +546,152 @@ public class TouristDestinationRepository : BaseRepository<TouristDestination>, 
         {
             filterStartDate = timeRange.ToLower() switch
             {
-                "day" => now.AddDays(-1),
-                "week" => now.AddDays(-7),
+                "day" => now.Date.AddDays(-1),
+                "week" => now.Date.AddDays(-7),
                 "month" => new DateTime(now.Year, now.Month, 1),
                 "year" => new DateTime(now.Year, 1, 1),
                 _ => new DateTime(now.Year, now.Month, 1)
             };
-
             filterEndDate = now;
         }
+
         var bsonStartDate = BsonValue.Create(filterStartDate);
         var bsonEndDate = BsonValue.Create(filterEndDate.Value);
 
         var interactionCond = new BsonArray
-        {
-            new BsonDocument("$eq", new BsonArray { "$$interaction.itemType", "Destination" }),
-            new BsonDocument("$gte", new BsonArray { "$$interaction.createdAt", bsonStartDate }),
-            new BsonDocument("$lte", new BsonArray { "$$interaction.createdAt", bsonEndDate })
-        };
+    {
+        new BsonDocument("$eq", new BsonArray { "$$interaction.itemType", "Destination" }),
+        new BsonDocument("$gte", new BsonArray { "$$interaction.createdAt", bsonStartDate }),
+        new BsonDocument("$lte", new BsonArray { "$$interaction.createdAt", bsonEndDate })
+    };
 
         var logCond = new BsonArray
-        {
-            new BsonDocument("$eq", new BsonArray { "$$log.itemType", "Destination" }),
-            new BsonDocument("$gte", new BsonArray { "$$log.createdAt", bsonStartDate }),
-            new BsonDocument("$lte", new BsonArray { "$$log.createdAt", bsonEndDate })
-        };
+    {
+        new BsonDocument("$eq", new BsonArray { "$$log.itemType", "Destination" }),
+        new BsonDocument("$gte", new BsonArray { "$$log.createdAt", bsonStartDate }),
+        new BsonDocument("$lte", new BsonArray { "$$log.createdAt", bsonEndDate })
+    };
 
         var pipeline = new List<BsonDocument>
+    {
+        new BsonDocument("$match", new BsonDocument("status", true)),
+        new BsonDocument("$project", new BsonDocument
         {
-            new BsonDocument("$match", new BsonDocument("status", true)),
-            new BsonDocument("$project", new BsonDocument
+            { "_id", 1 },
+            { "name", new BsonDocument("$ifNull", new BsonArray { "$name", "Unknown" }) }
+        }),
+        new BsonDocument("$lookup", new BsonDocument
+        {
+            { "from", "Interaction" },
+            { "localField", "_id" },
+            { "foreignField", "itemId" },
+            { "as", "interactions" }
+        }),
+        new BsonDocument("$addFields", new BsonDocument("interactions",
+            new BsonDocument("$filter", new BsonDocument
             {
-                { "_id", 1 },
-                { "name", new BsonDocument("$ifNull", new BsonArray { "$name", "Unknown" }) }
-            }),
-            new BsonDocument("$lookup", new BsonDocument
+                { "input", "$interactions" },
+                { "as", "interaction" },
+                { "cond", new BsonDocument("$and", interactionCond) }
+            })
+        )),
+        new BsonDocument("$lookup", new BsonDocument
+        {
+            { "from", "InteractionLogs" },
+            { "localField", "_id" },
+            { "foreignField", "itemId" },
+            { "as", "interactionLogs" }
+        }),
+        new BsonDocument("$addFields", new BsonDocument("interactionLogs",
+            new BsonDocument("$filter", new BsonDocument
             {
-                { "from", "Interaction" },
-                { "localField", "_id" },
-                { "foreignField", "itemId" },
-                { "as", "interactions" }
-            }),
-            new BsonDocument("$addFields", new BsonDocument("interactions",
-                new BsonDocument("$filter", new BsonDocument
+                { "input", "$interactionLogs" },
+                { "as", "log" },
+                { "cond", new BsonDocument("$and", logCond) }
+            })
+        )),
+        new BsonDocument("$lookup", new BsonDocument
+        {
+            { "from", "User" },
+            { "let", new BsonDocument("userIds", "$interactions.userId") },
+            { "pipeline", new BsonArray
+            {
+                new BsonDocument("$match", new BsonDocument("$expr",
+                    new BsonDocument("$in", new BsonArray { "$_id", "$$userIds" })
+                ))
+            } },
+            { "as", "interactionUsers" }
+        }),
+        new BsonDocument("$lookup", new BsonDocument
+        {
+            { "from", "User" },
+            { "let", new BsonDocument("userIds", "$interactionLogs.userId") },
+            { "pipeline", new BsonArray
+            {
+                new BsonDocument("$match", new BsonDocument("$expr",
+                    new BsonDocument("$in", new BsonArray { "$_id", "$$userIds" })
+                ))
+            } },
+            { "as", "logUsers" }
+        }),
+        new BsonDocument("$lookup", new BsonDocument
+        {
+            { "from", "User" },
+            { "localField", "_id" },
+            { "foreignField", "favorites.itemId" },
+            { "as", "wishlistUsers" }
+        }),
+        new BsonDocument("$addFields", new BsonDocument
+        {
+            { "allUsers", new BsonDocument("$setUnion", new BsonArray
+            {
+                new BsonDocument("$ifNull", new BsonArray { "$interactionUsers", new BsonArray() }),
+                new BsonDocument("$ifNull", new BsonArray { "$logUsers", new BsonArray() }),
+                new BsonDocument("$ifNull", new BsonArray { "$wishlistUsers", new BsonArray() })
+            })}
+        }),
+        new BsonDocument("$match", new BsonDocument
+        {
+            { "allUsers.0", new BsonDocument("$exists", true) }
+        }),
+        new BsonDocument("$unwind", new BsonDocument
+        {
+            { "path", "$allUsers" },
+            { "preserveNullAndEmptyArrays", false }
+        }),
+        new BsonDocument("$addFields", new BsonDocument
+        {
+            { "age", new BsonDocument("$cond", new BsonDocument
+            {
+                { "if", new BsonDocument("$and", new BsonArray
                 {
-                    { "input", "$interactions" },
-                    { "as", "interaction" },
-                    { "cond", new BsonDocument("$and", interactionCond) }
-                })
-            )),
-            new BsonDocument("$lookup", new BsonDocument
-            {
-                { "from", "InteractionLogs" },
-                { "localField", "_id" },
-                { "foreignField", "itemId" },
-                { "as", "interactionLogs" }
-            }),
-            new BsonDocument("$addFields", new BsonDocument("interactionLogs",
-                new BsonDocument("$filter", new BsonDocument
-                {
-                    { "input", "$interactionLogs" },
-                    { "as", "log" },
-                    { "cond", new BsonDocument("$and", logCond) }
-                })
-            )),
-            new BsonDocument("$lookup", new BsonDocument
-            {
-                { "from", "User" },
-                { "let", new BsonDocument("userIds", "$interactions.userId") },
-                { "pipeline", new BsonArray
-                {
-                    new BsonDocument("$match", new BsonDocument("$expr",
-                        new BsonDocument("$in", new BsonArray { "$_id", "$$userIds" })
-                    ))
-                } },
-                { "as", "interactionUsers" }
-            }),
-            new BsonDocument("$lookup", new BsonDocument
-            {
-                { "from", "User" },
-                { "let", new BsonDocument("userIds", "$interactionLogs.userId") },
-                { "pipeline", new BsonArray
-                {
-                    new BsonDocument("$match", new BsonDocument("$expr",
-                        new BsonDocument("$in", new BsonArray { "$_id", "$$userIds" })
-                    ))
-                } },
-                { "as", "logUsers" }
-            }),
-            new BsonDocument("$lookup", new BsonDocument
-            {
-                { "from", "User" },
-                { "localField", "_id" },
-                { "foreignField", "favorites.itemId" },
-                { "as", "wishlistUsers" }
-            }),
-            new BsonDocument("$addFields", new BsonDocument
-            {
-                { "allUsers", new BsonDocument("$setUnion", new BsonArray
-                {
-                    new BsonDocument("$ifNull", new BsonArray { "$interactionUsers", new BsonArray() }),
-                    new BsonDocument("$ifNull", new BsonArray { "$logUsers", new BsonArray() }),
-                    new BsonDocument("$ifNull", new BsonArray { "$wishlistUsers", new BsonArray() })
-                })}
-            }),
-            new BsonDocument("$match", new BsonDocument
-            {
-                { "allUsers.0", new BsonDocument("$exists", true) }
-            }),
-            new BsonDocument("$unwind", new BsonDocument
-            {
-                { "path", "$allUsers" },
-                { "preserveNullAndEmptyArrays", false }
-            }),
-            new BsonDocument("$addFields", new BsonDocument
-            {
-                { "age", new BsonDocument("$cond", new BsonDocument
-                {
-                    { "if", new BsonDocument("$and", new BsonArray
-                    {
-                        new BsonDocument("$ne", new BsonArray { "$allUsers.profile.dateOfBirth", BsonNull.Value }),
-                        new BsonDocument("$ne", new BsonArray { "$allUsers.profile.dateOfBirth", "" })
-                    })},
-                    { "then", new BsonDocument("$floor", new BsonDocument("$divide",
-                        new BsonArray
-                        {
-                            new BsonDocument("$subtract", new BsonArray
-                            {
-                                new BsonDocument("$toDate", now),
-                                "$allUsers.profile.dateOfBirth"
-                            }),
-                            31557600000
-                        }))},
-                    { "else", -1 }
+                    new BsonDocument("$ne", new BsonArray { "$allUsers.profile.dateOfBirth", BsonNull.Value }),
+                    new BsonDocument("$ne", new BsonArray { "$allUsers.profile.dateOfBirth", "" })
                 })},
-                { "hometown", new BsonDocument("$cond", new BsonDocument
+                { "then", new BsonDocument("$floor", new BsonDocument("$divide",
+                    new BsonArray
+                    {
+                        new BsonDocument("$subtract", new BsonArray
+                        {
+                            new BsonDocument("$toDate", now),
+                            // *** SỬA LỖI TƯƠNG THÍCH ***
+                            // Thay thế $isDate bằng $type
+                            new BsonDocument("$cond", new BsonDocument
+                            {
+                                { "if", new BsonDocument("$eq", new BsonArray { new BsonDocument("$type", "$allUsers.profile.dateOfBirth"), "date" }) }, // Check if the type is 'date'
+                                { "then", "$allUsers.profile.dateOfBirth" }, // If yes, use it
+                                { "else", new BsonDocument("$toDate", "$allUsers.profile.dateOfBirth") } // If not (e.g., it's a string), convert it
+                            })
+                        }),
+                        31557600000 // ms in a year
+                    }))
+                },
+                { "else", -1 }
+            })},
+            // Giữ nguyên logic hometown đã được sửa để an toàn
+            { "hometown", new BsonDocument("$ifNull", new BsonArray
+            {
+                new BsonDocument("$cond", new BsonDocument
                 {
                     { "if", new BsonDocument("$and", new BsonArray
                     {
@@ -698,84 +709,58 @@ public class TouristDestinationRepository : BaseRepository<TouristDestination>, 
                         }
                     })},
                     { "else", "Unknown" }
-                })}
-            }),
-            new BsonDocument("$group", new BsonDocument
-            {
-                { "_id", new BsonDocument
-                    {
-                        { "destinationId", "$_id" },
-                        { "locationName", "$name" },
-                        { "ageGroup", new BsonDocument("$switch", new BsonDocument
-                            {
-                                { "branches", new BsonArray
-                                    {
-                                        new BsonDocument
-                                        {
-                                            { "case", new BsonDocument("$and", new BsonArray
-                                                {
-                                                    new BsonDocument("$gte", new BsonArray { "$age", 0 }),
-                                                    new BsonDocument("$lte", new BsonArray { "$age", 18 })
-                                                })},
-                                            { "then", "0-18" }
-                                        },
-                                        new BsonDocument
-                                        {
-                                            { "case", new BsonDocument("$and", new BsonArray
-                                                {
-                                                    new BsonDocument("$gte", new BsonArray { "$age", 19 }),
-                                                    new BsonDocument("$lte", new BsonArray { "$age", 30 })
-                                                })},
-                                            { "then", "18-30" }
-                                        },
-                                        new BsonDocument
-                                        {
-                                            { "case", new BsonDocument("$and", new BsonArray
-                                                {
-                                                    new BsonDocument("$gte", new BsonArray { "$age", 31 }),
-                                                    new BsonDocument("$lte", new BsonArray { "$age", 50 })
-                                                })},
-                                            { "then", "30-50" }
-                                        },
-                                        new BsonDocument
-                                        {
-                                            { "case", new BsonDocument("$gte", new BsonArray { "$age", 51 })},
-                                            { "then", "50+" }
-                                        }
-                                    }},
-                                { "default", "Unknown" }
-                            })
-                        },
-                        { "hometown", "$hometown" }
-                    }
-                },
-                { "userCount", new BsonDocument("$sum", 1) }
-            }),
-            new BsonDocument("$project", new BsonDocument
-            {
-                { "Id", new BsonDocument("$toString", "$_id.destinationId") },
-                { "LocationName", "$_id.locationName" },
-                { "AgeGroup", "$_id.ageGroup" },
-                { "Hometown", "$_id.hometown" },
-                { "UserCount", "$userCount" }
-            })
-        };
+                }),
+                "Unknown"
+            })}
+        }),
+        new BsonDocument("$group", new BsonDocument
+        {
+            { "_id", new BsonDocument
+                {
+                    { "destinationId", "$_id" },
+                    { "locationName", "$name" },
+                    { "ageGroup", new BsonDocument("$switch", new BsonDocument
+                        {
+                            { "branches", new BsonArray
+                                {
+                                    new BsonDocument { { "case", new BsonDocument("$and", new BsonArray { new BsonDocument("$gte", new BsonArray { "$age", 0 }), new BsonDocument("$lte", new BsonArray { "$age", 18 }) })}, { "then", "0-18" } },
+                                    new BsonDocument { { "case", new BsonDocument("$and", new BsonArray { new BsonDocument("$gte", new BsonArray { "$age", 19 }), new BsonDocument("$lte", new BsonArray { "$age", 30 }) })}, { "then", "18-30" } },
+                                    new BsonDocument { { "case", new BsonDocument("$and", new BsonArray { new BsonDocument("$gte", new BsonArray { "$age", 31 }), new BsonDocument("$lte", new BsonArray { "$age", 50 }) })}, { "then", "30-50" } },
+                                    new BsonDocument { { "case", new BsonDocument("$gte", new BsonArray { "$age", 51 })}, { "then", "50+" } }
+                                }},
+                            { "default", "Unknown" }
+                        })
+                    },
+                    { "hometown", "$hometown" }
+                }
+            },
+            { "userCount", new BsonDocument("$sum", 1) }
+        }),
+        new BsonDocument("$project", new BsonDocument
+        {
+            { "Id", new BsonDocument("$toString", "$_id.destinationId") },
+            { "LocationName", "$_id.locationName" },
+            { "AgeGroup", "$_id.ageGroup" },
+            { "Hometown", "$_id.hometown" },
+            { "UserCount", "$userCount" }
+        })
+    };
 
         try
         {
-
             var rawAnalytics = await _collection.Aggregate<BsonDocument>(pipeline, null, cancellationToken).ToListAsync();
             if (!rawAnalytics.Any())
             {
                 Console.WriteLine("No analytics data found after full pipeline.");
             }
 
+            // Giữ nguyên lớp phòng thủ cuối cùng ở C#
             return rawAnalytics.Select(b => new DestinationUserDemographics
             {
-                Id = b.GetValue("Id", "").AsString,
-                LocationName = b.GetValue("LocationName", "Unknown").AsString,
-                AgeGroup = b.GetValue("AgeGroup", "Unknown").AsString,
-                Hometown = b.GetValue("Hometown", "Unknown").AsString,
+                Id = b.GetValue("Id", BsonNull.Value).AsString ?? string.Empty,
+                LocationName = b.GetValue("LocationName", BsonNull.Value).AsString ?? "Unknown",
+                AgeGroup = b.GetValue("AgeGroup", BsonNull.Value).AsString ?? "Unknown",
+                Hometown = b.GetValue("Hometown", BsonNull.Value).AsString ?? "Unknown",
                 UserCount = b.GetValue("UserCount", 0).ToInt64()
             }).ToList();
         }

@@ -305,11 +305,321 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
         });
     }
 
+    //public async Task<IEnumerable<OcopProductUserDemographics>> GetUserDemographicsAsync(
+    //    string timeRange = "month",
+    //    DateTime? startDate = null,
+    //    DateTime? endDate = null,
+    //    CancellationToken cancellationToken = default)
+    //{
+    //    var now = DateTime.UtcNow;
+
+    //    DateTime filterStartDate;
+    //    DateTime? filterEndDate = null;
+
+    //    if (startDate.HasValue && endDate.HasValue)
+    //    {
+    //        filterStartDate = startDate.Value;
+    //        filterEndDate = endDate.Value;
+    //    }
+    //    else
+    //    {
+    //        filterStartDate = timeRange.ToLower() switch
+    //        {
+    //            "day" => now.AddDays(-1),
+    //            "week" => now.AddDays(-7),
+    //            "month" => new DateTime(now.Year, now.Month, 1),
+    //            "year" => new DateTime(now.Year, 1, 1),
+    //            _ => new DateTime(now.Year, now.Month, 1)
+    //        };
+    //        filterEndDate = now; // Ensure endDate covers the data range
+    //    }
+
+    //    var bsonStartDate = BsonValue.Create(filterStartDate);
+    //    var bsonEndDate = BsonValue.Create(filterEndDate.Value);
+
+    //    var interactionCond = new BsonArray
+    //{
+    //    new BsonDocument("$eq", new BsonArray { "$$interaction.itemType", "OcopProduct" }),
+    //    new BsonDocument("$gte", new BsonArray { "$$interaction.createdAt", bsonStartDate }),
+    //    new BsonDocument("$lte", new BsonArray { "$$interaction.createdAt", bsonEndDate })
+    //};
+
+    //    var logCond = new BsonArray
+    //{
+    //    new BsonDocument("$eq", new BsonArray { "$$log.itemType", "OcopProduct" }),
+    //    new BsonDocument("$gte", new BsonArray { "$$log.createdAt", bsonStartDate }),
+    //    new BsonDocument("$lte", new BsonArray { "$$log.createdAt", bsonEndDate })
+    //};
+
+    //    var pipeline = new List<BsonDocument>
+    //{
+    //    // Step 1: Match active products
+    //    new BsonDocument("$match", new BsonDocument("status", true)),
+
+    //    // Step 2: Project essential fields
+    //    new BsonDocument("$project", new BsonDocument
+    //    {
+    //        { "_id", 1 },
+    //        { "productName", new BsonDocument("$ifNull", new BsonArray { "$productName", "Unknown" }) }
+    //    }),
+
+    //    // Step 3: Lookup interactions
+    //    new BsonDocument("$lookup", new BsonDocument
+    //    {
+    //        { "from", "Interaction" },
+    //        { "localField", "_id" },
+    //        { "foreignField", "itemId" },
+    //        { "as", "interactions" }
+    //    }),
+
+    //    // Step 4: Filter interactions
+    //    new BsonDocument("$addFields", new BsonDocument("interactions",
+    //        new BsonDocument("$filter", new BsonDocument
+    //        {
+    //            { "input", "$interactions" },
+    //            { "as", "interaction" },
+    //            { "cond", new BsonDocument("$and", interactionCond) }
+    //        })
+    //    )),
+
+    //    // Step 5: Lookup interaction logs
+    //    new BsonDocument("$lookup", new BsonDocument
+    //    {
+    //        { "from", "InteractionLogs" },
+    //        { "localField", "_id" },
+    //        { "foreignField", "itemId" },
+    //        { "as", "interactionLogs" }
+    //    }),
+
+    //    // Step 6: Filter interaction logs
+    //    new BsonDocument("$addFields", new BsonDocument("interactionLogs",
+    //        new BsonDocument("$filter", new BsonDocument
+    //        {
+    //            { "input", "$interactionLogs" },
+    //            { "as", "log" },
+    //            { "cond", new BsonDocument("$and", logCond) }
+    //        })
+    //    )),
+
+    //    // Step 7: Lookup users for interactions
+    //    new BsonDocument("$lookup", new BsonDocument
+    //    {
+    //        { "from", "User" },
+    //        { "let", new BsonDocument("userIds", "$interactions.userId") },
+    //        { "pipeline", new BsonArray
+    //        {
+    //            new BsonDocument("$match", new BsonDocument("$expr",
+    //                new BsonDocument("$in", new BsonArray { "$_id", "$$userIds" })
+    //            ))
+    //        } },
+    //        { "as", "interactionUsers" }
+    //    }),
+
+    //    // Step 8: Lookup users for interaction logs
+    //    new BsonDocument("$lookup", new BsonDocument
+    //    {
+    //        { "from", "User" },
+    //        { "let", new BsonDocument("userIds", "$interactionLogs.userId") },
+    //        { "pipeline", new BsonArray
+    //        {
+    //            new BsonDocument("$match", new BsonDocument("$expr",
+    //                new BsonDocument("$in", new BsonArray { "$_id", "$$userIds" })
+    //            ))
+    //        } },
+    //        { "as", "logUsers" }
+    //    }),
+
+    //    // Step 9: Lookup users for favorites
+    //    new BsonDocument("$lookup", new BsonDocument
+    //    {
+    //        { "from", "User" },
+    //        { "localField", "_id" },
+    //        { "foreignField", "favorites.itemId" },
+    //        { "as", "favoriteUsers" }
+    //    }),
+
+    //    // Step 10: Combine all users
+    //    new BsonDocument("$addFields", new BsonDocument
+    //    {
+    //        { "allUsers", new BsonDocument("$setUnion", new BsonArray
+    //        {
+    //            new BsonDocument("$ifNull", new BsonArray { "$interactionUsers", new BsonArray() }),
+    //            new BsonDocument("$ifNull", new BsonArray { "$logUsers", new BsonArray() }),
+    //            new BsonDocument("$ifNull", new BsonArray { "$favoriteUsers", new BsonArray() })
+    //        })
+    //        }
+    //    }),
+
+    //    // Step 11: Debug - Log intermediate result
+    //    new BsonDocument("$addFields", new BsonDocument
+    //    {
+    //        { "debug", new BsonDocument
+    //        {
+    //            { "interactionsCount", new BsonDocument("$size", "$interactions") },
+    //            { "interactionLogsCount", new BsonDocument("$size", "$interactionLogs") },
+    //            { "favoriteUsersCount", new BsonDocument("$size", "$favoriteUsers") },
+    //            { "allUsersCount", new BsonDocument("$size", "$allUsers") }
+    //        }
+    //        }
+    //    }),
+
+    //    // Step 12: Filter products with users
+    //    new BsonDocument("$match", new BsonDocument
+    //    {
+    //        { "allUsers.0", new BsonDocument("$exists", true) }
+    //    }),
+
+    //    // Step 13: Unwind allUsers
+    //    new BsonDocument("$unwind", new BsonDocument
+    //    {
+    //        { "path", "$allUsers" },
+    //        { "preserveNullAndEmptyArrays", false }
+    //    }),
+
+    //    // Step 14: Calculate age and standardize hometown
+    //    new BsonDocument("$addFields", new BsonDocument
+    //    {
+    //        { "age", new BsonDocument("$cond", new BsonDocument
+    //        {
+    //            { "if", new BsonDocument("$and", new BsonArray
+    //            {
+    //                new BsonDocument("$ne", new BsonArray { "$allUsers.profile.dateOfBirth", BsonNull.Value }),
+    //                new BsonDocument("$ne", new BsonArray { "$allUsers.profile.dateOfBirth", "" })
+    //            }) },
+    //            { "then", new BsonDocument("$floor", new BsonDocument("$divide",
+    //                new BsonArray
+    //                {
+    //                    new BsonDocument("$subtract",
+    //                        new BsonArray
+    //                        {
+    //                            new BsonDocument("$toDate", now),
+    //                            "$allUsers.profile.dateOfBirth"
+    //                        }),
+    //                    31557600000 // milliseconds in a year (365.25 days)
+    //                })) },
+    //            { "else", -1 }
+    //        }) },
+    //        { "hometown", new BsonDocument("$cond", new BsonDocument
+    //        {
+    //            { "if", new BsonDocument("$and", new BsonArray
+    //            {
+    //                new BsonDocument("$ne", new BsonArray { "$allUsers.profile.address", BsonNull.Value }),
+    //                new BsonDocument("$ne", new BsonArray { "$allUsers.profile.address", "" })
+    //            }) },
+    //            { "then", new BsonDocument("$trim", new BsonDocument
+    //            {
+    //                { "input", new BsonDocument("$arrayElemAt",
+    //                    new BsonArray
+    //                    {
+    //                        new BsonDocument("$split", new BsonArray { "$allUsers.profile.address", "," }),
+    //                        -1
+    //                    })
+    //                }
+    //            }) },
+    //            { "else", "Unknown" }
+    //        }) }
+    //    }),
+
+    //    // Step 15: Group by product, age group, and hometown
+    //    new BsonDocument("$group", new BsonDocument
+    //    {
+    //        { "_id", new BsonDocument
+    //        {
+    //            { "productId", "$_id" },
+    //            { "productName", "$productName" },
+    //            { "ageGroup", new BsonDocument("$switch", new BsonDocument
+    //            {
+    //                { "branches", new BsonArray
+    //                {
+    //                    new BsonDocument
+    //                    {
+    //                        { "case", new BsonDocument("$and", new BsonArray
+    //                        {
+    //                            new BsonDocument("$gte", new BsonArray { "$age", 0 }),
+    //                            new BsonDocument("$lte", new BsonArray { "$age", 18 })
+    //                        }) },
+    //                        { "then", "0-18" }
+    //                    },
+    //                    new BsonDocument
+    //                    {
+    //                        { "case", new BsonDocument("$and", new BsonArray
+    //                        {
+    //                            new BsonDocument("$gte", new BsonArray { "$age", 19 }),
+    //                            new BsonDocument("$lte", new BsonArray { "$age", 30 })
+    //                        }) },
+    //                        { "then", "18-30" }
+    //                    },
+    //                    new BsonDocument
+    //                    {
+    //                        { "case", new BsonDocument("$and", new BsonArray
+    //                        {
+    //                            new BsonDocument("$gte", new BsonArray { "$age", 31 }),
+    //                            new BsonDocument("$lte", new BsonArray { "$age", 50 })
+    //                        }) },
+    //                        { "then", "30-50" }
+    //                    },
+    //                    new BsonDocument
+    //                    {
+    //                        { "case", new BsonDocument("$gte", new BsonArray { "$age", 51 }) },
+    //                        { "then", "50+" }
+    //                    }
+    //                } },
+    //                { "default", "Unknown" }
+    //            }) },
+    //            { "hometown", "$hometown" }
+    //        }
+    //        },
+    //        { "userCount", new BsonDocument("$sum", 1) }
+    //    }),
+
+    //    // Step 16: Final projection
+    //    new BsonDocument("$project", new BsonDocument
+    //    {
+    //        { "Id", new BsonDocument("$toString", "$_id.productId") },
+    //        { "ProductName", "$_id.productName" },
+    //        { "AgeGroup", "$_id.ageGroup" },
+    //        { "Hometown", "$_id.hometown" },
+    //        { "UserCount", "$userCount" }
+    //    })
+    //};
+
+    //    try
+    //    {
+    //        // Debug: Log intermediate results
+    //        var debugResult = await _collection.Aggregate<BsonDocument>(pipeline.Take(11).ToList(), null, cancellationToken).ToListAsync();
+    //        Console.WriteLine($"Debug - Products after step 11: {debugResult.Count}");
+    //        foreach (var doc in debugResult)
+    //        {
+    //            Console.WriteLine($"Product: {doc["_id"]}, Interactions: {doc["debug"]["interactionsCount"]}, Logs: {doc["debug"]["interactionLogsCount"]}, Favorites: {doc["debug"]["favoriteUsersCount"]}, AllUsers: {doc["debug"]["allUsersCount"]}");
+    //        }
+
+    //        var rawAnalytics = await _collection.Aggregate<BsonDocument>(pipeline, null, cancellationToken).ToListAsync();
+    //        if (!rawAnalytics.Any())
+    //        {
+    //            Console.WriteLine("No analytics data found after full pipeline.");
+    //        }
+
+    //        return rawAnalytics.Select(b => new OcopProductUserDemographics
+    //        {
+    //            Id = b.GetValue("Id", "").AsString,
+    //            ProductName = b.GetValue("ProductName", "Unknown").AsString,
+    //            AgeGroup = b.GetValue("AgeGroup", "Unknown").AsString,
+    //            Hometown = b.GetValue("Hometown", "Unknown").AsString,
+    //            UserCount = b.GetValue("UserCount", 0).ToInt64()
+    //        }).ToList();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine($"Error in GetUserDemographicsAsync: {ex.Message}\n{ex.StackTrace}");
+    //        throw;
+    //    }
+    //}
+
     public async Task<IEnumerable<OcopProductUserDemographics>> GetUserDemographicsAsync(
-        string timeRange = "month",
-        DateTime? startDate = null,
-        DateTime? endDate = null,
-        CancellationToken cancellationToken = default)
+    string timeRange = "month",
+    DateTime? startDate = null,
+    DateTime? endDate = null,
+    CancellationToken cancellationToken = default)
     {
         var now = DateTime.UtcNow;
 
@@ -325,13 +635,13 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
         {
             filterStartDate = timeRange.ToLower() switch
             {
-                "day" => now.AddDays(-1),
-                "week" => now.AddDays(-7),
+                "day" => now.Date.AddDays(-1),
+                "week" => now.Date.AddDays(-7),
                 "month" => new DateTime(now.Year, now.Month, 1),
                 "year" => new DateTime(now.Year, 1, 1),
                 _ => new DateTime(now.Year, now.Month, 1)
             };
-            filterEndDate = now; // Ensure endDate covers the data range
+            filterEndDate = now;
         }
 
         var bsonStartDate = BsonValue.Create(filterStartDate);
@@ -353,17 +663,12 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
 
         var pipeline = new List<BsonDocument>
     {
-        // Step 1: Match active products
         new BsonDocument("$match", new BsonDocument("status", true)),
-
-        // Step 2: Project essential fields
         new BsonDocument("$project", new BsonDocument
         {
             { "_id", 1 },
             { "productName", new BsonDocument("$ifNull", new BsonArray { "$productName", "Unknown" }) }
         }),
-
-        // Step 3: Lookup interactions
         new BsonDocument("$lookup", new BsonDocument
         {
             { "from", "Interaction" },
@@ -371,8 +676,6 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
             { "foreignField", "itemId" },
             { "as", "interactions" }
         }),
-
-        // Step 4: Filter interactions
         new BsonDocument("$addFields", new BsonDocument("interactions",
             new BsonDocument("$filter", new BsonDocument
             {
@@ -381,8 +684,6 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
                 { "cond", new BsonDocument("$and", interactionCond) }
             })
         )),
-
-        // Step 5: Lookup interaction logs
         new BsonDocument("$lookup", new BsonDocument
         {
             { "from", "InteractionLogs" },
@@ -390,8 +691,6 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
             { "foreignField", "itemId" },
             { "as", "interactionLogs" }
         }),
-
-        // Step 6: Filter interaction logs
         new BsonDocument("$addFields", new BsonDocument("interactionLogs",
             new BsonDocument("$filter", new BsonDocument
             {
@@ -400,8 +699,6 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
                 { "cond", new BsonDocument("$and", logCond) }
             })
         )),
-
-        // Step 7: Lookup users for interactions
         new BsonDocument("$lookup", new BsonDocument
         {
             { "from", "User" },
@@ -414,8 +711,6 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
             } },
             { "as", "interactionUsers" }
         }),
-
-        // Step 8: Lookup users for interaction logs
         new BsonDocument("$lookup", new BsonDocument
         {
             { "from", "User" },
@@ -428,8 +723,6 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
             } },
             { "as", "logUsers" }
         }),
-
-        // Step 9: Lookup users for favorites
         new BsonDocument("$lookup", new BsonDocument
         {
             { "from", "User" },
@@ -437,8 +730,6 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
             { "foreignField", "favorites.itemId" },
             { "as", "favoriteUsers" }
         }),
-
-        // Step 10: Combine all users
         new BsonDocument("$addFields", new BsonDocument
         {
             { "allUsers", new BsonDocument("$setUnion", new BsonArray
@@ -446,37 +737,17 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
                 new BsonDocument("$ifNull", new BsonArray { "$interactionUsers", new BsonArray() }),
                 new BsonDocument("$ifNull", new BsonArray { "$logUsers", new BsonArray() }),
                 new BsonDocument("$ifNull", new BsonArray { "$favoriteUsers", new BsonArray() })
-            })
-            }
+            })}
         }),
-
-        // Step 11: Debug - Log intermediate result
-        new BsonDocument("$addFields", new BsonDocument
-        {
-            { "debug", new BsonDocument
-            {
-                { "interactionsCount", new BsonDocument("$size", "$interactions") },
-                { "interactionLogsCount", new BsonDocument("$size", "$interactionLogs") },
-                { "favoriteUsersCount", new BsonDocument("$size", "$favoriteUsers") },
-                { "allUsersCount", new BsonDocument("$size", "$allUsers") }
-            }
-            }
-        }),
-
-        // Step 12: Filter products with users
         new BsonDocument("$match", new BsonDocument
         {
             { "allUsers.0", new BsonDocument("$exists", true) }
         }),
-
-        // Step 13: Unwind allUsers
         new BsonDocument("$unwind", new BsonDocument
         {
             { "path", "$allUsers" },
             { "preserveNullAndEmptyArrays", false }
         }),
-
-        // Step 14: Calculate age and standardize hometown
         new BsonDocument("$addFields", new BsonDocument
         {
             { "age", new BsonDocument("$cond", new BsonDocument
@@ -485,42 +756,51 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
                 {
                     new BsonDocument("$ne", new BsonArray { "$allUsers.profile.dateOfBirth", BsonNull.Value }),
                     new BsonDocument("$ne", new BsonArray { "$allUsers.profile.dateOfBirth", "" })
-                }) },
+                })},
                 { "then", new BsonDocument("$floor", new BsonDocument("$divide",
                     new BsonArray
                     {
-                        new BsonDocument("$subtract",
+                        new BsonDocument("$subtract", new BsonArray
+                        {
+                            new BsonDocument("$toDate", now),
+                            // Sửa 1: Xử lý dateOfBirth dạng string, tương thích MongoDB cũ
+                            new BsonDocument("$cond", new BsonDocument
+                            {
+                                { "if", new BsonDocument("$eq", new BsonArray { new BsonDocument("$type", "$allUsers.profile.dateOfBirth"), "date" }) },
+                                { "then", "$allUsers.profile.dateOfBirth" },
+                                { "else", new BsonDocument("$toDate", "$allUsers.profile.dateOfBirth") }
+                            })
+                        }),
+                        31557600000 // ms in a year
+                    }))
+                },
+                { "else", -1 }
+            })},
+            // Sửa 2: Xử lý hometown bị null trong MongoDB
+            { "hometown", new BsonDocument("$ifNull", new BsonArray
+            {
+                new BsonDocument("$cond", new BsonDocument
+                {
+                    { "if", new BsonDocument("$and", new BsonArray
+                    {
+                        new BsonDocument("$ne", new BsonArray { "$allUsers.profile.address", BsonNull.Value }),
+                        new BsonDocument("$ne", new BsonArray { "$allUsers.profile.address", "" })
+                    })},
+                    { "then", new BsonDocument("$trim", new BsonDocument
+                    {
+                        { "input", new BsonDocument("$arrayElemAt",
                             new BsonArray
                             {
-                                new BsonDocument("$toDate", now),
-                                "$allUsers.profile.dateOfBirth"
-                            }),
-                        31557600000 // milliseconds in a year (365.25 days)
-                    })) },
-                { "else", -1 }
-            }) },
-            { "hometown", new BsonDocument("$cond", new BsonDocument
-            {
-                { "if", new BsonDocument("$and", new BsonArray
-                {
-                    new BsonDocument("$ne", new BsonArray { "$allUsers.profile.address", BsonNull.Value }),
-                    new BsonDocument("$ne", new BsonArray { "$allUsers.profile.address", "" })
-                }) },
-                { "then", new BsonDocument("$trim", new BsonDocument
-                {
-                    { "input", new BsonDocument("$arrayElemAt",
-                        new BsonArray
-                        {
-                            new BsonDocument("$split", new BsonArray { "$allUsers.profile.address", "," }),
-                            -1
-                        })
-                    }
-                }) },
-                { "else", "Unknown" }
-            }) }
+                                new BsonDocument("$split", new BsonArray { "$allUsers.profile.address", "," }),
+                                -1
+                            })
+                        }
+                    })},
+                    { "else", "Unknown" }
+                }),
+                "Unknown" // Giá trị mặc định nếu biểu thức trên trả về null
+            })}
         }),
-
-        // Step 15: Group by product, age group, and hometown
         new BsonDocument("$group", new BsonDocument
         {
             { "_id", new BsonDocument
@@ -531,38 +811,10 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
                 {
                     { "branches", new BsonArray
                     {
-                        new BsonDocument
-                        {
-                            { "case", new BsonDocument("$and", new BsonArray
-                            {
-                                new BsonDocument("$gte", new BsonArray { "$age", 0 }),
-                                new BsonDocument("$lte", new BsonArray { "$age", 18 })
-                            }) },
-                            { "then", "0-18" }
-                        },
-                        new BsonDocument
-                        {
-                            { "case", new BsonDocument("$and", new BsonArray
-                            {
-                                new BsonDocument("$gte", new BsonArray { "$age", 19 }),
-                                new BsonDocument("$lte", new BsonArray { "$age", 30 })
-                            }) },
-                            { "then", "18-30" }
-                        },
-                        new BsonDocument
-                        {
-                            { "case", new BsonDocument("$and", new BsonArray
-                            {
-                                new BsonDocument("$gte", new BsonArray { "$age", 31 }),
-                                new BsonDocument("$lte", new BsonArray { "$age", 50 })
-                            }) },
-                            { "then", "30-50" }
-                        },
-                        new BsonDocument
-                        {
-                            { "case", new BsonDocument("$gte", new BsonArray { "$age", 51 }) },
-                            { "then", "50+" }
-                        }
+                        new BsonDocument { { "case", new BsonDocument("$and", new BsonArray { new BsonDocument("$gte", new BsonArray { "$age", 0 }), new BsonDocument("$lte", new BsonArray { "$age", 18 }) })}, { "then", "0-18" } },
+                        new BsonDocument { { "case", new BsonDocument("$and", new BsonArray { new BsonDocument("$gte", new BsonArray { "$age", 19 }), new BsonDocument("$lte", new BsonArray { "$age", 30 }) })}, { "then", "18-30" } },
+                        new BsonDocument { { "case", new BsonDocument("$and", new BsonArray { new BsonDocument("$gte", new BsonArray { "$age", 31 }), new BsonDocument("$lte", new BsonArray { "$age", 50 }) })}, { "then", "30-50" } },
+                        new BsonDocument { { "case", new BsonDocument("$gte", new BsonArray { "$age", 51 })}, { "then", "50+" } }
                     } },
                     { "default", "Unknown" }
                 }) },
@@ -571,8 +823,6 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
             },
             { "userCount", new BsonDocument("$sum", 1) }
         }),
-
-        // Step 16: Final projection
         new BsonDocument("$project", new BsonDocument
         {
             { "Id", new BsonDocument("$toString", "$_id.productId") },
@@ -585,32 +835,25 @@ public class OcopProductRepository : BaseRepository<OcopProduct>, IOcopProductRe
 
         try
         {
-            // Debug: Log intermediate results
-            var debugResult = await _collection.Aggregate<BsonDocument>(pipeline.Take(11).ToList(), null, cancellationToken).ToListAsync();
-            Console.WriteLine($"Debug - Products after step 11: {debugResult.Count}");
-            foreach (var doc in debugResult)
-            {
-                Console.WriteLine($"Product: {doc["_id"]}, Interactions: {doc["debug"]["interactionsCount"]}, Logs: {doc["debug"]["interactionLogsCount"]}, Favorites: {doc["debug"]["favoriteUsersCount"]}, AllUsers: {doc["debug"]["allUsersCount"]}");
-            }
-
             var rawAnalytics = await _collection.Aggregate<BsonDocument>(pipeline, null, cancellationToken).ToListAsync();
             if (!rawAnalytics.Any())
             {
-                Console.WriteLine("No analytics data found after full pipeline.");
+                Console.WriteLine("No analytics data found after full pipeline for OcopProduct.");
             }
 
+            // Sửa 3: Xử lý kết quả null ở C# một cách an toàn
             return rawAnalytics.Select(b => new OcopProductUserDemographics
             {
-                Id = b.GetValue("Id", "").AsString,
-                ProductName = b.GetValue("ProductName", "Unknown").AsString,
-                AgeGroup = b.GetValue("AgeGroup", "Unknown").AsString,
-                Hometown = b.GetValue("Hometown", "Unknown").AsString,
+                Id = b.GetValue("Id", BsonNull.Value).AsString ?? string.Empty,
+                ProductName = b.GetValue("ProductName", BsonNull.Value).AsString ?? "Unknown",
+                AgeGroup = b.GetValue("AgeGroup", BsonNull.Value).AsString ?? "Unknown",
+                Hometown = b.GetValue("Hometown", BsonNull.Value).AsString ?? "Unknown",
                 UserCount = b.GetValue("UserCount", 0).ToInt64()
             }).ToList();
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error in GetUserDemographicsAsync: {ex.Message}\n{ex.StackTrace}");
+            Console.WriteLine($"Error in GetUserDemographicsAsync for OcopProduct: {ex.Message}\n{ex.StackTrace}");
             throw;
         }
     }
